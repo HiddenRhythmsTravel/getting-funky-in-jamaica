@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-green: #0b4745;
+  --color-brand-dark-accent: #1d4241;
+  --color-brand-gold: #ef9c82; /* Primary Accent / Buttons / Links */
+  --color-brand-white: #f9eee7; /* Body Color */
+  --color-brand-heading: #ffd9be; /* Heading Color */
+
+  /* Getting Funky in Havana - Tropical Warm Colors */
+  --color-tropical-burgundy: #5a1211;
+  --color-tropical-dark: #300c0c;
+  --color-tropical-sand: #f8f3ed;
+  --color-tropical-orange: #f57c00;
+  --color-tropical-accent: #c28e61;
+  --color-tropical-yellow: #fbc02d;
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --background: var(--color-brand-green);
+  --foreground: var(--color-brand-white);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Glassmorphism styling utilities for high-end look */
+.glass-card {
+  background: rgba(11, 71, 69, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(239, 156, 130, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+}
+
+.glass-card-dark {
+  background: rgba(48, 12, 12, 0.5); /* Burgundy-tinted dark glass */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 124, 0, 0.15); /* Orange accent border */
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glass-btn {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(239, 156, 130, 0.1);
+  border: 1px solid rgba(239, 156, 130, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-btn:hover {
+  background: rgba(239, 156, 130, 0.25);
+  border-color: rgba(239, 156, 130, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Tropical gradient text and backgrounds */
+.text-tropical-gradient {
+  background: linear-gradient(135deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 50%, var(--color-tropical-yellow) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-tropical-gradient {
+  background: linear-gradient(135deg, var(--color-brand-green) 0%, var(--color-tropical-burgundy) 100%);
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(90deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 100%);
+}
+
+/* 3D Card Flip CSS Classes */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
