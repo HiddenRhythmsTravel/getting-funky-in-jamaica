@@ -33,6 +33,17 @@ def compile_clip(item, index, folder_name):
     os.makedirs(temp_dir, exist_ok=True)
     temp_clip_path = os.path.join(temp_dir, f"clip_{folder_name}_{index}.mp4")
     
+    # Standard 9:16 vertical overlay filter:
+    # 1. Scale background to cover 1080x1920, crop, and apply heavy boxblur.
+    # 2. Scale foreground to fit 1080x1920 (maintaining original aspect ratio).
+    # 3. Overlay the clean centered foreground on the blurred background.
+    vertical_pad_filter = (
+        "split[bg_in][fg_in];"
+        "[bg_in]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5[bg];"
+        "[fg_in]scale=1080:1920:force_original_aspect_ratio=decrease[fg];"
+        "[bg][fg]overlay=(W-w)/2:(H-h)/2,setsar=1"
+    )
+    
     if media_type == "image":
         print(f"    - Compiling image: {os.path.basename(fpath)}")
         cmd = [
@@ -40,7 +51,7 @@ def compile_clip(item, index, folder_name):
             "-loop", "1", "-i", fpath,
             "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
             "-t", str(IMAGE_DURATION),
-            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1",
+            "-vf", vertical_pad_filter,
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "24",
             "-c:a", "aac", "-shortest",
             temp_clip_path
@@ -58,7 +69,7 @@ def compile_clip(item, index, folder_name):
             ffmpeg_path, "-y",
             "-ss", "0", "-i", fpath,
             "-t", str(VIDEO_DURATION),
-            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1",
+            "-vf", vertical_pad_filter,
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "24",
             "-ac", "2", "-ar", "44100", "-c:a", "aac",
             temp_clip_path
@@ -74,7 +85,7 @@ def compile_clip(item, index, folder_name):
             "-ss", "0", "-i", fpath,
             "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
             "-t", str(VIDEO_DURATION),
-            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1",
+            "-vf", vertical_pad_filter,
             "-map", "0:v", "-map", "1:a",
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "24",
             "-c:a", "aac", "-shortest",

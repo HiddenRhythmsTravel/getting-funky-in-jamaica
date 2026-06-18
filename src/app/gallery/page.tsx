@@ -79,7 +79,7 @@ export default function GalleryPage() {
                 alt={tile.original_name}
                 fill
                 sizes="(max-width: 640px) 33vw, (max-width: 1024px) 15vw, 12vw"
-                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
                 priority={index < 7}
               />
 

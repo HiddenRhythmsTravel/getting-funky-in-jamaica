@@ -201,7 +201,7 @@ export function VipProgram() {
                       <img
                         src={hotel.image}
                         alt={hotel.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 brightness-90 grayscale hover:grayscale-0"
+                        className="w-full h-full object-cover object-[center_20%] group-hover:scale-105 transition-all duration-700 brightness-90 grayscale hover:grayscale-0"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-green/85 to-transparent z-10"></div>
                       <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-brand-green/70 border border-brand-gold/20 text-brand-gold text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm">
