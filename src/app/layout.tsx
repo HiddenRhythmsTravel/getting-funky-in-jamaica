@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
 import { AudioProvider } from "@/contexts/AudioContext";
 import { InteractionUnlocker } from "@/components/InteractionUnlocker";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -68,6 +68,28 @@ export default function RootLayout({
           <InteractionUnlocker />
           {children}
         </AudioProvider>
+
+        {/* Zoho Campaigns Exit Intent Popup */}
+        <Script
+          id="ZC_Forms_Popup"
+          src="https://campaigns.zoho.com/js/optin.min.js"
+          strategy="afterInteractive"
+        />
+        <Script id="ZC_Forms_Popup_Init" strategy="afterInteractive">
+          {`
+            window.onload = function() {
+              if (typeof loadZCPopup === 'function') {
+                loadZCPopup('3z885d5fdd585765019298a8935476f16df0d899a326f420f4134b355ed0d0cec0','ZCFORMVIEW','3z3d2f2306564f279d03c79cd4c4e617ab');
+              }
+            };
+            // Fallback in case window.onload already fired or optin script loaded late
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+              if (typeof loadZCPopup === 'function') {
+                loadZCPopup('3z885d5fdd585765019298a8935476f16df0d899a326f420f4134b355ed0d0cec0','ZCFORMVIEW','3z3d2f2306564f279d03c79cd4c4e617ab');
+              }
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
