@@ -291,7 +291,7 @@ export function ArtistLineUp() {
             Artist Line Up
           </h2>
           <p className="font-sans text-brand-white/80 text-sm md:text-base leading-relaxed max-w-3xl mx-auto italic border-l-2 border-brand-gold/40 pl-4 md:pl-8 py-2 text-left md:text-center">
-            "These incredible artists will perform at different moments throughout your journey, all at different moments in the program, which is by design. Some performances will be intimate jams and sessions exclusively for our group, creating personal connections in historic venues. Others will be part of larger concerts where U.S. and Cuban acts share the stage, showcasing the power of musical collaboration across cultures."
+            "These incredible artists will perform at different moments throughout your journey, all at different moments in the program, which is by design. Some performances will be intimate jams and sessions exclusively for our group, creating personal connections in historic venues. Others will be part of larger concerts where a mixture of Jamaican artists and the international artists share the stage, showcasing the power of musical collaboration across cultures."
           </p>
         </div>
 
