@@ -24,25 +24,25 @@ export function RegistrationPortal() {
       name: "Standard Package (Double Occupancy)",
       price: "$4,790",
       per: "per person",
-      details: "Standard luxury double occupancy room accommodations. Includes all program activities, masterclasses, group dining, and dedicated CET concierge services."
+      details: "Standard luxury double occupancy room accommodations. Includes all program activities, masterclasses, group dining, and dedicated Hidden Rhythms concierge services."
     },
     {
       name: "Standard Package (Single Occupancy)",
       price: "$5,290",
       per: "per person",
-      details: "Standard luxury single occupancy room accommodations. Includes all program activities, masterclasses, group dining, and dedicated CET concierge services."
+      details: "Standard luxury single occupancy room accommodations. Includes all program activities, masterclasses, group dining, and dedicated Hidden Rhythms concierge services."
     },
     {
       name: "Upgraded Package (Double Occupancy)",
       price: "$4,990",
       per: "per person",
-      details: "Upgraded premium double occupancy room/suite accommodations. Includes all program activities, masterclasses, group dining, and dedicated CET concierge services."
+      details: "Upgraded premium double occupancy room/suite accommodations. Includes all program activities, masterclasses, group dining, and dedicated Hidden Rhythms concierge services."
     },
     {
       name: "Upgraded Package (Single Occupancy)",
       price: "$5,690",
       per: "per person",
-      details: "Upgraded premium single occupancy room/suite accommodations. Includes all program activities, masterclasses, group dining, and dedicated CET concierge services."
+      details: "Upgraded premium single occupancy room/suite accommodations. Includes all program activities, masterclasses, group dining, and dedicated Hidden Rhythms concierge services."
     }
   ];
 
@@ -129,7 +129,7 @@ export function RegistrationPortal() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand-gold mt-0.5">•</span>
-                  <span>Dedicated professional guides and CET concierge team</span>
+                  <span>Dedicated professional guides and Hidden Rhythms concierge team</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-brand-gold mt-0.5">•</span>
