@@ -46,12 +46,28 @@ def compile_clip(item, index, folder_name):
     
     if media_type == "image":
         print(f"    - Compiling image: {os.path.basename(fpath)}")
+        
+        # Check aspect ratio of the image.
+        # Portrait/vertical images (w <= h) should scale & crop to fill the full screen.
+        # Landscape/horizontal images (w > h) should use the blurred padding filter to fit without cropping.
+        use_blur_pad = True
+        try:
+            from PIL import Image
+            with Image.open(fpath) as img:
+                w, h = img.size
+                if w <= h:
+                    use_blur_pad = False
+        except Exception as e:
+            print(f"      Error reading image size with PIL: {e}. Defaulting to blur pad.")
+            
+        img_filter = vertical_pad_filter if use_blur_pad else "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1"
+        
         cmd = [
             ffmpeg_path, "-y",
             "-loop", "1", "-i", fpath,
             "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
             "-t", str(IMAGE_DURATION),
-            "-vf", vertical_pad_filter,
+            "-vf", img_filter,
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "24",
             "-c:a", "aac", "-shortest",
             temp_clip_path
@@ -111,6 +127,11 @@ def compile_reel(folder):
     for file in sorted(os.listdir(folder_path)):
         if file.startswith('.'):
             continue
+        # Exclude glitched files for 2020 folder (e.g. MOV, screenshots, WhatsApp files)
+        if folder == "2020":
+            if file.lower().endswith('.mov') or 'screenshot' in file.lower() or 'whatsapp' in file.lower():
+                print(f"  Excluding glitched file from 2020 reel: {file}")
+                continue
         fpath = os.path.join(folder_path, file)
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.heic')):
             images.append({"path": fpath, "type": "image"})

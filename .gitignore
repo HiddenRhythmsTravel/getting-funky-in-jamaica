@@ -30,3 +30,6 @@ yarn-error.log*
 # Temporary files
 src/scripts/temp/
 *.tmp
+*.mp3
+*.docx
+

@@ -65,7 +65,7 @@ export function JamaicaPromo() {
           <div className="w-full lg:col-span-6 relative order-1 lg:order-2 flex flex-col items-center justify-center mx-auto">
             
             {/* Outer phone frame mockup */}
-            <div className="relative w-full max-w-[280px] sm:max-w-[300px] aspect-[9/16] rounded-[36px] border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group mx-auto">
+            <div className="relative w-full max-w-[220px] xs:max-w-[250px] sm:max-w-[280px] lg:max-w-[300px] xl:max-w-[320px] aspect-[9/16] rounded-[28px] sm:rounded-[36px] border-[8px] sm:border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group mx-auto">
               <video
                 ref={videoRef}
                 src="/assets/getting_funky_promo.mp4"

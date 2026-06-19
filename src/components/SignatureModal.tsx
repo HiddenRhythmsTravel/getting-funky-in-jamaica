@@ -187,7 +187,7 @@ export function SignatureModal({ isOpen, onClose }: SignatureModalProps) {
                     </p>
                     <p className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand-gold"></span>
-                      <span>Copy archived to: <strong className="text-brand-white">adam@cubaeducationaltravel.com</strong></span>
+                      <span>Copy archived to: <strong className="text-brand-white">adam@hiddenrhythmstravel.com</strong></span>
                     </p>
                   </div>
                   <button

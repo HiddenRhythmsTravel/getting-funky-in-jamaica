@@ -275,7 +275,7 @@ export function TimelineGallery() {
               
               {/* Outer phone frame mockup */}
               <div 
-                className="relative w-full max-w-[280px] sm:max-w-[300px] aspect-[9/16] rounded-[36px] border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group/reel mx-auto"
+                className="relative w-full max-w-[220px] xs:max-w-[250px] sm:max-w-[280px] lg:max-w-[300px] xl:max-w-[320px] aspect-[9/16] rounded-[28px] sm:rounded-[36px] border-[8px] sm:border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group/reel mx-auto"
               >
                 {/* Looping video player (always muted to play global track) */}
                 <video
