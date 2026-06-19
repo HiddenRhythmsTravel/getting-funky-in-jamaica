@@ -57,18 +57,18 @@ export function VipProgram() {
 
   const lodgingOptions = [
     {
-      name: "S Hotel Kingston",
-      tag: "Premium Boutique Option",
-      desc: "Chic design, modern luxury, and deep cultural roots. Features a rooftop pool overlooking the city and lush mountains, customized local cuisines, and a sophisticated vibe.",
-      features: ["Rooftop Sky Pool", "Cultural Design", "Luxury Spa", "Central Location"],
-      image: "/assets/gallery/IMG_4925.webp"
+      name: "The Courtleigh Hotel & Suites",
+      tag: "Boutique Luxury Option",
+      desc: "An elegant boutique hotel in the heart of New Kingston. Offering warm Jamaican hospitality, spacious rooms and suites, award-winning dining, and a serene garden pool oasis.",
+      features: ["Award-Winning Dining", "Garden Pool Oasis", "Spacious Suites", "Heart of Kingston"],
+      image: "/assets/courtleigh.jpg"
     },
     {
       name: "The Jamaica Pegasus",
       tag: "Classic Elegance Option",
-      desc: "An landmark of Kingston luxury. Nestled amidst tropical gardens, this hotel offers spacious suites, executive facilities, fine dining, and tennis courts with mountain vistas.",
-      features: ["Spacious Suites", "Skyline Views", "Tropical Gardens", "Executive Lounge"],
-      image: "/assets/gallery/WhatsApp Image 2025-01-18 at 12.16.44.webp"
+      desc: "A landmark of Kingston luxury. Nestled amidst lush tropical gardens in the city's financial hub, this hotel offers spacious suites, executive facilities, fine dining, and mountain vistas.",
+      features: ["Skyline Views", "Tropical Gardens", "Executive Lounge", "Spacious Suites"],
+      image: "/assets/jamaica_pegasus.jpg"
     }
   ];
 
@@ -78,7 +78,7 @@ export function VipProgram() {
       desc: "The ultimate curated access, helping fund our youth initiatives.",
       price: "$4,800 / person",
       features: [
-        "Ultra-premium suite lodging (S Hotel / Pegasus)",
+        "Ultra-premium suite lodging (Pegasus / Courtleigh)",
         "All-access passes to all concerts & rehearsals",
         "Exclusive dinner reception at Bob Marley Museum",
         "Rastafarian Hills private dining event",
