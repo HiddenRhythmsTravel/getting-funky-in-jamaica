@@ -57,11 +57,11 @@ export function VipProgram() {
 
   const lodgingOptions = [
     {
-      name: "The Courtleigh Hotel & Suites",
-      tag: "Boutique Luxury Option",
-      desc: "An elegant boutique hotel in the heart of New Kingston. Offering warm Jamaican hospitality, spacious rooms and suites, award-winning dining, and a serene garden pool oasis.",
-      features: ["Award-Winning Dining", "Garden Pool Oasis", "Spacious Suites", "Heart of Kingston"],
-      image: "/assets/courtleigh.jpg"
+      name: "Courtyard by Marriott Kingston",
+      tag: "Modern Comfort Option",
+      desc: "A sleek, modern retreat in the city's vibrant business district. Featuring contemporary guest rooms, a refreshing outdoor pool, dynamic workspaces, and exceptional dining at The Bistro, it's the perfect base for your Kingston adventure.",
+      features: ["Contemporary Guest Rooms", "Outdoor Pool & Bistro", "Fitness Center", "Heart of Kingston"],
+      image: "/assets/courtyard.avif"
     },
     {
       name: "The Jamaica Pegasus",
@@ -76,9 +76,9 @@ export function VipProgram() {
     {
       name: "Patron VIP Experience",
       desc: "The ultimate curated access, helping fund our youth initiatives.",
-      price: "$4,800 / person",
+      price: "",
       features: [
-        "Ultra-premium suite lodging (Pegasus / Courtleigh)",
+        "Ultra-premium suite lodging (Pegasus / Courtyard)",
         "All-access passes to all concerts & rehearsals",
         "Exclusive dinner reception at Bob Marley Museum",
         "Rastafarian Hills private dining event",
@@ -201,7 +201,7 @@ export function VipProgram() {
                       <img
                         src={hotel.image}
                         alt={hotel.name}
-                        className="w-full h-full object-cover object-[center_20%] group-hover:scale-105 transition-all duration-700 brightness-90 grayscale hover:grayscale-0"
+                        className="w-full h-full object-cover object-[center_20%] group-hover:scale-105 transition-all duration-700 brightness-90"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-green/85 to-transparent z-10"></div>
                       <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-brand-green/70 border border-brand-gold/20 text-brand-gold text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm">
@@ -266,9 +266,11 @@ export function VipProgram() {
                         {pkg.desc}
                       </p>
                       
-                      <div className="font-serif text-xl sm:text-2xl text-brand-gold font-bold mb-6 border-b border-brand-white/10 pb-4">
-                        {pkg.price}
-                      </div>
+                      {pkg.price && (
+                        <div className="font-serif text-xl sm:text-2xl text-brand-gold font-bold mb-6 border-b border-brand-white/10 pb-4">
+                          {pkg.price}
+                        </div>
+                      )}
 
                       <ul className="space-y-4">
                         {pkg.features.map((feat) => (

@@ -26,43 +26,43 @@ export function TimelineGallery() {
     {
       year: "2020",
       label: "2020",
-      title: "The Inaugural Havana Expedition",
-      desc: "Our journey began with a historic cultural exchange, uniting young players from the Trombone Shorty Academy with Cuban percussionists at local music conservatories. The energy was electric, laying the foundation for a yearly cross-cultural tradition.",
+      title: "Getting Funky in Havana",
+      desc: "In January of 2020, the inaugural trip proved to be more than just an experience, but a life changing expedition taking place during a pivotal moment of not for US-Cuba relations, and also right before COVID. The trip was highlighted by the first exchange between the Trombone Shorty Foundation students, and their counterparts, instrument giveaways at local schools, incredible concerts bringing our musicians together, and of course the iconic second line that infused the city of Havana with electric energy.",
       reelFile: "2020.mp4"
     },
     {
       year: "2023",
       label: "2023",
       title: "Havana Funk Expedition",
-      desc: "A massive milestone featuring our largest traveler cohort. Cimafunk and Trombone Shorty co-headlined a public concert at Fábrica de Arte Cubano (FAC), drawing thousands. Educational workshops expanded to three neighborhoods.",
+      desc: "During our second installment of the event, the cohort of Funky travelers grew, and the timing coming out of COVID was just what was needed for Cubans and our travelers alike. Trombone Shorty co-headlined a public concert at the famous Fabrica de Arte Cubano (FAC), which drew thousands and featured a superjam that became one of the trip’s highlights. No Getting Funky trip would ever be complete without the high impact visit to music schools where the delegation doubled its donations, thus continuing the belief that a musical instrument has the power to change a life.",
       reelFile: "2023.mp4"
     },
     {
       year: "2024",
       label: "2024",
-      title: "Havana Music Exchange",
-      desc: "A year of intimate balcony sessions and historical tours. We linked New Orleans jazz players with traditional son music groups, exploring the common roots of syncopated rhythms across borders.",
+      title: "Getting Funky in Havana, part 3",
+      desc: "2024 grew to a larger crowd from the US, allowing for more incredible artists to join us. More students from the Trombone Shorty Foundation made the trip down, and real momentum was built from the previous two trips. Trombone Shorty headlined a show at an old baseball field, drawing tens of thousands of Cubans for a free concert. The trip also introduced Primera Linea, Wampi, Los Van Van, and attracted names like Carlos Varela, Big Freedia, Ivan Neville, DJ Mannie Fresh and more to join in throughout the weekend.",
       reelFile: "2024.mp4"
     },
     {
       year: "2025",
       label: "2025",
-      title: "The Sunset Sessions",
-      desc: "Strengthening our community footprint. We hosted percussion reasoning circles, art tours in Getsemaní, and combined local youth soccer matches with evening music sessions, celebrating community development.",
+      title: "Getting Funky in Havana, part 4 – The Sunset Sessions",
+      desc: "2025 continued the trend of magical experiences that Getting Funky in Havana came to be. Legends like George Clinton and Taj Mahal joined forces with Cimafunk, Maurice Brown, PJ Morton and more for what everyone describes as one of the best musical trips in their life. Hoards of instruments were donated, lifelong relationships fortified between the students from The Trombone Shorty Foundation and the school in Guanabacoa, and each night featured an epic medley of music from New Orleans, Havana, Colombia, and beyond at an iconic amphitheatre in Old Havana. The music and memories given to everyone who attended will be forever cherished.",
       reelFile: "2025.mp4"
     },
     {
       year: "2025-medellin",
       label: "2025 Medellín",
-      title: "Medellín Beats & Brass",
-      desc: "Expanding our musical dialogue to Colombia. Combining the raw brass band style of New Orleans with traditional Afro-Colombian rhythms in Medellín's vibrant Comuna 13.",
+      title: "Getting Funky in Medellin",
+      desc: "September 2025 saw for an exploratory mission to Medellin, which has its own story to tell. The Trombone Shorty Foundation brought a small contingent of students who were weaved into different performances and opportunities to learn and capture the spirit of Afro-Colombian music. Members from Colombian Music legend, Juanes team, who head up his Mi Sangre foundation joined as our small group of VIPs entrenched themselves into the city of Eternal Spring for 4 days. Victor Campbell, Cimafunk, Primera Linea, Wampi, jammed with their Colombian counterparts that included ChuQuibtown, El Niko Arias, Robe L Ninho, La Bamperya and Juancho Valencia. Medellin carries its own story worth telling, and Getting Funky in Medellin will be in the horizon in the coming years for a larger event.",
       reelFile: "2025-medellin.mp4"
     },
     {
       year: "2026",
       label: "2026",
-      title: "Expanding Horizons",
-      desc: "Preparing for the transition to Jamaica. Our teams explored roots collaborations in Kingston and worked with local music trusts, laying the operational blueprints and program scopes for our biggest event yet.",
+      title: "Music Donation and High Impact Work",
+      desc: "While the 2026 Getting Funky event in Havana couldn't take place for a myriad of reasons, it didn't stop the commitment to the work. Our beloved family of funkers have continued to lend their support, and we are proud to say that January 2026 started the first of many small trips where our leadership has brought down countless instruments and humanitarian goods at a time when people could use it the most. Bi monthly will continue to take place. In April 2026, the Funky family was brought together during the Heritage Jazz Festival in New Orleans. Thanks to everyone for showing up, and most importantly to the Foundation and its board for its continued support.",
       reelFile: "2026.mp4"
     }
   ];
@@ -75,7 +75,7 @@ export function TimelineGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { isPlaying, isMuted, playReelOverride } = useAudio();
+  const { isPlaying, isMuted, playReelOverride, toggleMute } = useAudio();
   const currentSlide = slides[currentIndex];
 
   // 1. Viewport detection
@@ -169,9 +169,6 @@ export function TimelineGallery() {
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-heading font-bold mb-4 leading-tight">
             Timeline and Moments from Different Years
           </h2>
-          <p className="font-sans text-brand-white/70 text-sm md:text-base tracking-wide max-w-lg mx-auto">
-            Experience moments from our historical editions in looping 40-second vertical reels. Click the video to trigger the global audio engine override.
-          </p>
         </div>
 
         {/* Timeline Navigation bar */}
@@ -242,19 +239,27 @@ export function TimelineGallery() {
               {/* Status & Control Panel */}
               <div className="flex flex-col gap-4 border-t border-brand-white/10 pt-6">
                 
-                {/* Audio Status Pill */}
+                {/* Mute/Unmute Toggle Button */}
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-brand-gold/10 text-brand-gold">
-                    <Music size={16} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-sans text-[10px] text-brand-white/40 font-bold uppercase tracking-wider">
-                      Timeline Audio Logic
-                    </span>
-                    <span className="font-sans text-xs text-brand-white/80 font-semibold">
-                      Click the video player to crossfade to the Pedrito Martinez track
-                    </span>
-                  </div>
+                  <button
+                    onClick={toggleMute}
+                    className="flex items-center gap-3 px-6 py-3 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
+                  >
+                    {isMuted ? (
+                      <>
+                        <VolumeX size={16} />
+                        <span>Unmute Audio</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 size={16} />
+                        <span>Mute Audio</span>
+                      </>
+                    )}
+                  </button>
+                  <span className="font-sans text-[10px] text-brand-white/40 uppercase tracking-widest">
+                    Toggle Background Music
+                  </span>
                 </div>
 
                 {/* Controls */}
@@ -275,7 +280,7 @@ export function TimelineGallery() {
               
               {/* Outer phone frame mockup */}
               <div 
-                className="relative w-full max-w-[220px] xs:max-w-[250px] sm:max-w-[280px] lg:max-w-[300px] xl:max-w-[320px] aspect-[9/16] rounded-[28px] sm:rounded-[36px] border-[8px] sm:border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group/reel mx-auto"
+                className="relative w-full max-w-[260px] xs:max-w-[290px] sm:max-w-[320px] lg:max-w-[350px] xl:max-w-[380px] aspect-[9/16] rounded-[28px] sm:rounded-[36px] border-[8px] sm:border-[10px] border-brand-dark-accent bg-black shadow-2xl overflow-hidden group/reel mx-auto"
               >
                 {/* Looping video player (always muted to play global track) */}
                 <video
