@@ -252,27 +252,43 @@ export function ArtistLineUp() {
   ];
 
   const travelingArtists = [
+    "Angelica \"Jelly\" Joseph",
     "Aurelien Barnes",
     "Big Chief Juan Pardo",
-    "Big Freedia",
+    "Big Chief Joseph Bordeaux",
+    "BigFreedia",
+    "DJ Leydis",
+    "DJ Mannie Fresh",
+    "Galactic",
     "George Clinton",
-    "Grace Potter",
-    "Los Lobos",
+    "Ivan Nefville",
+    "James Francies",
+    "Keyon Harrold",
+    "Mabiland",
+    "Michael Brun",
+    "Nik West",
+    "Paul Beaubrun",
     "Pedrito Martinez",
-    "Shemika Copeland",
-    "Steve Paulz",
+    "PJ Morton",
+    "Tank Ball",
     "Taj Mahal",
-    "Tank & the Bangas",
-    "Trombone Shorty",
-    "Victor Campbell"
+    "Tank & The Bangas",
+    "Soul Rebels",
+    "Trombone Shorty"
   ];
 
   const cubanArtists = [
     "Carlos Varela",
-    "Habana D'Primera",
+    "Cimafunk",
+    "Habana D'Primeara",
+    "Interactivo",
+    "Los Datway",
     "Los Van Van",
     "Primera Linea",
-    "Wampi"
+    "Wampi",
+    "Victor Campbell",
+    "X Alfonso",
+    "Yissy Garcia"
   ];
 
   return (
@@ -350,14 +366,14 @@ export function ArtistLineUp() {
               </h3>
             </div>
 
-            {/* Traveling Artists Subsection */}
+            {/* Cuban Artists Subsection */}
             <div className="mb-4">
               <span className="font-sans text-[10px] text-brand-gold font-bold tracking-wider uppercase mb-3 block flex items-center gap-1.5">
                 <Star size={11} />
-                Traveling Artists
+                Cuban Artists
               </span>
-              <div className="grid grid-cols-1 gap-2 max-h-[220px] overflow-y-auto pr-1 no-scrollbar border-b border-brand-white/5 pb-4">
-                {travelingArtists.map((artist) => (
+              <div className="grid grid-cols-1 gap-2 max-h-[200px] overflow-y-auto pr-1 no-scrollbar border-b border-brand-white/5 pb-4">
+                {cubanArtists.map((artist) => (
                   <div
                     key={artist}
                     className="p-3 rounded-lg bg-brand-dark-accent/30 border border-brand-white/5 flex items-center justify-between"
@@ -371,14 +387,14 @@ export function ArtistLineUp() {
               </div>
             </div>
 
-            {/* Cuban Artists Subsection */}
+            {/* Traveling Artists Subsection */}
             <div>
               <span className="font-sans text-[10px] text-brand-gold font-bold tracking-wider uppercase mb-3 block flex items-center gap-1.5">
                 <Star size={11} />
-                Cuban Artists
+                Traveling Artists
               </span>
-              <div className="grid grid-cols-1 gap-2 max-h-[160px] overflow-y-auto pr-1 no-scrollbar">
-                {cubanArtists.map((artist) => (
+              <div className="grid grid-cols-1 gap-2 max-h-[260px] overflow-y-auto pr-1 no-scrollbar">
+                {travelingArtists.map((artist) => (
                   <div
                     key={artist}
                     className="p-3 rounded-lg bg-brand-dark-accent/30 border border-brand-white/5 flex items-center justify-between"
