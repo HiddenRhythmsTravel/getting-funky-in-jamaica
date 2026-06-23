@@ -53,13 +53,13 @@ export function Navbar() {
             href="https://hiddenrhythmstravel.com/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="block relative w-10 h-10 md:w-11 md:h-11 transition-transform hover:scale-105"
+            className="block relative w-32 h-9 md:w-40 md:h-11 transition-transform hover:scale-105"
           >
             <Image
-              src="/assets/humingbird-logo.jpg"
+              src="/assets/logo_transparent.png"
               alt="Hidden Rhythms Website"
               fill
-              className="object-contain rounded-sm mix-blend-lighten"
+              className="object-contain"
               priority
             />
           </a>
@@ -73,21 +73,6 @@ export function Navbar() {
             aria-label="Hidden Rhythms Instagram"
           >
             <Instagram size={18} />
-          </a>
-
-          {/* Hosted by Hidden Rhythms Text Header */}
-          <a 
-            href="https://hiddenrhythmstravel.com/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex flex-col leading-[1.1] pt-0.5 group pl-1"
-          >
-            <span className="font-serif text-sm md:text-base text-brand-white font-semibold tracking-wide flex-shrink-0 group-hover:text-brand-gold transition-colors">
-              hosted by
-            </span>
-            <span className="font-sans text-[9px] md:text-[10px] text-brand-gold font-bold tracking-[0.2em] uppercase flex-shrink-0 group-hover:text-brand-white transition-colors">
-              Hidden Rhythms
-            </span>
           </a>
         </div>
 
