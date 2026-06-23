@@ -22,31 +22,67 @@ export function GlobalAudioPlayer() {
   const currentTrack = currentTrackIndex !== null ? trackMetadata[currentTrackIndex] : trackMetadata[0];
 
   return (
-    <div className="fixed bottom-6 left-6 z-[9999] font-sans">
+    <div className="fixed bottom-6 left-6 z-[99999] font-sans">
       <AnimatePresence mode="wait">
         {isMinimized ? (
-          // MINIMIZED STATE: Tiny glowing music badge
-          <motion.button
+          // MINIMIZED STATE: Tiny glowing music pill/badge with direct mute toggle
+          <motion.div
             key="minimized"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            whileHover={{ scale: 1.08 }}
-            onClick={() => setIsMinimized(false)}
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-green/90 backdrop-blur-md border border-brand-gold/40 shadow-[0_0_15px_rgba(245,124,0,0.3)] text-brand-gold cursor-pointer hover:border-brand-gold focus:outline-none"
-            aria-label="Maximize Audio Player"
+            className="flex items-center gap-2.5 p-1.5 pr-3 rounded-full bg-brand-green/95 backdrop-blur-xl border border-brand-gold/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)] text-brand-white"
           >
-            {isPlaying && !isMuted ? (
-              // Playing animated equalizer lines
-              <div className="flex items-end gap-0.5 h-4">
-                <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_0.8s_ease-in-out_infinite_alternate]"></span>
-                <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_1.2s_ease-in-out_infinite_alternate_0.2s] h-3"></span>
-                <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_0.9s_ease-in-out_infinite_alternate_0.4s] h-2"></span>
+            {/* Direct Mute Toggle Button (1-Click Mute) */}
+            <button
+              onClick={toggleMute}
+              className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all duration-300 cursor-pointer ${
+                isMuted
+                  ? "bg-brand-gold/10 border-brand-gold/40 text-brand-gold hover:bg-brand-gold/25"
+                  : "bg-brand-white/5 border-brand-white/10 text-brand-white hover:bg-brand-white/15"
+              }`}
+              aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
+              title={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <VolumeX size={13} /> : <Volume2 size={13} />}
+            </button>
+
+            {/* Track Info & Equalizer */}
+            <div className="flex items-center gap-2 max-w-[120px] sm:max-w-[160px] overflow-hidden">
+              {isPlaying && !isMuted ? (
+                // Tiny playing equalizer
+                <div className="flex items-end gap-0.5 h-3 flex-shrink-0">
+                  <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_0.8s_ease-in-out_infinite_alternate] h-2"></span>
+                  <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_1.2s_ease-in-out_infinite_alternate_0.2s] h-3"></span>
+                  <span className="w-0.5 bg-brand-gold rounded-full animate-[equalizer_0.9s_ease-in-out_infinite_alternate_0.4s] h-1.5"></span>
+                </div>
+              ) : (
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-white/30 flex-shrink-0" />
+              )}
+
+              <div className="flex flex-col text-left overflow-hidden select-none">
+                <span className="text-[10px] text-brand-white font-bold truncate leading-tight">
+                  {isMuted ? "Muted" : currentTrack.title}
+                </span>
+                <span className="text-[8px] text-brand-white/50 truncate leading-none mt-0.5">
+                  {isMuted ? "Ambient Audio" : currentTrack.artist}
+                </span>
               </div>
-            ) : (
-              <Music size={18} className="animate-pulse" />
-            )}
-          </motion.button>
+            </div>
+
+            {/* Separator */}
+            <div className="w-[1px] h-5 bg-brand-white/10" />
+
+            {/* Maximize Button */}
+            <button
+              onClick={() => setIsMinimized(false)}
+              className="flex items-center justify-center w-5 h-5 rounded-md text-brand-white/40 hover:text-brand-gold transition-colors cursor-pointer"
+              aria-label="Maximize player"
+              title="Expand Details"
+            >
+              <Maximize2 size={11} />
+            </button>
+          </motion.div>
         ) : (
           // MAXIMIZED STATE: Sleek glassmorphic card
           <motion.div

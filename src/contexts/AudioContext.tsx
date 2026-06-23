@@ -42,6 +42,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isTransitioningRef = useRef(false);
   const cachedTimeRef = useRef<number>(0);
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize audio element on client mount
   useEffect(() => {
@@ -62,6 +63,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     return () => {
       audio.removeEventListener("ended", handleEnded);
       audio.pause();
+      if (fadeIntervalRef.current) {
+        clearInterval(fadeIntervalRef.current);
+      }
     };
   }, [currentTrackIndex]);
 
@@ -74,6 +78,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // Smooth crossfade function
   const crossfadeToTrack = (trackIndex: number, startTime: number = 0, loop: boolean = false, forcePlay: boolean = false) => {
     if (!audioRef.current || isTransitioningRef.current) return;
+    
+    // Clear initial fade interval if active to avoid volume conflicts
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+      fadeIntervalRef.current = null;
+    }
     
     isTransitioningRef.current = true;
     const audio = audioRef.current;
@@ -137,18 +147,45 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     const audio = audioRef.current;
     audio.src = TRACK_LIST[0];
     audio.loop = false;
-    audio.volume = 0.50;
+    audio.volume = 0.0; // Start at 0 volume
     audio.currentTime = 0;
     setCurrentTrackIndex(0);
     
     setIsMuted(false);
     audio.muted = false;
     
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+      fadeIntervalRef.current = null;
+    }
+    
     audio.play()
       .then(() => {
         setIsPlaying(true);
         setIsUnlocked(true);
-        console.log("Audio successfully unlocked and playing Track 1 Juicy Fruit starting at 0:00");
+        
+        // 3.5s linear fade-in script
+        const duration = 3500; // ms
+        const intervalTime = 50; // ms
+        const steps = duration / intervalTime; // 70 steps
+        const targetVolume = 0.45; // max ambient threshold
+        const volumeStep = targetVolume / steps;
+        
+        let currentStep = 0;
+        fadeIntervalRef.current = setInterval(() => {
+          currentStep++;
+          if (audioRef.current) {
+            audioRef.current.volume = Math.min(targetVolume, currentStep * volumeStep);
+          }
+          if (currentStep >= steps) {
+            if (fadeIntervalRef.current) {
+              clearInterval(fadeIntervalRef.current);
+              fadeIntervalRef.current = null;
+            }
+          }
+        }, intervalTime);
+        
+        console.log("Audio successfully unlocked and playing Track 1 Juicy Fruit starting at 0:00 with 3.5s fade-in");
       })
       .catch((err) => {
         console.log("Autoplay blocked, waiting for gesture:", err);
@@ -162,6 +199,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       const next = !prev;
       if (audioRef.current) {
         audioRef.current.muted = next;
+        
+        // If muting, clear any active fade-in interval to prevent volume from rising
+        if (next && fadeIntervalRef.current) {
+          clearInterval(fadeIntervalRef.current);
+          fadeIntervalRef.current = null;
+        }
         
         if (!next && audioRef.current.paused) {
           if (!isUnlocked) {
@@ -200,6 +243,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   };
 
   const pause = () => {
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+      fadeIntervalRef.current = null;
+    }
     if (audioRef.current) {
       cachedTimeRef.current = audioRef.current.currentTime;
       audioRef.current.pause();
