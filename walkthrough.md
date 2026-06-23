@@ -63,3 +63,14 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 *   **Environment Variable Deactivation**: Created a `.env.production` (and `.env` for local preview/development testing) setting `VERCEL_TOOLBAR=0` directly in the root directory. Added the `VERCEL_TOOLBAR: "0"` variable inside `env` parameters in [next.config.ts](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/next.config.ts) to suppress Vercel's Edge/routing toolbar injection.
 *   **Script/DOM Observer Interceptor**: Integrated a synchronous interceptor script in the `<head>` of the root [layout.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/layout.tsx). This uses a `MutationObserver` to dynamically scan added elements, identifying and immediately removing any script nodes sourced from `vercel.com/toolbar` on the client viewport before they compile or run.
 
+### 10. Revised 3-Song Audio Engine Overwrite
+*   **3-Song Core Playlist**: Configured the global audio engine to map to three exact assets:
+    1.  *Track 1*: `"Juicy Fruit"` by Bacao Rhythm & Steel Band (mapped to `/assets/audio/track2.mp3`)
+    2.  *Track 2*: `"I Don't Care"` by Cimafunk ft. Nik West (mapped to `/assets/audio/track1.mp3`)
+    3.  *Track 3*: `"Carnival Horns"` by Mista Nova Session (mapped to `/assets/audio/track3.mp3`)
+*   **Sequential Playlist Progression**: Initialized the player in a muted idle state to comply with standard browser policies. Added scroll, click, and touch event triggers in [InteractionUnlocker.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/InteractionUnlocker.tsx) to unmute and play Track 1 upon first physical interaction. Naturally loops sequentially: Track 1 &rarr; Track 2 &rarr; Track 3 &rarr; Track 1.
+*   **Contextual Section Triggers (Absolute Overrides)**:
+    *   *VIP Program Trigger*: Created an `IntersectionObserver` on the VIP Program section in [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) and updated click handlers in [Navbar.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Navbar.tsx) to immediately crossfade into Track 2 ("I Don't Care") when entered or clicked.
+    *   *Gallery Trigger*: Set up an `IntersectionObserver` on the Gallery grid in [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) and updated navigation handlers in [Navbar.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Navbar.tsx) to immediately crossfade into Track 3 ("Carnival Horns") when loaded, scrolled into view, or clicked.
+
+
