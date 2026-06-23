@@ -58,3 +58,8 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 ### 8. Performance Optimization & Deployment
 *   **Video Compression**: Squeezed the large `Brass Band Colombia New Orleans.MOV` asset (145.52 MB) down to **2.45 MB** using `ffmpeg` H.264 compression, resolving the GitHub file size push limit and allowing the page to load fast on desktop and mobile viewports.
 *   **Vercel Build**: Ran production compiler checks (`npm run build`) which succeeded with zero compilation errors. Pushed all commits to GitHub to trigger Vercel's automatic deploy pipeline.
+
+### 9. Vercel Toolbar Suppression
+*   **Environment Variable Deactivation**: Created a `.env.production` (and `.env` for local preview/development testing) setting `VERCEL_TOOLBAR=0` directly in the root directory. Added the `VERCEL_TOOLBAR: "0"` variable inside `env` parameters in [next.config.ts](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/next.config.ts) to suppress Vercel's Edge/routing toolbar injection.
+*   **Script/DOM Observer Interceptor**: Integrated a synchronous interceptor script in the `<head>` of the root [layout.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/layout.tsx). This uses a `MutationObserver` to dynamically scan added elements, identifying and immediately removing any script nodes sourced from `vercel.com/toolbar` on the client viewport before they compile or run.
+
