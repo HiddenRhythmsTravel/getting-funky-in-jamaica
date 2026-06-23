@@ -48,10 +48,15 @@ const permanentAssets: ImageItem[] = [
   { src: "/assets/gallery/permanent/yarini_32A5480.jpg", year: "2026", original_name: "yarini_32A5480" }
 ];
 
+const isVideo = (src: string) => {
+  const ext = src.split(".").pop()?.toLowerCase();
+  return ext === "mov" || ext === "mp4";
+};
+
 export default function GalleryPage() {
   const [shuffledTiles, setShuffledTiles] = useState<ImageItem[]>([]);
   const [slideshowItems, setSlideshowItems] = useState<ImageItem[]>(fullDatabaseImport as ImageItem[]);
-  const { forceGalleryTrack } = useAudio();
+  const { forceGalleryTrack, pause, resume, isUnlocked } = useAudio();
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,6 +82,29 @@ export default function GalleryPage() {
   const [currentLightboxIndex, setCurrentLightboxIndex] = useState<number>(0);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
+  const activeItem = slideshowItems[currentLightboxIndex];
+  const activeIsVideo = activeItem ? isVideo(activeItem.src) : false;
+
+  useEffect(() => {
+    if (lightboxOpen && activeIsVideo) {
+      pause();
+      const videoEl = document.querySelector(".lightbox-video") as HTMLVideoElement;
+      if (videoEl) {
+        videoEl.muted = false;
+        videoEl.play().catch(() => {});
+      }
+    } else {
+      const videoEl = document.querySelector(".lightbox-video") as HTMLVideoElement;
+      if (videoEl) {
+        videoEl.pause();
+        videoEl.currentTime = 0;
+      }
+      if (isUnlocked) {
+        resume();
+      }
+    }
+  }, [lightboxOpen, activeIsVideo, currentLightboxIndex, isUnlocked, pause, resume]);
+
   // Touch state for swipe navigation
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -88,10 +116,6 @@ export default function GalleryPage() {
     setShuffledTiles(shuffled);
   }, []);
 
-  const isVideo = (src: string) => {
-    const ext = src.split(".").pop()?.toLowerCase();
-    return ext === "mov" || ext === "mp4";
-  };
 
   const handleNextSlide = () => {
     setCurrentLightboxIndex((prev) => (prev + 1) % slideshowItems.length);
@@ -297,7 +321,7 @@ export default function GalleryPage() {
                         controls
                         loop
                         playsInline
-                        className="max-h-[70vh] max-w-[85vw] object-contain rounded-2xl shadow-2xl border border-brand-white/10 bg-black/40"
+                        className="lightbox-video max-h-[70vh] max-w-[85vw] object-contain rounded-2xl shadow-2xl border border-brand-white/10 bg-black/40"
                       />
                     ) : (
                       <img

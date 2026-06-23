@@ -41,6 +41,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isTransitioningRef = useRef(false);
+  const cachedTimeRef = useRef<number>(0);
 
   // Initialize audio element on client mount
   useEffect(() => {
@@ -200,6 +201,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const pause = () => {
     if (audioRef.current) {
+      cachedTimeRef.current = audioRef.current.currentTime;
       audioRef.current.pause();
       setIsPlaying(false);
     }
@@ -207,6 +209,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const resume = () => {
     if (audioRef.current && !isMuted) {
+      audioRef.current.currentTime = cachedTimeRef.current;
       audioRef.current.play()
         .then(() => setIsPlaying(true))
         .catch((err) => console.log("Audio resume failed:", err));
