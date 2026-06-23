@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  env: {
+    VERCEL_TOOLBAR: "0",
+  },
   images: {
     remotePatterns: [
       {

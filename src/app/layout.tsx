@@ -62,6 +62,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (typeof window === 'undefined') return;
+                const observer = new MutationObserver(function(mutations) {
+                  mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                      if (node.nodeName === 'SCRIPT' && node.src && node.src.indexOf('vercel.com/toolbar') !== -1) {
+                        node.parentNode.removeChild(node);
+                      }
+                    });
+                  });
+                });
+                observer.observe(document.documentElement, { childList: true, subtree: true });
+              })();
+            `
+          }}
+        />
+      </head>
       <body
         className={`${playfair.variable} ${inter.variable} font-sans antialiased bg-brand-green text-brand-white selection:bg-brand-gold selection:text-brand-green`}
       >
