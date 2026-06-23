@@ -52,6 +52,7 @@ export const metadata: Metadata = {
 };
 import { AudioProvider } from "@/contexts/AudioContext";
 import { InteractionUnlocker } from "@/components/InteractionUnlocker";
+import { GlobalAudioPlayer } from "@/components/GlobalAudioPlayer";
 import Script from "next/script";
 
 export default function RootLayout({
@@ -66,6 +67,7 @@ export default function RootLayout({
       >
         <AudioProvider>
           <InteractionUnlocker />
+          <GlobalAudioPlayer />
           {children}
         </AudioProvider>
 

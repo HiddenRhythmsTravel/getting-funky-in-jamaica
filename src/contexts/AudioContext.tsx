@@ -13,6 +13,8 @@ interface AudioContextType {
   playRegistrationOverride: () => void;
   pause: () => void;
   resume: () => void;
+  playNextTrack: () => void;
+  trackMetadata: { title: string; artist: string }[];
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -21,6 +23,12 @@ const TRACK_LIST = [
   "/assets/audio/track2.mp3", // Track 1: Filosofando en Clave
   "/assets/audio/track1.mp3", // Track 2: I Don't Care
   "/assets/audio/track3.mp3", // Track 3: Carnival Horns
+];
+
+export const TRACK_METADATA = [
+  { title: "Filosofando en Clave", artist: "Pedrito Martinez & Cimafunk" },
+  { title: "I Don't Care", artist: "Cimafunk, George Clinton, Nik West, Trombone Shorty" },
+  { title: "Carnival Horns", artist: "Mista Savona Session" },
 ];
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
@@ -220,6 +228,19 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const playNextTrack = () => {
+    if (!audioRef.current) return;
+    const nextIndex = currentTrackIndex === null ? 0 : (currentTrackIndex + 1) % TRACK_LIST.length;
+    const startTime = nextIndex === 0 ? 54 : 0;
+    const loop = nextIndex === 2; // Loop if Carnival Horns
+    
+    if (isMuted) {
+      setIsMuted(false);
+    }
+    setIsUnlocked(true);
+    crossfadeToTrack(nextIndex, startTime, loop);
+  };
+
   return (
     <AudioContext.Provider
       value={{
@@ -233,6 +254,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playRegistrationOverride,
         pause,
         resume,
+        playNextTrack,
+        trackMetadata: TRACK_METADATA,
       }}
     >
       {children}

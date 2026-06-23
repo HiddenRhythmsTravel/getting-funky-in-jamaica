@@ -86,21 +86,21 @@ export function StoryImpact() {
                 <motion.div
                   key={partner.name}
                   whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                  className={`glass-card p-6 rounded-2xl flex flex-col justify-between ${
+                  className={`glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center ${
                     idx === 0 ? "sm:col-span-2" : ""
                   }`}
                 >
-                  <div>
-                    {/* Large Logo Showcase Header */}
-                    <div className="relative w-full h-24 rounded-xl overflow-hidden bg-brand-dark-accent/40 border border-brand-white/10 mb-4 flex items-center justify-center p-3">
-                      <Image
-                        src={partner.logo}
-                        alt={`${partner.name} Logo`}
-                        fill
-                        className={`transition-all duration-300 object-contain p-1.5 ${
-                          partner.name === "Hidden Rhythms" ? "" : "grayscale hover:grayscale-0"
-                        }`}
-                      />
+                  <div className="flex flex-col items-center">
+                    {/* Centered Circular Logo Showcase Header */}
+                    <div className="relative w-28 h-28 rounded-full overflow-hidden bg-brand-dark-accent/40 border border-brand-gold/30 hover:border-brand-gold/60 transition-all duration-300 mb-4 flex items-center justify-center p-1 hover:shadow-[0_0_20px_rgba(245,124,0,0.4)]">
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src={partner.logo}
+                          alt={`${partner.name} Logo`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     </div>
 
                     <h4 className="font-serif text-base text-brand-heading font-semibold mb-0.5">
@@ -109,7 +109,7 @@ export function StoryImpact() {
                     <span className="font-sans text-[9px] sm:text-[10px] text-brand-gold font-bold tracking-widest uppercase block mb-3">
                       {partner.role}
                     </span>
-                    <p className="font-sans text-brand-white/70 text-xs leading-relaxed">
+                    <p className="font-sans text-brand-white/70 text-xs leading-relaxed max-w-md">
                       {partner.desc}
                     </p>
                   </div>

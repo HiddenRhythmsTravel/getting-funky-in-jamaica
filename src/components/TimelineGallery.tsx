@@ -289,7 +289,7 @@ export function TimelineGallery() {
                   loop
                   playsInline
                   muted={true}
-                  className="w-full h-full object-cover object-center transition-all duration-500"
+                  className="w-full h-full object-contain object-center transition-all duration-500"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 pointer-events-none z-10"></div>

@@ -122,7 +122,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted={isLocalMuted}
               playsInline
-              className="w-full h-full object-cover object-[center_20%]"
+              className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
             {/* Visual indicator of playing */}
@@ -160,7 +160,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover object-[center_20%] blur-[4px] scale-105 opacity-25"
+              className="w-full h-full object-cover object-center blur-[4px] scale-105 opacity-25"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-accent/95 via-brand-green/90 to-brand-dark-accent/95"></div>
           </div>
@@ -408,9 +408,7 @@ export function ArtistLineUp() {
               </div>
             </div>
 
-            <p className="font-sans text-[10px] text-brand-white/45 leading-relaxed mt-2">
-              Our cultural exchanges are deeply rooted. These legendary performers shape our historic jams, concerts, and workshops.
-            </p>
+
           </div>
 
         </div>

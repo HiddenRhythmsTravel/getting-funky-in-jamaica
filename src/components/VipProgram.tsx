@@ -13,15 +13,16 @@ export function VipProgram() {
       title: "Arrival & Welcome",
       events: [
         { time: "TBD", desc: "Arrival in Kingston: Arrive in Kingston and meet your Getting Funky in Jamaica hosts for airport transfers to the hotel. Settle into your accommodations, relax, and take in the vibrant energy of Jamaica’s cultural capital before an unforgettable weekend of music, culture, and connection." },
-        { time: "Evening", desc: "Dinner Reception with Live Music at the Marley Museum: Celebrate Jamaica’s musical legacy with local cuisine and live performances on the grounds of the Bob Marley Museum, where Marley lived with his family and created some of the most influential music of the last century. Immerse yourself in the stories, sounds, and cultural traditions that continue to shape Jamaica’s global impact." }
+        { time: "Evening", desc: "Dinner Reception with Live Music: Celebrate Jamaica’s musical legacy with local cuisine and live music and dance performances on the grounds of the Ashe Company, where some of Jamaica’s most talented youth study dance, theatre, music and production. Immerse yourself in the sounds and vibes of Jamaica." },
+        { time: "Optional", desc: "**Optional: Late Night Live Music**" }
       ]
     },
     {
       day: "Day 2 – Friday",
       title: "Exchange & Super Jam",
       events: [
-        { time: "Morning", desc: "Morning at Kingston Music School: Spend the morning with Kingston’s youth musicians for a series of performances, workshops and instrument donations. Connect with students and educators while supporting the next generation of Jamaican artists through a meaningful instrument donation program." },
-        { time: "Lunch", desc: "Lunch and Music at Local High School: Enjoy a catered lunch alongside students, faculty, and community leaders while experiencing live musical performances by Cuban, U.S. and Jamaican Youth." },
+        { time: "Morning", desc: "Visit Historic Trench Town + Jamaican Music Education Discussion: Explore the legendary community widely regarded as the birthplace of modern Jamaican popular music. Visit a music school run by Damian, Stephen and Julian Marley’s Ghetto Youth Foundation, where we’ll interact with local youth. Explore Bob Marley’s childhood home, where he learned to play guitar and wrote many of his legendary songs. Enjoy a panel discussion on Current State of Jamaican Youth Music Education." },
+        { time: "Lunch", desc: "Food and Music at Haile Selassie High School: Enjoy a catered lunch alongside students, faculty, and community leaders while experiencing live musical performances by Cuban, U.S. and Jamaican Youth. Connect with students and educators while supporting the next generation of Jamaican artists through a meaningful instrument donation program." },
         { time: "Afternoon", desc: "R&R: Enjoy free time to relax at the hotel, explore Kingston at your own pace, or simply recharge before the evening’s cultural experiences. Your Getting Funky travel curators can help with excursion ideas and transport." },
         { time: "Evening", desc: "Rastafarian Meal in the Hills of Kingston: Gather in the lush hills overlooking Kingston for an authentic Rastafarian dining experience. Savor traditional Ital cuisine while learning about the philosophy, history, and cultural influence of the Rastafarian movement in Jamaica." },
         { time: "Night", desc: "New Orleans – Jamaica – Cuba Super Jam: Witness an extraordinary musical exchange as artists from New Orleans, Jamaica, and Cuba come together for a one-of-a-kind musical mashup. Rooted in shared rhythms and cultural traditions, this unforgettable jam session celebrates the connections that unite these three musical treasures." }
