@@ -7,6 +7,7 @@ import { useAudio } from "@/contexts/AudioContext";
 
 export function VipProgram() {
   const [activeTab, setActiveTab] = useState<"itinerary" | "lodging" | "packages">("itinerary");
+  const [activeDay, setActiveDay] = useState(0);
   const { forceVIPTrack } = useAudio();
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -33,52 +34,171 @@ export function VipProgram() {
 
   const itineraryDays = [
     {
-      day: "Day 1 – Thursday",
-      title: "Arrival & Welcome",
+      day: "Day 1",
+      date: "Thursday",
       events: [
-        { time: "TBD", desc: "Arrival in Kingston: Arrive in Kingston and meet your Getting Funky in Jamaica hosts for airport transfers to the hotel. Settle into your accommodations, relax, and take in the vibrant energy of Jamaica’s cultural capital before an unforgettable weekend of music, culture, and connection." },
-        { time: "Evening", desc: "Dinner Reception with Live Music: Celebrate Jamaica’s musical legacy with local cuisine and live music and dance performances on the grounds of the Ashe Company, where some of Jamaica’s most talented youth study dance, theatre, music and production. Immerse yourself in the sounds and vibes of Jamaica." },
-        { time: "Optional", desc: "**Optional: Late Night Live Music**" }
+        {
+          time: "TBD",
+          header: "Arrival in Kingston",
+          desc: "Arrive in Kingston and meet your Getting Funky in Jamaica hosts for airport transfers to the hotel. Settle into your accommodations, relax, and take in the vibrant energy of Jamaica’s cultural capital before an unforgettable weekend of music, culture, and connection."
+        },
+        {
+          time: "Evening",
+          header: "Dinner Reception with Live Music",
+          desc: "Celebrate Jamaica’s musical legacy with local cuisine and live music and dance performances on the grounds of the Ashe Company, where some of Jamaica’s most talented youth study dance, theatre, music and production. Immerse yourself in the sounds and vibes of Jamaica."
+        },
+        {
+          time: "",
+          header: "",
+          desc: "**Optional: Late Night Live Music**"
+        }
       ]
     },
     {
-      day: "Day 2 – Friday",
-      title: "Exchange & Super Jam",
+      day: "Day 2",
+      date: "Friday",
       events: [
-        { time: "Morning", desc: "Visit Historic Trench Town + Jamaican Music Education Discussion: Explore the legendary community widely regarded as the birthplace of modern Jamaican popular music. Visit a music school run by Damian, Stephen and Julian Marley’s Ghetto Youth Foundation, where we’ll interact with local youth. Explore Bob Marley’s childhood home, where he learned to play guitar and wrote many of his legendary songs. Enjoy a panel discussion on Current State of Jamaican Youth Music Education." },
-        { time: "Lunch", desc: "Food and Music at Haile Selassie High School: Enjoy a catered lunch alongside students, faculty, and community leaders while experiencing live musical performances by Cuban, U.S. and Jamaican Youth. Connect with students and educators while supporting the next generation of Jamaican artists through a meaningful instrument donation program." },
-        { time: "Afternoon", desc: "R&R: Enjoy free time to relax at the hotel, explore Kingston at your own pace, or simply recharge before the evening’s cultural experiences. Your Getting Funky travel curators can help with excursion ideas and transport." },
-        { time: "Evening", desc: "Rastafarian Meal in the Hills of Kingston: Gather in the lush hills overlooking Kingston for an authentic Rastafarian dining experience. Savor traditional Ital cuisine while learning about the philosophy, history, and cultural influence of the Rastafarian movement in Jamaica." },
-        { time: "Night", desc: "New Orleans – Jamaica – Cuba Super Jam: Witness an extraordinary musical exchange as artists from New Orleans, Jamaica, and Cuba come together for a one-of-a-kind musical mashup. Rooted in shared rhythms and cultural traditions, this unforgettable jam session celebrates the connections that unite these three musical treasures." }
+        {
+          time: "Morning",
+          header: "Visit Historic Trench Town + Jamaican Music Education Discussion",
+          desc: "Explore the legendary community widely regarded as the birthplace of modern Jamaican popular music. Visit a music school run by Damian, Stephen and Julian Marley’s Ghetto Youth Foundation, where we’ll interact with local youth. Explore Bob Marley’s childhood home, where he learned to play guitar and wrote many of his legendary songs. Enjoy a panel discussion on Current State of Jamaican Youth Music Education."
+        },
+        {
+          time: "Lunch",
+          header: "Food and Music at Haile Selassie High School",
+          desc: "Enjoy a catered lunch alongside students, faculty, and community leaders while experiencing live musical performances by Cuban, U.S. and Jamaican Youth. Connect with students and educators while supporting the next generation of Jamaican artists through a meaningful instrument donation program."
+        },
+        {
+          time: "Afternoon",
+          header: "R&R",
+          desc: "Enjoy free time to relax at the hotel, explore Kingston at your own pace, or simply recharge before the evening’s cultural experiences. Your Getting Funky travel curators can help with excursion ideas and transport."
+        },
+        {
+          time: "Evening",
+          header: "Rastafarian Meal in the Hills of Kingston",
+          desc: "Gather in the lush hills overlooking Kingston for an authentic Rastafarian dining experience. Savor traditional Ital cuisine while learning about the philosophy, history, and cultural influence of the Rastafarian movement in Jamaica."
+        },
+        {
+          time: "Night",
+          header: "New Orleans – Jamaica – Cuba *Super Jam*",
+          desc: "Witness an extraordinary musical exchange as artists from New Orleans, Jamaica, and Cuba come together for a one-of-a-kind musical mashup. Rooted in shared rhythms and cultural traditions, this unforgettable jam session celebrates the connections that unite these three musical treasures."
+        }
       ]
     },
     {
-      day: "Day 3 – Saturday",
-      title: "Trench Town & Concert",
+      day: "Day 3",
+      date: "Saturday",
       events: [
-        { time: "Morning", desc: "Visit Historic Trench Town: Explore the legendary community widely regarded as the birthplace of modern Jamaican popular music. Visit a music school run by Damian, Stephen and Julian Marley, where we’ll interact with local youth, and explore Bob Marley’s childhood home, where he learned to play guitar and wrote many of his legendary songs." },
-        { time: "Lunch", desc: "Music & Bites at Iconic Tuff Gong Studios: Enjoy a behind-the-scenes tour and lunch at Jamaica’s most iconic recording studio. Split into small groups to tour the facilities, observe local bands recording, and learn about the studio’s enduring role in Jamaica’s musical legacy. Tap off the visit with a performance in the rehearsal space." },
-        { time: "Afternoon", desc: "R&R: Enjoy free time to relax at the hotel, explore Kingston at your own pace, or simply recharge before the evening’s cultural experiences. Your Getting Funky travel curators can help with excursion ideas and transport." },
-        { time: "Evening", desc: "Getting Funky in Jamaica Concert: Trombone Shorty, Cimafunk ft. Top Brass + More: Cap off the day with a dynamic celebration of Caribbean and New Orleans musical traditions. Featuring performances by Trombone Shorty, Cimafunk, local artists, and special guests, this high-energy concert showcases the vibrant cultural connections that inspire Getting Funky in Jamaica. Enjoy open bar and New Orleans, Cuban and Jamaican cuisine in the VIP sections." }
+        {
+          time: "Morning",
+          header: "Bob Marley Museum",
+          desc: "Visit the historic residence of Bob Marley, one of the most influential musicians of the 20th century. Explore the spaces where he lived and worked and survived an assassination attempt, and gain a deeper appreciation for the music, culture, and enduring legacy that have made Jamaica a global cultural force."
+        },
+        {
+          time: "",
+          header: "Light Bites & Music at the Iconic Tuff Gong Studios",
+          desc: "Enjoy a behind-the-scenes tour and lunch at Jamaica’s most iconic recording studio. Split into small groups to tour the facilities, observe local bands recording, and learn about the studio’s enduring role in Jamaica’s musical legacy. Tap off the visit with a performance in the rehearsal space."
+        },
+        {
+          time: "Afternoon",
+          header: "Music, Food and History at Strawberry Hill",
+          desc: "Enjoy lunch, live performances, and a discussion on reggae music at Strawberry Hill. Owned by Island Records founder Chris Blackwell, the historic mountain retreat center is where Bob Marley recuperated following the 1976 assassination attempt. Surrounded by sweeping views of the Blue Mountains, the gathering offers a unique opportunity to connect with Jamaica’s rich musical heritage and important history."
+        },
+        {
+          time: "Evening",
+          header: "Getting Funky in Jamaica Concert: Trombone Shorty, Cimafunk ft. Top Brass, Trombone Shorty Academy Band, Primera Linea + More",
+          desc: "Cap off the day with a dynamic celebration of Caribbean and New Orleans musical traditions. Featuring performances by Trombone Shorty, Cimafunk, local artists, and special guests, this high-energy concert showcases the vibrant cultural connections that inspire Getting Funky in Jamaica."
+        }
       ]
     },
     {
-      day: "Day 4 – Sunday",
-      title: "Deep Dives & Beach Celebration",
+      day: "Day 4",
+      date: "Sunday",
       events: [
-        { time: "Morning", desc: "Panel Discussion + Acoustic Music and Dance Performance: Panel discussion with artists, cultural leaders, and community voices to explore Jamaica’s musical heritage and creative economy. The talk will be followed by a short acoustic set and a lively performance from a local dance troupe." },
-        { time: "Late Morning", desc: "Jamaica Deep Dive – Small Group Activities (choose one):\n\n• Jamaican Drumming & Percussion Workshop – Learn foundational reggae, nyabinghi, and mento rhythms from local musicians.\n\n• Vinyl Listening & Sound System Culture Experience – Discover the history of Jamaica's sound system movement through curated listening sessions and demonstrations.\n\n• Youth Soccer Match – Join local youth for a friendly football match.\n\n• Rastafarian Reasoning Circle – Engage in a dialogue with Rastafarian elders about spirituality, history, identity, and social justice.\n\n• Coffee Experience – Explore Jamaica's coffee heritage through tastings and conversations with producers and experts.\n\n• Kingston Mural & Gallery Art Tour – Meet artists and explore neighborhoods through public art, followed by a visit to local galleries and studios." },
-        { time: "Afternoon", desc: "Bob Marley Beach Celebration: Gather along Jamaica’s beautiful coastline for an afternoon and evening of great food, live music, and community. We’ll enjoy live music at sunset and into the evening to close out a special weekend of Getting Funky in Jamaica." }
+        {
+          time: "Morning",
+          header: "Panel Discussion + Acoustic Music and Dance Performance",
+          desc: "Panel discussion with artists, cultural leaders, and community voices to explore Jamaica’s musical heritage and creative economy. The talk will be followed by a short acoustic set and a lively performance from a local dance troupe."
+        },
+        {
+          time: "Late Morning",
+          header: "Jamaica Deep Dive – Small Group Activities (choose one):",
+          desc: "-       Jamaican Drumming & Percussion Workshop – Learn foundational reggae, nyabinghi, and mento rhythms from local musicians.\n-       Vinyl Listening & Sound System Culture Experience – Discover the history of Jamaica's sound system movement through curated listening sessions and demonstrations.\n-       Youth Soccer Match – Join local youth for a friendly football match\n-       Rastafarian Reasoning Circle – Engage in a dialogue with Rastafarian elders about spirituality, history, identity, and social justice.\n-       Coffee Experience – Explore Jamaica's coffee heritage through tastings and conversations with producers and experts.\n-       Kingston Mural & Gallery Art Tour – Meet artists and explore neighborhoods through public art, followed by a visit to local galleries and studios"
+        },
+        {
+          time: "Afternoon/Evening",
+          header: "Bob Marley Beach Celebration",
+          desc: "Gather along Jamaica’s beautiful coastline for an afternoon and evening of great food, live music, and community. We’ll enjoy live music at sunset and into the evening to close out a special weekend of Getting Funky in Jamaica."
+        }
       ]
     },
     {
-      day: "Day 5 – Monday",
-      title: "Departure & Transfers",
+      day: "Day 5",
+      date: "Monday",
       events: [
-        { time: "TBD", desc: "Transfer to Government Mule’s Island Exodus OR Check-out, airport transfers." }
+        {
+          time: "TBD",
+          header: "Transfer to Government Mule’s Island Exodus",
+          desc: "- https://www.islandexodus.com\nOR\nCheck-out, airport transfers"
+        }
       ]
     }
   ];
+
+  const renderFormattedText = (text: string) => {
+    const lines = text.split("\n");
+    return lines.map((line, lineIdx) => {
+      const trimmed = line.trim();
+      if (!trimmed) return <div key={lineIdx} className="h-2" />;
+
+      const isListItem = trimmed.startsWith("-");
+      const cleanLine = isListItem ? trimmed.replace(/^-\s*/, "") : line;
+
+      const parts: React.ReactNode[] = [];
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const regex = /(\*\*[^*]+\*\*|https?:\/\/[^\s]+)/g;
+      const tokens = cleanLine.split(regex);
+
+      tokens.forEach((token, tokIdx) => {
+        if (token.startsWith("**") && token.endsWith("**")) {
+          parts.push(
+            <strong key={tokIdx} className="text-brand-heading font-bold">
+              {token.slice(2, -2)}
+            </strong>
+          );
+        } else if (token.match(urlRegex)) {
+          parts.push(
+            <a
+              key={tokIdx}
+              href={token}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-gold hover:underline font-semibold"
+            >
+              {token}
+            </a>
+          );
+        } else {
+          parts.push(token);
+        }
+      });
+
+      if (isListItem) {
+        return (
+          <div key={lineIdx} className="flex gap-2.5 pl-4 text-brand-white/80 font-sans leading-relaxed my-1.5 items-start">
+            <span className="text-brand-gold mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-brand-gold/80" />
+            <span className="flex-1">{parts}</span>
+          </div>
+        );
+      }
+
+      return (
+        <p key={lineIdx} className="text-brand-white/80 font-sans leading-relaxed mb-2 last:mb-0">
+          {parts}
+        </p>
+      );
+    });
+  };
 
   const lodgingOptions = [
     {
@@ -178,34 +298,75 @@ export function VipProgram() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.4 }}
-                className="max-w-4xl mx-auto flex flex-col gap-6"
+                className="max-w-4xl mx-auto flex flex-col gap-8"
               >
-                {itineraryDays.map((day, idx) => (
-                  <div key={day.day} className="glass-card p-6 md:p-8 rounded-2xl border border-brand-white/5 hover:border-brand-gold/20 transition-all duration-300 flex flex-col md:flex-row gap-6 items-start">
-                    <div className="md:w-1/4">
-                      <span className="font-sans text-[10px] text-brand-gold font-bold tracking-widest uppercase block mb-1">
-                        {day.day}
-                      </span>
-                      <h4 className="font-serif text-lg text-brand-heading font-bold">
-                        {day.title}
-                      </h4>
-                    </div>
+                {/* Day Sub-tab Navigation */}
+                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                  {itineraryDays.map((day, idx) => (
+                    <button
+                      key={day.day}
+                      onClick={() => setActiveDay(idx)}
+                      className={`relative px-5 py-2.5 rounded-xl font-sans text-xs tracking-wider uppercase font-bold transition-all duration-300 border ${
+                        activeDay === idx
+                          ? "text-brand-green border-transparent"
+                          : "bg-brand-dark-accent/40 text-brand-white/80 border-brand-white/10 hover:border-brand-gold/40 hover:text-brand-white"
+                      }`}
+                    >
+                      <div className="flex flex-col items-center relative z-10">
+                        <span className={`text-[9px] tracking-widest ${activeDay === idx ? "text-brand-green/80" : "text-brand-white/60"}`}>{day.day}</span>
+                        <span className="text-xs font-extrabold mt-0.5">{day.date}</span>
+                      </div>
+                      {activeDay === idx && (
+                        <motion.div
+                          layoutId="activeDayPill"
+                          className="absolute inset-0 rounded-xl bg-brand-gold shadow-md"
+                          transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
 
-                    <div className="md:w-3/4 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-brand-white/10 pt-4 md:pt-0 md:pl-8">
-                      {day.events.map((evt, eIdx) => (
-                        <div key={eIdx} className="flex gap-4 items-start text-sm">
-                          <div className="flex items-center gap-1.5 text-brand-gold/80 font-bold tracking-wider uppercase text-[10px] mt-0.5 w-24 flex-shrink-0">
-                            <Clock size={11} />
-                            <span>{evt.time}</span>
+                {/* Timeline Panel */}
+                <div className="glass-card p-6 sm:p-10 rounded-2xl border border-brand-white/5 relative overflow-hidden">
+                  <div className="relative pl-8 sm:pl-12 space-y-12 py-2">
+                    {/* Gradient Timeline Vertical Line */}
+                    <div className="absolute left-[-2px] sm:left-[-2px] top-2 bottom-2 w-[1px] bg-gradient-to-b from-brand-gold/60 via-brand-gold/20 to-transparent pointer-events-none" />
+
+                    {itineraryDays[activeDay].events.map((evt, eIdx) => (
+                      <div key={eIdx} className="relative group">
+                        
+                        {/* Glowing Timeline Node */}
+                        <div className="absolute left-[-38px] sm:left-[-54px] top-2.5 w-3 h-3 rounded-full bg-brand-gold border-2 border-brand-green shadow-[0_0_8px_rgba(239,156,130,0.8)] group-hover:scale-125 transition-transform duration-300" />
+                        
+                        {/* Event Content */}
+                        <div className="w-full">
+                          
+                          {/* Time tag */}
+                          {evt.time && (
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/15 text-brand-gold border border-brand-gold/25 text-[9px] font-bold tracking-widest uppercase mb-3.5">
+                              <Clock size={11} className="text-brand-gold" />
+                              <span>{evt.time}</span>
+                            </div>
+                          )}
+
+                          {/* Block header */}
+                          {evt.header && (
+                            <h4 className="font-serif text-lg sm:text-xl md:text-2xl text-brand-heading font-bold mb-3.5 leading-snug">
+                              {evt.header}
+                            </h4>
+                          )}
+
+                          {/* Narrative Paragraph */}
+                          <div className="text-sm md:text-base">
+                            {renderFormattedText(evt.desc)}
                           </div>
-                          <p className="text-brand-white/80 font-sans leading-relaxed">
-                            {evt.desc}
-                          </p>
                         </div>
-                      ))}
-                    </div>
+
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </motion.div>
             )}
 
