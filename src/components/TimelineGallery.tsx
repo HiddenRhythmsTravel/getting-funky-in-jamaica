@@ -319,28 +319,6 @@ export function TimelineGallery() {
                 {/* Status & Control Panel */}
                 <div className="flex flex-col items-center md:items-start gap-4 border-t border-brand-white/10 pt-6 w-full">
                   
-                  {/* Mute/Unmute Toggle Button */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3">
-                    <button
-                      onClick={toggleMute}
-                      className="flex items-center gap-3 px-6 py-3 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
-                    >
-                      {isMuted ? (
-                        <>
-                          <VolumeX size={16} />
-                          <span>Unmute Audio</span>
-                        </>
-                      ) : (
-                        <>
-                          <Volume2 size={16} />
-                          <span>Mute Audio</span>
-                        </>
-                      )}
-                    </button>
-                    <span className="font-sans text-[10px] text-brand-white/40 uppercase tracking-widest mt-2 sm:mt-0">
-                      Toggle Background Music
-                    </span>
-                  </div>
 
                   {/* Play/Pause controls */}
                   <div className="flex items-center gap-4 mt-2">
