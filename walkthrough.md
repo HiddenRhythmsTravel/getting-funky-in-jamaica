@@ -8,6 +8,7 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 
 ### 1. Artist Line Up & Loop Adjustments
 *   **Video Loops Focal Point**: Modified the video tags in `ArtistCard` inside [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx) from `object-[center_20%]` to `object-center`. On mobile, this correctly centers the focal area on the bands themselves in action, resolving the framing cutoffs.
+*   **Timeline Video Fit**: Set the 9:16 phone mockup video player in [TimelineGallery.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/TimelineGallery.tsx) to use `object-contain`. This fits the yearly timeline reels completely inside the screen frame on both desktop and mobile viewports, avoiding any crop/clipping of pictures or videos.
 *   **Roster Verifications**: Verified the precise alphabetized rosters for both Cuban and Traveling artist categories.
 *   **Archive Cleanup**: Removed the legacy description paragraph:
     > "Our cultural exchanges are deeply rooted. These legendary performers shape our historic jams, concerts, and workshops."
@@ -37,6 +38,9 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     *   *Maximized*: A glassmorphic card showcasing the current track's title, artists list, and a spinning record CD icon.
 *   **Controls**: Exposes options to toggle **Mute/Unmute** (syncs globally with all sections) and **Next Track** (which loops through the playlist).
 *   **Equalizer CSS**: Added custom `@keyframes equalizer` animation parameters in [globals.css](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/globals.css) to drive the playback visuals.
+
+### 5. Hero Logo Positioning Shift
+*   **Logo Desktop Spacer**: Added top margin classes (`mt-4 md:mt-12`) to the Getting Funky logo container in [Hero.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Hero.tsx). This shifts the logo down slightly on desktop upon page load for optimal header spacing, while keeping it perfectly centered.
 
 ---
 

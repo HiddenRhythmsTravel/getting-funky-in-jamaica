@@ -28,7 +28,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-6 md:mb-8"
+          className="mb-6 md:mb-8 mt-4 md:mt-12"
         >
           <div className="relative w-48 h-48 md:w-72 md:h-72 rounded-full border border-brand-gold/30 bg-brand-green/10 backdrop-blur-md p-2 flex items-center justify-center shadow-2xl overflow-hidden">
             <Image
