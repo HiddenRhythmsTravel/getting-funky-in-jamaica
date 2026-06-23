@@ -269,6 +269,7 @@ export function TimelineGallery() {
               loop
               playsInline
               muted={true}
+              preload="metadata"
               onLoadedMetadata={(e) => {
                 const video = e.currentTarget;
                 if (video.videoWidth && video.videoHeight) {
