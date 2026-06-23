@@ -254,14 +254,14 @@ export function ArtistLineUp() {
   const travelingArtists = [
     "Angelica \"Jelly\" Joseph",
     "Aurelien Barnes",
-    "Big Chief Juan Pardo",
     "Big Chief Joseph Bordeaux",
-    "BigFreedia",
+    "Big Chief Juan Pardo",
+    "Big Freedia",
     "DJ Leydis",
     "DJ Mannie Fresh",
     "Galactic",
     "George Clinton",
-    "Ivan Nefville",
+    "Ivan Neville",
     "James Francies",
     "Keyon Harrold",
     "Mabiland",
@@ -270,10 +270,11 @@ export function ArtistLineUp() {
     "Paul Beaubrun",
     "Pedrito Martinez",
     "PJ Morton",
-    "Tank Ball",
+    "Robe L Ninho",
+    "Soul Rebels",
     "Taj Mahal",
     "Tank & The Bangas",
-    "Soul Rebels",
+    "Tank Ball",
     "Trombone Shorty"
   ];
 
@@ -387,11 +388,11 @@ export function ArtistLineUp() {
               </div>
             </div>
 
-            {/* Traveling Artists Subsection */}
+            {/* International Artists Subsection */}
             <div>
               <span className="font-sans text-[10px] text-brand-gold font-bold tracking-wider uppercase mb-3 block flex items-center gap-1.5">
                 <Star size={11} />
-                Traveling Artists
+                International Artists
               </span>
               <div className="grid grid-cols-1 gap-2 max-h-[260px] overflow-y-auto pr-1 no-scrollbar">
                 {travelingArtists.map((artist) => (
