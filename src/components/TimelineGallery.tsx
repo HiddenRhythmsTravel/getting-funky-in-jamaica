@@ -76,7 +76,7 @@ export function TimelineGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { isPlaying, isMuted, playReelOverride, toggleMute } = useAudio();
+  const { isPlaying, isMuted, toggleMute } = useAudio();
   const currentSlide = slides[currentIndex];
 
   // 1. Viewport detection

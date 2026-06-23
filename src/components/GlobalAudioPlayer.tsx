@@ -1,22 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, SkipForward, Minimize2, Maximize2, Music } from "lucide-react";
+import { Volume2, VolumeX, SkipForward, Minimize2, Maximize2, Music, RotateCcw } from "lucide-react";
 import { useAudio } from "@/contexts/AudioContext";
 
 export function GlobalAudioPlayer() {
   const {
     isPlaying,
     isMuted,
-    isUnlocked,
     currentTrackIndex,
+    isPlayerMinimized,
+    setIsPlayerMinimized,
     toggleMute,
     playNextTrack,
+    replayActiveTrack,
     trackMetadata,
   } = useAudio();
-
-  const [isMinimized, setIsMinimized] = useState(false);
 
   // If the audio hasn't been unlocked or no track is loaded, show a prompt or fallback
   const currentTrack = currentTrackIndex !== null ? trackMetadata[currentTrackIndex] : trackMetadata[0];
@@ -24,7 +23,7 @@ export function GlobalAudioPlayer() {
   return (
     <div className="fixed bottom-6 left-6 z-[99999] font-sans">
       <AnimatePresence mode="wait">
-        {isMinimized ? (
+        {isPlayerMinimized ? (
           // MINIMIZED STATE: Tiny glowing music pill/badge with direct mute toggle
           <motion.div
             key="minimized"
@@ -75,7 +74,7 @@ export function GlobalAudioPlayer() {
 
             {/* Maximize Button */}
             <button
-              onClick={() => setIsMinimized(false)}
+              onClick={() => setIsPlayerMinimized(false)}
               className="flex items-center justify-center w-5 h-5 rounded-md text-brand-white/40 hover:text-brand-gold transition-colors cursor-pointer"
               aria-label="Maximize player"
               title="Expand Details"
@@ -99,7 +98,7 @@ export function GlobalAudioPlayer() {
                 <span>Ambient Audio</span>
               </span>
               <button
-                onClick={() => setIsMinimized(true)}
+                onClick={() => setIsPlayerMinimized(true)}
                 className="text-brand-white/50 hover:text-brand-gold p-1 rounded transition-colors cursor-pointer"
                 title="Minimize Player"
               >
@@ -127,35 +126,51 @@ export function GlobalAudioPlayer() {
             </div>
 
             {/* Controls */}
-            <div className="flex items-center justify-between mt-1 pt-2 border-t border-brand-white/10">
-              <button
-                onClick={toggleMute}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] tracking-wider uppercase font-bold transition-all duration-300 border cursor-pointer ${
-                  isMuted
-                    ? "border-brand-gold/40 text-brand-gold bg-brand-gold/5 hover:bg-brand-gold/15"
-                    : "border-brand-white/20 text-brand-white hover:bg-brand-white/10"
-                }`}
-              >
-                {isMuted ? (
-                  <>
-                    <VolumeX size={12} />
-                    <span>Unmute</span>
-                  </>
-                ) : (
-                  <>
-                    <Volume2 size={12} />
-                    <span>Mute</span>
-                  </>
-                )}
-              </button>
+            <div className="flex flex-col gap-3 mt-1 pt-3 border-t border-brand-white/10">
+              <div className="flex items-center justify-between gap-2">
+                {/* Replay Button */}
+                <button
+                  onClick={replayActiveTrack}
+                  className="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-full border border-brand-white/15 text-brand-white hover:text-brand-gold hover:border-brand-gold/50 bg-brand-white/5 hover:bg-brand-white/10 transition-all duration-300 text-[10px] tracking-wider uppercase font-bold cursor-pointer"
+                  title="Replay Track"
+                >
+                  <RotateCcw size={11} />
+                  <span>Replay</span>
+                </button>
 
+                {/* Mute/Unmute Toggle */}
+                <button
+                  onClick={toggleMute}
+                  className={`flex-1 flex items-center justify-center gap-1 py-1.5 rounded-full border transition-all duration-300 text-[10px] tracking-wider uppercase font-bold cursor-pointer ${
+                    isMuted
+                      ? "border-brand-gold/40 text-brand-gold bg-brand-gold/5 hover:bg-brand-gold/15"
+                      : "border-brand-white/15 text-brand-white hover:bg-brand-white/10 bg-brand-white/5"
+                  }`}
+                  title={isMuted ? "Unmute" : "Mute"}
+                >
+                  {isMuted ? <VolumeX size={11} /> : <Volume2 size={11} />}
+                  <span>{isMuted ? "Unmute" : "Mute"}</span>
+                </button>
+
+                {/* Next Track Button */}
+                <button
+                  onClick={playNextTrack}
+                  className="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-full border border-brand-white/15 text-brand-white hover:text-brand-gold hover:border-brand-gold/50 bg-brand-white/5 hover:bg-brand-white/10 transition-all duration-300 text-[10px] tracking-wider uppercase font-bold cursor-pointer"
+                  title="Next Track"
+                >
+                  <span>Next</span>
+                  <SkipForward size={11} />
+                </button>
+              </div>
+
+              {/* Minimize / Close Button */}
               <button
-                onClick={playNextTrack}
-                className="flex items-center gap-1.5 text-[10px] text-brand-white/70 hover:text-brand-gold font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                title="Next Track"
+                onClick={() => setIsPlayerMinimized(true)}
+                className="w-full py-1.5 rounded-xl border border-brand-white/5 hover:border-brand-white/20 text-brand-white/60 hover:text-brand-white bg-brand-white/5 hover:bg-brand-white/10 transition-all duration-300 text-[10px] tracking-widest uppercase font-bold cursor-pointer flex items-center justify-center gap-1.5"
+                title="Minimize / Close Player"
               >
-                <span>Next</span>
-                <SkipForward size={12} />
+                <Minimize2 size={11} />
+                <span>Minimize / Close</span>
               </button>
             </div>
           </motion.div>

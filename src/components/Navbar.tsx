@@ -12,7 +12,7 @@ export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isMuted, toggleMute, forceVIPTrack, forceGalleryTrack } = useAudio();
+  const { isMuted, toggleMute } = useAudio();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -85,13 +85,6 @@ export function Navbar() {
             <Link 
               key={link.name} 
               href={link.href} 
-              onClick={() => {
-                if (link.name === "VIP Program" || link.name === "Register Now") {
-                  forceVIPTrack();
-                } else if (link.name === "Gallery") {
-                  forceGalleryTrack();
-                }
-              }}
               className={`relative group py-2 ${
                 link.name === "Register Now" ? "text-brand-gold hover:text-brand-white" : "hover:text-brand-gold"
               }`}
@@ -114,9 +107,6 @@ export function Navbar() {
 
           <Link
             href="/#register"
-            onClick={() => {
-              forceVIPTrack();
-            }}
             className="px-5 py-2.5 rounded-full border border-brand-gold text-brand-green bg-brand-gold font-bold tracking-widest text-[10px] hover:bg-brand-green hover:text-brand-gold hover:border-brand-gold transition-all duration-300 shadow-md"
           >
             REGISTER NOW
@@ -168,14 +158,7 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (link.name === "VIP Program") {
-                      forceVIPTrack();
-                    } else if (link.name === "Gallery") {
-                      forceGalleryTrack();
-                    }
-                  }}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="hover:text-brand-gold transition-colors"
                 >
                   {link.name}
@@ -183,10 +166,7 @@ export function Navbar() {
               ))}
               <Link
                 href="/#register"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  forceVIPTrack();
-                }}
+                onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-3.5 rounded-full border border-brand-gold text-brand-gold font-bold tracking-widest bg-brand-gold/5 hover:bg-brand-gold hover:text-brand-green transition-all"
               >
                 REGISTER NOW

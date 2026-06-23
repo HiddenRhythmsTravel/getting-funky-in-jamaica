@@ -80,29 +80,8 @@ const formatCaption = (filename: string) => {
 export default function GalleryPage() {
   const [shuffledTiles, setShuffledTiles] = useState<ImageItem[]>([]);
   const [slideshowItems, setSlideshowItems] = useState<ImageItem[]>(fullDatabaseImport as ImageItem[]);
-  const { forceGalleryTrack, pause, resume, isUnlocked } = useAudio();
-  const gridRef = useRef<HTMLDivElement>(null);
+  const { pause, resume, isUnlocked } = useAudio();
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          forceGalleryTrack();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (gridRef.current) {
-      observer.observe(gridRef.current);
-    }
-
-    return () => {
-      if (gridRef.current) {
-        observer.unobserve(gridRef.current);
-      }
-    };
-  }, [forceGalleryTrack]);
   const [currentLightboxIndex, setCurrentLightboxIndex] = useState<number>(0);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
@@ -275,7 +254,7 @@ export default function GalleryPage() {
         </div>
 
         {/* 21-Tile Uniform Instagram Grid (3 Cols Mobile / 7 Cols Desktop) */}
-        <div ref={gridRef} className="grid grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
           {shuffledTiles.map((tile, index) => (
             <motion.div
               key={tile.src}

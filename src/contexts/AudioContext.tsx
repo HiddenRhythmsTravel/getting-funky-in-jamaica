@@ -7,12 +7,11 @@ interface AudioContextType {
   isMuted: boolean;
   isUnlocked: boolean;
   currentTrackIndex: number | null;
+  isPlayerMinimized: boolean;
+  setIsPlayerMinimized: (minimized: boolean) => void;
   toggleMute: () => void;
   unlockAndPlay: () => void;
-  forceVIPTrack: () => void;
-  forceGalleryTrack: () => void;
-  playReelOverride: () => void;
-  playRegistrationOverride: () => void;
+  replayActiveTrack: () => void;
   pause: () => void;
   resume: () => void;
   playNextTrack: () => void;
@@ -38,6 +37,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isMuted, setIsMuted] = useState(true); // Loads muted by default
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(0); // Initialize as 0 to show first track info
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isPlayerMinimized, setIsPlayerMinimized] = useState(true);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isTransitioningRef = useRef(false);
@@ -51,11 +51,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     audio.volume = 0.0;
     audioRef.current = audio;
 
-    // Handle track completion (Playlist chaining: 1 -> 2 -> 3 -> 1)
+    // Handle track completion (stop playback and expand player widget)
     const handleEnded = () => {
-      if (currentTrackIndex === null) return;
-      const nextIndex = (currentTrackIndex + 1) % TRACK_LIST.length;
-      crossfadeToTrack(nextIndex, 0, false, true);
+      setIsPlaying(false);
+      setIsPlayerMinimized(false);
     };
 
     audio.addEventListener("ended", handleEnded);
@@ -67,7 +66,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         clearInterval(fadeIntervalRef.current);
       }
     };
-  }, [currentTrackIndex]);
+  }, []);
 
   // Sync mute state
   useEffect(() => {
@@ -220,26 +219,27 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const forceVIPTrack = () => {
-    if (currentTrackIndex === 1 && audioRef.current && !audioRef.current.paused) return;
+  const replayActiveTrack = () => {
+    if (!audioRef.current || currentTrackIndex === null) return;
+
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+      fadeIntervalRef.current = null;
+    }
+
+    const audio = audioRef.current;
+    audio.currentTime = 0;
     setIsMuted(false);
-    setIsUnlocked(true);
-    crossfadeToTrack(1, 0, false, true);
-  };
+    audio.muted = false;
+    audio.volume = 0.45;
 
-  const forceGalleryTrack = () => {
-    if (currentTrackIndex === 2 && audioRef.current && !audioRef.current.paused) return;
-    setIsMuted(false);
-    setIsUnlocked(true);
-    crossfadeToTrack(2, 0, false, true);
-  };
-
-  const playReelOverride = () => {
-    forceVIPTrack();
-  };
-
-  const playRegistrationOverride = () => {
-    forceVIPTrack();
+    audio.play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch((err) => {
+        console.log("Replay failed:", err);
+      });
   };
 
   const pause = () => {
@@ -278,12 +278,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         isMuted,
         isUnlocked,
         currentTrackIndex,
+        isPlayerMinimized,
+        setIsPlayerMinimized,
         toggleMute,
         unlockAndPlay,
-        forceVIPTrack,
-        forceGalleryTrack,
-        playReelOverride,
-        playRegistrationOverride,
+        replayActiveTrack,
         pause,
         resume,
         playNextTrack,
