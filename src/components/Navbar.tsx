@@ -53,12 +53,15 @@ export function Navbar() {
             href="https://hiddenrhythmstravel.com/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="block relative w-32 h-9 md:w-40 md:h-11 transition-transform hover:scale-105"
+            className="block transition-transform hover:scale-105"
+            style={{ height: "50px" }}
           >
             <Image
               src="/assets/logo_transparent.png"
-              alt="Hidden Rhythms Website"
-              fill
+              alt="Hidden Rhythms"
+              width={169}
+              height={50}
+              style={{ maxHeight: "50px", width: "auto" }}
               className="object-contain"
               priority
             />

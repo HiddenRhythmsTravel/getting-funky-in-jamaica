@@ -149,10 +149,12 @@ html {
 
 h1, h2, h3, h4, h5, h6, 
 [class*="title"], [class*="heading"], 
-.timeline-year-title, .hero-main-text {
+.timeline-year-title, .hero-main-text,
+.section-title, .itinerary-day-header {
   font-family: 'Carla Sans', serif !important;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 
