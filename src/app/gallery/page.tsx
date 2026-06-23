@@ -53,6 +53,12 @@ const isVideo = (src: string) => {
   return ext === "mov" || ext === "mp4";
 };
 
+const formatCaption = (filename: string) => {
+  if (!filename) return "";
+  const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
+  return nameWithoutExt.replace(/[_-]/g, " ");
+};
+
 export default function GalleryPage() {
   const [shuffledTiles, setShuffledTiles] = useState<ImageItem[]>([]);
   const [slideshowItems, setSlideshowItems] = useState<ImageItem[]>(fullDatabaseImport as ImageItem[]);
@@ -239,7 +245,7 @@ export default function GalleryPage() {
               ) : (
                 <Image
                   src={tile.src}
-                  alt={tile.original_name}
+                  alt={formatCaption(tile.original_name)}
                   fill
                   sizes="(max-width: 640px) 33vw, (max-width: 1024px) 15vw, 12vw"
                   className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -253,8 +259,8 @@ export default function GalleryPage() {
                   <Calendar size={10} />
                   <span>{YEAR_LABELS[tile.year] || tile.year}</span>
                 </div>
-                <p className="text-[8px] text-brand-white/60 mt-1 truncate" title={tile.original_name}>
-                  {tile.original_name}
+                <p className="text-[8px] text-brand-white/60 mt-1 truncate" title={formatCaption(tile.original_name)}>
+                  {formatCaption(tile.original_name)}
                 </p>
               </div>
             </motion.div>
@@ -326,7 +332,7 @@ export default function GalleryPage() {
                     ) : (
                       <img
                         src={slideshowItems[currentLightboxIndex].src}
-                        alt={slideshowItems[currentLightboxIndex].original_name}
+                        alt={formatCaption(slideshowItems[currentLightboxIndex].original_name)}
                         className="max-h-[70vh] max-w-[85vw] object-contain rounded-2xl shadow-2xl border border-brand-white/10"
                       />
                     )}
@@ -346,7 +352,7 @@ export default function GalleryPage() {
 
             {/* Bottom Caption */}
             <div className="text-center px-6 max-w-xl font-sans text-xs text-brand-white/60 truncate">
-              {slideshowItems[currentLightboxIndex].original_name}
+              {formatCaption(slideshowItems[currentLightboxIndex].original_name)}
             </div>
 
           </motion.div>

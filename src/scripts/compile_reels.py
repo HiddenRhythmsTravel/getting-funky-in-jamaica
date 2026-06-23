@@ -4,12 +4,12 @@ import subprocess
 import json
 import random
 
-ffmpeg_path = "/Users/adamlinderman/.gemini/antigravity/playground/Hidden Rhythms website/ffmpeg"
+ffmpeg_path = "/Users/adamlinderman/Library/Python/3.14/lib/python/site-packages/imageio_ffmpeg/binaries/ffmpeg-macos-aarch64-v7.1"
 base_src_dir = "/Users/adamlinderman/Library/CloudStorage/GoogleDrive-adam@cubaeducationaltravel.com/My Drive/1. Travel Operations Folder/13. Jamaica HR/Getting Funky Website Build/04 Gallery Slideshow"
 dest_reels_dir = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels"
 temp_dir = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/scripts/temp"
 
-folders = ["2020", "2023", "2024", "2025", "2025 - Medellin", "2026"]
+folders = ["2020", "2026"]
 output_names = {
     "2020": "2020.mp4",
     "2023": "2023.mp4",
@@ -26,8 +26,18 @@ TARGET_DURATION = 40.0
 # Keep track of video segment timestamps to generate JSON metadata for frontend audio ducking
 ducking_metadata = {}
 
+def get_media_path(file_path, folder_name):
+    filename = os.path.basename(file_path)
+    base_name, ext = os.path.splitext(filename)
+    if ext.lower() in ['.png', '.jpg', '.jpeg', '.webp', '.heic']:
+        local_dir = f"/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/gallery-all/{folder_name.lower()}"
+        local_jpg = os.path.join(local_dir, f"{base_name}.jpg")
+        if os.path.exists(local_jpg):
+            return local_jpg
+    return file_path
+
 def compile_clip(item, index, folder_name):
-    fpath = item["path"]
+    fpath = get_media_path(item["path"], folder_name)
     media_type = item["type"]
     
     os.makedirs(temp_dir, exist_ok=True)
@@ -39,8 +49,8 @@ def compile_clip(item, index, folder_name):
     # 3. Overlay the clean centered foreground on the blurred background.
     vertical_pad_filter = (
         "split[bg_in][fg_in];"
-        "[bg_in]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5[bg];"
-        "[fg_in]scale=1080:1920:force_original_aspect_ratio=decrease[fg];"
+        "[bg_in]scale=540:960:force_original_aspect_ratio=increase,crop=540:960,boxblur=30:5[bg];"
+        "[fg_in]scale=540:960:force_original_aspect_ratio=decrease[fg];"
         "[bg][fg]overlay=(W-w)/2:(H-h)/2,setsar=1"
     )
     
@@ -60,7 +70,7 @@ def compile_clip(item, index, folder_name):
         except Exception as e:
             print(f"      Error reading image size with PIL: {e}. Defaulting to blur pad.")
             
-        img_filter = vertical_pad_filter if use_blur_pad else "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1"
+        img_filter = vertical_pad_filter if use_blur_pad else "scale=540:960:force_original_aspect_ratio=increase,crop=540:960,setsar=1"
         
         cmd = [
             ffmpeg_path, "-y",
@@ -127,11 +137,7 @@ def compile_reel(folder):
     for file in sorted(os.listdir(folder_path)):
         if file.startswith('.'):
             continue
-        # Exclude glitched files for 2020 folder (e.g. MOV, screenshots, WhatsApp files)
-        if folder == "2020":
-            if file.lower().endswith('.mov') or 'screenshot' in file.lower() or 'whatsapp' in file.lower():
-                print(f"  Excluding glitched file from 2020 reel: {file}")
-                continue
+        pass
         fpath = os.path.join(folder_path, file)
         if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.heic')):
             images.append({"path": fpath, "type": "image"})
@@ -204,8 +210,8 @@ def compile_reel(folder):
         ffmpeg_path, "-y",
         "-i", intermediate_path,
         "-t", str(total_dur),
-        "-c:v", "libx264", "-profile:v", "high", "-level", "4.0", "-crf", "18",
-        "-movflags", "+faststart",
+        "-c:v", "libx264", "-profile:v", "high", "-level", "4.0", "-crf", "26",
+        "-preset", "faster", "-movflags", "+faststart",
         "-c:a", "aac", "-b:a", "128k",
         out_path
     ]
@@ -240,10 +246,19 @@ if __name__ == "__main__":
         compile_reel(folder)
         
     # Write metadata JSON file for frontend audio ducking
-    metadata_json_path = os.path.join(os.path.dirname(dest_reels_dir), "reels-metadata.json")
     dest_metadata_json = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/data/reels-metadata.json"
+    if os.path.exists(dest_metadata_json):
+        try:
+            with open(dest_metadata_json, 'r') as f:
+                existing_metadata = json.load(f)
+        except Exception as e:
+            print(f"Error loading metadata: {e}")
+            existing_metadata = {}
+    else:
+        existing_metadata = {}
+    existing_metadata.update(ducking_metadata)
     with open(dest_metadata_json, 'w') as f:
-        json.dump(ducking_metadata, f, indent=2)
+        json.dump(existing_metadata, f, indent=2)
     print(f"\nSuccessfully wrote reels metadata to {dest_metadata_json}")
     
     # Cleanup temp dir
