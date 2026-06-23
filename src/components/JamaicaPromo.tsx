@@ -6,7 +6,7 @@ import { Play, Pause, Volume2, VolumeX, Sparkles, MapPin } from "lucide-react";
 import { useAudio } from "@/contexts/AudioContext";
 
 export function JamaicaPromo() {
-  const { isMuted, isPlaying, toggleMute, playRegistrationOverride } = useAudio();
+  const { isMuted, isPlaying, toggleMute } = useAudio();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Autoplay the video visually on mount
@@ -87,11 +87,7 @@ export function JamaicaPromo() {
               <div 
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (isMuted) {
-                    playRegistrationOverride();
-                  } else {
-                    toggleMute();
-                  }
+                  toggleMute();
                 }}
                 className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 cursor-pointer"
               >

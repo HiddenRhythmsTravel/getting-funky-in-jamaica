@@ -12,7 +12,7 @@ export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isMuted, toggleMute, playRegistrationOverride } = useAudio();
+  const { isMuted, toggleMute, forceVIPTrack, forceGalleryTrack } = useAudio();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -99,7 +99,9 @@ export function Navbar() {
               href={link.href} 
               onClick={() => {
                 if (link.name === "VIP Program" || link.name === "Register Now") {
-                  playRegistrationOverride();
+                  forceVIPTrack();
+                } else if (link.name === "Gallery") {
+                  forceGalleryTrack();
                 }
               }}
               className={`relative group py-2 ${
@@ -125,7 +127,7 @@ export function Navbar() {
           <Link
             href="/#register"
             onClick={() => {
-              playRegistrationOverride();
+              forceVIPTrack();
             }}
             className="px-5 py-2.5 rounded-full border border-brand-gold text-brand-green bg-brand-gold font-bold tracking-widest text-[10px] hover:bg-brand-green hover:text-brand-gold hover:border-brand-gold transition-all duration-300 shadow-md"
           >
@@ -181,7 +183,9 @@ export function Navbar() {
                   onClick={() => {
                     setMobileMenuOpen(false);
                     if (link.name === "VIP Program") {
-                      playRegistrationOverride();
+                      forceVIPTrack();
+                    } else if (link.name === "Gallery") {
+                      forceGalleryTrack();
                     }
                   }}
                   className="hover:text-brand-gold transition-colors"
@@ -193,7 +197,7 @@ export function Navbar() {
                 href="/#register"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  playRegistrationOverride();
+                  forceVIPTrack();
                 }}
                 className="w-full text-center py-3.5 rounded-full border border-brand-gold text-brand-gold font-bold tracking-widest bg-brand-gold/5 hover:bg-brand-gold hover:text-brand-green transition-all"
               >

@@ -9,6 +9,8 @@ interface AudioContextType {
   currentTrackIndex: number | null;
   toggleMute: () => void;
   unlockAndPlay: () => void;
+  forceVIPTrack: () => void;
+  forceGalleryTrack: () => void;
   playReelOverride: () => void;
   playRegistrationOverride: () => void;
   pause: () => void;
@@ -27,19 +29,18 @@ const TRACK_LIST = [
 
 export const TRACK_METADATA = [
   { title: "Juicy Fruit", artist: "Bacao Rhythm & Steel Band" },
-  { title: "I Don't Care", artist: "Cimafunk, George Clinton, Nik West, Trombone Shorty" },
-  { title: "Carnival Horns", artist: "Mista Savona Session" },
+  { title: "I Don't Care", artist: "Cimafunk ft. Nik West" },
+  { title: "Carnival Horns", artist: "Mista Nova Session" },
 ];
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Loads muted by default
-  const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(null);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(0); // Initialize as 0 to show first track info
   const [isUnlocked, setIsUnlocked] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isTransitioningRef = useRef(false);
-  const isReelOverrideRef = useRef(false);
 
   // Initialize audio element on client mount
   useEffect(() => {
@@ -48,20 +49,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     audio.volume = 0.0;
     audioRef.current = audio;
 
-    // Handle track completion (Playlist chaining)
+    // Handle track completion (Playlist chaining: 1 -> 2 -> 3 -> 1)
     const handleEnded = () => {
       if (currentTrackIndex === null) return;
-      
-      if (currentTrackIndex === 0) {
-        if (isReelOverrideRef.current) {
-          isReelOverrideRef.current = false;
-          crossfadeToTrack(2, 0, false); // Post-reel-track: queue Carnival Horns
-        } else {
-          crossfadeToTrack(1, 0, false); // Sequential track: play I Don't Care
-        }
-      } else if (currentTrackIndex === 1) {
-        crossfadeToTrack(2, 0, false); // Sequential track: play Carnival Horns
-      }
+      const nextIndex = (currentTrackIndex + 1) % TRACK_LIST.length;
+      crossfadeToTrack(nextIndex, 0, false, true);
     };
 
     audio.addEventListener("ended", handleEnded);
@@ -79,7 +71,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [isMuted]);
 
   // Smooth crossfade function
-  const crossfadeToTrack = (trackIndex: number, startTime: number = 0, loop: boolean = false) => {
+  const crossfadeToTrack = (trackIndex: number, startTime: number = 0, loop: boolean = false, forcePlay: boolean = false) => {
     if (!audioRef.current || isTransitioningRef.current) return;
     
     isTransitioningRef.current = true;
@@ -106,8 +98,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         audio.loop = loop;
         setCurrentTrackIndex(trackIndex);
         
-        // 3. Play and Fade in new track (if unmuted)
-        if (!isMuted) {
+        // 3. Play and Fade in new track
+        const shouldPlay = forcePlay || !isMuted;
+        if (shouldPlay) {
+          if (forcePlay) {
+            audio.muted = false;
+          }
           audio.play()
             .then(() => {
               setIsPlaying(true);
@@ -138,32 +134,23 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (isUnlocked || !audioRef.current) return;
     
     const audio = audioRef.current;
+    audio.src = TRACK_LIST[0];
+    audio.loop = false;
+    audio.volume = 0.50;
+    audio.currentTime = 0;
+    setCurrentTrackIndex(0);
     
-    // Only initialize source if not set
-    if (!audio.src || audio.src === "") {
-      audio.src = TRACK_LIST[0];
-      audio.loop = false;
-      audio.volume = 0.50;
-      audio.currentTime = 0;
-      setCurrentTrackIndex(0);
-    } else {
-      audio.currentTime = 0;
-    }
-    
-    // Temporarily unmute to attempt playback
     setIsMuted(false);
     audio.muted = false;
     
     audio.play()
       .then(() => {
         setIsPlaying(true);
-        setIsUnlocked(true); // Lock as successfully unlocked
-        console.log("Audio successfully unlocked and playing Track 1 starting at 0:00");
+        setIsUnlocked(true);
+        console.log("Audio successfully unlocked and playing Track 1 Juicy Fruit starting at 0:00");
       })
       .catch((err) => {
-        // If blocked by browser (e.g. scroll is not considered a gesture),
-        // we keep isUnlocked = false so the next click/touch can trigger it.
-        console.log("Autoplay blocked, waiting for click/touch gesture:", err);
+        console.log("Autoplay blocked, waiting for gesture:", err);
         setIsMuted(true);
         audio.muted = true;
       });
@@ -176,7 +163,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         audioRef.current.muted = next;
         
         if (!next && audioRef.current.paused) {
-          // If we are unmuting and it's paused, try to unlock/play
           if (!isUnlocked) {
             unlockAndPlay();
           } else {
@@ -190,27 +176,26 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const playReelOverride = () => {
-    if (!audioRef.current) return;
-    
-    if (isMuted) {
-      setIsMuted(false);
-    }
+  const forceVIPTrack = () => {
+    if (currentTrackIndex === 1 && audioRef.current && !audioRef.current.paused) return;
+    setIsMuted(false);
     setIsUnlocked(true);
-    isReelOverrideRef.current = true;
-    
-    crossfadeToTrack(0, 0, false);
+    crossfadeToTrack(1, 0, false, true);
+  };
+
+  const forceGalleryTrack = () => {
+    if (currentTrackIndex === 2 && audioRef.current && !audioRef.current.paused) return;
+    setIsMuted(false);
+    setIsUnlocked(true);
+    crossfadeToTrack(2, 0, false, true);
+  };
+
+  const playReelOverride = () => {
+    forceVIPTrack();
   };
 
   const playRegistrationOverride = () => {
-    if (!audioRef.current) return;
-    
-    if (isMuted) {
-      setIsMuted(false);
-    }
-    setIsUnlocked(true);
-    
-    crossfadeToTrack(2, 0, true);
+    forceVIPTrack();
   };
 
   const pause = () => {
@@ -231,14 +216,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const playNextTrack = () => {
     if (!audioRef.current) return;
     const nextIndex = currentTrackIndex === null ? 0 : (currentTrackIndex + 1) % TRACK_LIST.length;
-    const startTime = nextIndex === 0 ? 54 : 0;
-    const loop = nextIndex === 2; // Loop if Carnival Horns
-    
-    if (isMuted) {
-      setIsMuted(false);
-    }
+    setIsMuted(false);
     setIsUnlocked(true);
-    crossfadeToTrack(nextIndex, startTime, loop);
+    crossfadeToTrack(nextIndex, 0, false, true);
   };
 
   return (
@@ -250,6 +230,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         currentTrackIndex,
         toggleMute,
         unlockAndPlay,
+        forceVIPTrack,
+        forceGalleryTrack,
         playReelOverride,
         playRegistrationOverride,
         pause,

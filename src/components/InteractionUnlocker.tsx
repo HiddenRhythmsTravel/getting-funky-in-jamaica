@@ -15,10 +15,12 @@ export function InteractionUnlocker() {
 
     window.addEventListener("click", handleInteraction, { passive: true });
     window.addEventListener("touchstart", handleInteraction, { passive: true });
+    window.addEventListener("scroll", handleInteraction, { passive: true });
 
     return () => {
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("scroll", handleInteraction);
     };
   }, [unlockAndPlay, isUnlocked]);
 

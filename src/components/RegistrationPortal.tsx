@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Ticket, ShieldCheck, Copy, Check } from "lucide-react";
-import { useAudio } from "@/contexts/AudioContext";
 
 export function RegistrationPortal() {
   const zohoPortalUrl = "https://forms.zohopublic.com/caribbeanexecutivetravel1/form/HRTTravelRegistration/formperma/SHoOEyI-cABdddRGuEWJtOC16QHkqKNZAqN8ONrdI6M";
-  const { playRegistrationOverride } = useAudio();
   
   const [copied, setCopied] = useState(false);
 
@@ -24,13 +22,10 @@ export function RegistrationPortal() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         
-        {/* Main Card with viewport scroll trigger for audio override */}
+        {/* Main Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          onViewportEnter={() => {
-            playRegistrationOverride();
-          }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8 }}
           className="relative glass-card p-8 md:p-16 rounded-3xl border border-brand-gold/30 shadow-2xl overflow-hidden flex flex-col items-center text-center"

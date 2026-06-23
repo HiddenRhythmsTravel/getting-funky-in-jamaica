@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Calendar, Instagram, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { useAudio } from "@/contexts/AudioContext";
 import fullDatabaseImport from "@/data/gallery-images.json";
 
 interface ImageItem {
@@ -50,6 +51,29 @@ const permanentAssets: ImageItem[] = [
 export default function GalleryPage() {
   const [shuffledTiles, setShuffledTiles] = useState<ImageItem[]>([]);
   const [slideshowItems, setSlideshowItems] = useState<ImageItem[]>(fullDatabaseImport as ImageItem[]);
+  const { forceGalleryTrack } = useAudio();
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          forceGalleryTrack();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (gridRef.current) {
+      observer.observe(gridRef.current);
+    }
+
+    return () => {
+      if (gridRef.current) {
+        observer.unobserve(gridRef.current);
+      }
+    };
+  }, [forceGalleryTrack]);
   const [currentLightboxIndex, setCurrentLightboxIndex] = useState<number>(0);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
@@ -167,7 +191,7 @@ export default function GalleryPage() {
         </div>
 
         {/* 21-Tile Uniform Instagram Grid (3 Cols Mobile / 7 Cols Desktop) */}
-        <div className="grid grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
+        <div ref={gridRef} className="grid grid-cols-3 md:grid-cols-7 gap-3 sm:gap-4">
           {shuffledTiles.map((tile, index) => (
             <motion.div
               key={tile.src}

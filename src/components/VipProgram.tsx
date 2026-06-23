@@ -1,11 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Building2, ShieldCheck, ArrowRight, Clock, MapPin, CheckCircle2 } from "lucide-react";
+import { useAudio } from "@/contexts/AudioContext";
 
 export function VipProgram() {
   const [activeTab, setActiveTab] = useState<"itinerary" | "lodging" | "packages">("itinerary");
+  const { forceVIPTrack } = useAudio();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          forceVIPTrack();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [forceVIPTrack]);
 
   const itineraryDays = [
     {
@@ -92,7 +116,7 @@ export function VipProgram() {
   ];
 
   return (
-    <section id="vip" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
+    <section ref={sectionRef} id="vip" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
       {/* Background Cover Overlay */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#0b4745_80%)] z-10"></div>
