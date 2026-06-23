@@ -29,6 +29,8 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     *   Loads the full 750+ image database from [gallery-images.json](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/data/gallery-images.json).
     *   Starts the slideshow exactly at the index of the clicked item (matching by file base name; if not found, it prepends the asset and starts at 0).
     *   Supports click navigation (Next/Previous Chevron buttons), keyboard arrow keys navigation (`ArrowLeft` / `ArrowRight` / `Escape`), and mobile swipe gestures (via touch events `onTouchStart`, `onTouchMove`, `onTouchEnd`).
+    *   **Audio Coordination & Conflict Resolution**: Automatically pauses the global background playlist audio and caches the exact playhead position (`currentTime`) when opening or swiping onto a video slide, unmuting the native video clip audio. Seamlessly resumes background audio from the cached timestamp upon swiping to a static image slide or closing the lightbox entirely.
+
 
 ### 4. Floating Global Audio Player
 *   **Omnipresent Widget**: Inserted the `GlobalAudioPlayer` component in the root [layout.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/layout.tsx), ensuring it floats cleanly at the bottom-left on all pages.
