@@ -25,27 +25,28 @@ const YEAR_LABELS: Record<string, string> = {
 };
 
 const permanentAssets: ImageItem[] = [
-  { src: "/assets/gallery/permanent/Brass Band Colombia New Orleans.MOV", year: "2025-medellin", original_name: "Brass Band Colombia New Orleans" },
-  { src: "/assets/gallery/permanent/DSC01595.jpeg", year: "2020", original_name: "DSC01595" },
-  { src: "/assets/gallery/permanent/EdAranz_DSC4796.jpg", year: "2024", original_name: "EdAranz_DSC4796" },
-  { src: "/assets/gallery/permanent/EdAranz_DSC8692.jpg", year: "2023", original_name: "EdAranz_DSC8692" },
-  { src: "/assets/gallery/permanent/EdAranz_dsc1831.jpg", year: "2024", original_name: "EdAranz_dsc1831" },
-  { src: "/assets/gallery/permanent/IMG_1462.mov", year: "2026", original_name: "IMG_1462" },
-  { src: "/assets/gallery/permanent/IMG_4832.jpg", year: "2025", original_name: "IMG_4832" },
-  { src: "/assets/gallery/permanent/IMG_9942.mov", year: "2025", original_name: "IMG_9942" },
-  { src: "/assets/gallery/permanent/L1009310.jpg", year: "2025", original_name: "L1009310" },
-  { src: "/assets/gallery/permanent/L1009570.jpg", year: "2025", original_name: "L1009570" },
-  { src: "/assets/gallery/permanent/L1009713.jpg", year: "2025", original_name: "L1009713" },
-  { src: "/assets/gallery/permanent/MCW_8329.jpg", year: "2020", original_name: "MCW_8329" },
-  { src: "/assets/gallery/permanent/Tropical Crowd.jpg", year: "2020", original_name: "Tropical Crowd" },
-  { src: "/assets/gallery/permanent/_DSC8517.jpg", year: "2025", original_name: "_DSC8517" },
-  { src: "/assets/gallery/permanent/_DSC8773.jpg", year: "2024", original_name: "_DSC8773" },
-  { src: "/assets/gallery/permanent/_DSC9427.webp", year: "2024", original_name: "_DSC9427" },
-  { src: "/assets/gallery/permanent/box4_img_0.jpg", year: "2025", original_name: "box4_img_0" },
-  { src: "/assets/gallery/permanent/box6_img_15.mp4", year: "2025", original_name: "box6_img_15" },
-  { src: "/assets/gallery/permanent/mcw_9379.jpg", year: "2020", original_name: "mcw_9379" },
-  { src: "/assets/gallery/permanent/mcw_9611.jpg", year: "2020", original_name: "mcw_9611" },
-  { src: "/assets/gallery/permanent/yarini_32A5480.jpg", year: "2026", original_name: "yarini_32A5480" }
+  { src: "/assets/gallery/permanent/Alain Perez at Ampitheatre.jpg", year: "2025", original_name: "Alain Perez at Ampitheatre.jpg" },
+  { src: "/assets/gallery/permanent/Carlos Varela.jpg", year: "2024", original_name: "Carlos Varela.jpg" },
+  { src: "/assets/gallery/permanent/Cimafunk and Pedrito Martinez.jpg", year: "2025", original_name: "Cimafunk and Pedrito Martinez.jpg" },
+  { src: "/assets/gallery/permanent/Cimafunk, George Clinton, Taj Mahal and Trombone Shorty.jpg", year: "2025", original_name: "Cimafunk, George Clinton, Taj Mahal and Trombone Shorty.jpg" },
+  { src: "/assets/gallery/permanent/Conga Line at Yarini.jpg", year: "2026", original_name: "Conga Line at Yarini.jpg" },
+  { src: "/assets/gallery/permanent/George Clinton and Cimafunk.jpg", year: "2025", original_name: "George Clinton and Cimafunk.jpg" },
+  { src: "/assets/gallery/permanent/George Clinton and Taj Mahal.jpeg", year: "2025", original_name: "George Clinton and Taj Mahal.jpeg" },
+  { src: "/assets/gallery/permanent/Habana D'Primera.mp4", year: "2024", original_name: "Habana D'Primera.mp4" },
+  { src: "/assets/gallery/permanent/Masterclass with Aurelien Barnes.jpg", year: "2026", original_name: "Masterclass with Aurelien Barnes.jpg" },
+  { src: "/assets/gallery/permanent/Music Mentorship in Action.mov", year: "2026", original_name: "Music Mentorship in Action.mov" },
+  { src: "/assets/gallery/permanent/Pedrito Martinez Jam.jpg", year: "2025", original_name: "Pedrito Martinez Jam.jpg" },
+  { src: "/assets/gallery/permanent/Second Line in Havana.jpg", year: "2020", original_name: "Second Line in Havana.jpg" },
+  { src: "/assets/gallery/permanent/Super Jam Colombian style with La Bampayera, El Niko Arias, Cimafunk, and Wampi.MOV", year: "2025-medellin", original_name: "Super Jam Colombian style with La Bampayera, El Niko Arias, Cimafunk, and Wampi.MOV" },
+  { src: "/assets/gallery/permanent/Superjam with Big Freedia at FAC.mov", year: "2024", original_name: "Superjam with Big Freedia at FAC.mov" },
+  { src: "/assets/gallery/permanent/Taj Mahal Sunset session.jpg", year: "2025", original_name: "Taj Mahal Sunset session.jpg" },
+  { src: "/assets/gallery/permanent/Trombone Shorty Instrument Donation.jpg", year: "2026", original_name: "Trombone Shorty Instrument Donation.jpg" },
+  { src: "/assets/gallery/permanent/Trombone Shorty at Tropical.webp", year: "2024", original_name: "Trombone Shorty at Tropical.webp" },
+  { src: "/assets/gallery/permanent/Trombone Shorty in Centro Habana.jpg", year: "2020", original_name: "Trombone Shorty in Centro Habana.jpg" },
+  { src: "/assets/gallery/permanent/Trombone Shorty.jpg", year: "2020", original_name: "Trombone Shorty.jpg" },
+  { src: "/assets/gallery/permanent/Tropical Crowd.jpg", year: "2020", original_name: "Tropical Crowd.jpg" },
+  { src: "/assets/gallery/permanent/Victor Campbell on the keys.jpeg", year: "2025-medellin", original_name: "Victor Campbell on the keys.jpeg" },
+  { src: "/assets/gallery/permanent/Wampi at Tropical.jpg", year: "2026", original_name: "Wampi at Tropical.jpg" }
 ];
 
 const isVideo = (src: string) => {
@@ -56,7 +57,24 @@ const isVideo = (src: string) => {
 const formatCaption = (filename: string) => {
   if (!filename) return "";
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-  return nameWithoutExt.replace(/[_-]/g, " ");
+  const rawSpaced = nameWithoutExt.replace(/[_-]/g, " ").replace(/%20/g, " ");
+  
+  return rawSpaced
+    .split(/\s+/)
+    .map(word => {
+      if (!word) return "";
+      const lower = word.toLowerCase();
+      const skipWords = ["and", "at", "on", "the", "in", "with", "ft", "of", "to", "by", "for", "from"];
+      if (skipWords.includes(lower)) {
+        return lower;
+      }
+      if (["fac", "gf", "tsf", "nola"].includes(lower)) {
+        return word.toUpperCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ")
+    .replace(/^\w/, c => c.toUpperCase());
 };
 
 export default function GalleryPage() {
