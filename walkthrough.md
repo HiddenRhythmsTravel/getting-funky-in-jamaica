@@ -36,14 +36,18 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     *   *Minimized*: A small circular button featuring a custom CSS equalizer animation that pulses matching the track play state.
     *   *Maximized*: A glassmorphic card showcasing the current track's title, artists list, and a spinning record CD icon.
 *   **Controls**: Exposes options to toggle **Mute/Unmute** (syncs globally with all sections) and **Next Track** (which loops through the playlist).
+*   **Track 1 Swap**: Overwrote the Track 1 audio asset with "Bacao Rhythm & Steel Band - Juicy Fruit - BC124-45 - Side B.mp3" and set the starting playhead to `0:00` for first-load and timeline overrides.
+*   **Metadata Integration**: Displays "Juicy Fruit" and "Bacao Rhythm & Steel Band" in the floating player details.
 *   **Equalizer CSS**: Added custom `@keyframes equalizer` animation parameters in [globals.css](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/globals.css) to drive the playback visuals.
 
-### 5. Year & Timeline Section Optimization
-*   **Multi-Orientation Media Fitting**: Rewrote the layout system in [TimelineGallery.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/TimelineGallery.tsx) to conditionally render vertical and horizontal assets differently:
-    *   *Desktop Viewport*: Vertical (9:16) clips render as a balanced 50/50 two-column grid. The video frame fills the left half cleanly with a height of `75vh` (`object-fit: cover; object-position: center;`) with no letterboxing, while the text content and controls occupy the right half.
-    *   *Mobile Viewport*: Vertical clips scale to `w-full` (`100vw`) and `65vh` height. The year title and descriptive paragraphs layer over the bottom 30% of the video loop backdrop, styled with a glassmorphic gradient vignette overlay to guarantee readability.
-*   **Premium Copy Rewrite**: Replaced all previous description copy strings inside the timeline module with the grammatically corrected, polished premium-grade text blocks for all years (2020, 2023, 2024, 2025, 2025 Medellín, 2026).
-*   **Slight Edit to 2020**: Adjusted the first sentence of the 2020 slide description paragraph to replace the em-dash with a comma: *"In January 2020, our inaugural trip proved to be far more than a travel experience, it was a life-changing expedition."*
+### 5. Year & Timeline Section Layout Refactoring
+*   **Elimination of Hover Overlays**: Completely removed the "Play Reel Sound" overlay block from [TimelineGallery.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/TimelineGallery.tsx) to ensure the reels remain clean and visually unencumbered.
+*   **Global Zero-Margin Spacing Reset**: Applied a strict layout reset on the main timeline container, individual year grid rows, media wrappers, and underlying card columns. Set `margin: 0 !important; padding: 0 !important; width: 100%; max-width: 100% !important; border: none; border-radius: 0;` globally to achieve a seamless, edge-to-edge cinematic aesthetic.
+*   **Centered Mobile Layout Structure**: Restructured viewports under 768px wide into a centered column layout (`display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100vw;`) with zero margins.
+*   **Dynamic Video Orientation Sizing**: Scaled vertical reels to `width: 100vw; height: 65vh;` and horizontal reels to `width: 100vw; height: 45vh;` on mobile with `object-fit: cover;` to center the video content perfectly on the screen.
+*   **Seamless Desktop Split Layout**: Enforced a perfect 50/50 split on desktop screens (>=768px) where the left media column binds to the absolute left edge of the display, the right narrative column binds to the absolute right edge, and they meet in the center with zero pixels of separation.
+*   **Premium Copy & Grammatical Refinement**: Integrated premium copy descriptions across all project years (2020–2026) with the em-dash edit for 2020 (*"travel experience, it was"*).
+
 
 ### 6. Day-to-Day Itinerary Program Details
 *   **Updated Itinerary**: Replaced the Day 1 and Day 2 itinerary program descriptions in [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) to match the new user specifications (Dinner Reception on Ashe Company grounds, optional late-night live music event, Trench Town visit with the Ghetto Youth Foundation and music education discussion panel, and lunch/performances at Haile Selassie High School).

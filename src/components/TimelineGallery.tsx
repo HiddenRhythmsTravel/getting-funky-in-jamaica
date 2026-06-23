@@ -71,6 +71,7 @@ export function TimelineGallery() {
   const [direction, setDirection] = useState(0);
   const [localPlaying, setLocalPlaying] = useState(false);
   const [sectionInView, setSectionInView] = useState(false);
+  const [isVertical, setIsVertical] = useState(true);
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -157,10 +158,53 @@ export function TimelineGallery() {
     <section 
       id="gallery" 
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5"
+      className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-0 w-full max-w-full m-0 p-0"
     >
+      <style>{`
+        .timeline-main-container {
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          border: none !important;
+          border-radius: 0 !important;
+        }
+        .timeline-grid-row {
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          border: none !important;
+          border-radius: 0 !important;
+        }
+        .timeline-media-wrapper,
+        .timeline-card-column {
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          border-radius: 0 !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+        }
+        @media (min-width: 768px) {
+          .timeline-main-container {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .timeline-grid-row {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .timeline-media-wrapper,
+          .timeline-card-column {
+            width: 50% !important;
+            max-width: 50% !important;
+          }
+        }
+      `}</style>
+
+      {/* Header & Nav container: retains standard centered grid layout */}
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <span className="font-sans text-[10px] md:text-xs text-brand-gold font-bold tracking-[0.25em] uppercase mb-3 block">
@@ -205,91 +249,49 @@ export function TimelineGallery() {
             ))}
           </div>
         </div>
-             {/* Immersive Conditional Player Container */}
-        <div className="relative bg-brand-dark-accent/30 border border-brand-white/5 rounded-3xl overflow-hidden shadow-xl min-h-[520px]">
+      </div>
+
+      {/* Immersive Zero-Margin Split Layer */}
+      <div 
+        id="timeline-main-container"
+        className="timeline-main-container relative bg-brand-dark-accent/30 overflow-hidden shadow-none min-h-[520px]"
+      >
+        <div className="timeline-grid-row flex flex-col md:flex-row items-stretch min-h-[500px]">
           
-          <div className="flex flex-col lg:flex-row items-stretch min-h-[500px]">
+          {/* Left Column (Media): stretches 50% width / 75vh on desktop, 100vw / 65vh or 45vh on mobile */}
+          <div className={`timeline-media-wrapper relative overflow-hidden group/reel order-1 ${
+            isVertical ? "h-[65vh]" : "h-[45vh]"
+          } md:h-[75vh]`}>
+            {/* Looping video player */}
+            <video
+              ref={videoRef}
+              src={`/assets/reels/${currentSlide.reelFile}`}
+              loop
+              playsInline
+              muted={true}
+              onLoadedMetadata={(e) => {
+                const video = e.currentTarget;
+                if (video.videoWidth && video.videoHeight) {
+                  setIsVertical(video.videoWidth / video.videoHeight < 1);
+                }
+              }}
+              className="w-full h-full object-cover object-center transition-all duration-500"
+            />
+
+            {/* Gradient overlay vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:from-black/30 md:via-transparent md:to-black/30 pointer-events-none z-10"></div>
             
-            {/* Left Frame: Vertical video occupying 50% width / 75vh on desktop, 100vw / 65vh on mobile */}
-            <div className="w-full lg:w-1/2 h-[65vh] lg:h-[75vh] relative overflow-hidden group/reel order-1">
-              {/* Looping video player */}
-              <video
-                ref={videoRef}
-                src={`/assets/reels/${currentSlide.reelFile}`}
-                loop
-                playsInline
-                muted={true}
-                className="w-full h-full object-cover object-center transition-all duration-500"
-              />
-
-              {/* Gradient overlay vignette for mobile text overlay readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent lg:from-black/30 lg:via-transparent lg:to-black/30 pointer-events-none z-10"></div>
-              
-              {/* Year Badge */}
-              <div className="absolute top-6 left-6 bg-brand-green/80 backdrop-blur-md border border-brand-white/20 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-brand-gold uppercase z-20">
-                {currentSlide.label}
-              </div>
-
-              {/* Floating Override Button on Hover */}
-              <div 
-                className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover/reel:opacity-100 transition-opacity duration-300 z-20 cursor-pointer"
-                onClick={playReelOverride}
-              >
-                <div className="p-4 rounded-full bg-brand-green/90 border border-brand-white/20 text-brand-gold shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
-                  <Play size={20} fill="currentColor" />
-                  <span className="font-sans text-[10px] font-bold tracking-widest uppercase pr-1">Play Reel Sound</span>
-                </div>
-              </div>
-
-              {/* Mobile Text Overlay (visible only on mobile viewports) */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col justify-end lg:hidden bg-gradient-to-t from-brand-green via-brand-green/90 to-transparent pt-12">
-                <span className="font-sans text-[10px] text-brand-gold font-bold tracking-[0.25em] uppercase mb-1 block">
-                  Expedition Milestone
-                </span>
-                <h3 className="font-serif text-2xl text-brand-heading font-bold mb-2">
-                  {currentSlide.title}
-                </h3>
-                <p className="font-sans text-brand-white/80 text-xs leading-relaxed max-h-[120px] overflow-y-auto pr-1 no-scrollbar mb-4">
-                  {currentSlide.desc}
-                </p>
-
-                {/* Mobile Inline Controls */}
-                <div className="flex items-center justify-between border-t border-brand-white/10 pt-3 mt-1">
-                  <button
-                    onClick={toggleMute}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-brand-gold/40 text-brand-gold bg-brand-gold/5 text-[10px] font-bold uppercase tracking-wider"
-                  >
-                    {isMuted ? <VolumeX size={12} /> : <Volume2 size={12} />}
-                    <span>{isMuted ? "Unmute" : "Mute"}</span>
-                  </button>
-
-                  <div className="flex gap-2">
-                    <button
-                      onClick={toggleVideoPlayback}
-                      className="p-2 rounded-full bg-brand-white/10 text-brand-white"
-                    >
-                      {localPlaying ? <Pause size={12} /> : <Play size={12} />}
-                    </button>
-                    <button
-                      onClick={handlePrev}
-                      className="p-2 rounded-full border border-brand-white/20 text-brand-white bg-brand-green/60"
-                    >
-                      <ArrowLeft size={12} />
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      className="p-2 rounded-full border border-brand-white/20 text-brand-white bg-brand-green/60"
-                    >
-                      <ArrowRight size={12} />
-                    </button>
-                  </div>
-                </div>
-              </div>
+            {/* Year Badge */}
+            <div className="absolute top-6 left-6 bg-brand-green/80 backdrop-blur-md border border-brand-white/20 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-brand-gold uppercase z-20">
+              {currentSlide.label}
             </div>
+          </div>
 
-            {/* Right Column: Description, Title, and Action Controls on Desktop (hidden on mobile) */}
-            <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 order-2 bg-brand-dark-accent/10 border-l border-brand-white/5 relative">
-              <div className="my-auto flex flex-col justify-center max-w-lg mx-auto">
+          {/* Right Column (Narrative): 50% width on desktop, 100vw on mobile, perfectly centered on mobile */}
+          <div className="timeline-card-column flex flex-col justify-between order-2 bg-brand-dark-accent/10 relative min-h-[350px] md:h-[75vh]">
+            {/* Inner padding container to avoid text clipping with padding reset */}
+            <div className="w-full h-full p-8 md:p-12 flex flex-col justify-between items-center text-center md:items-start md:text-left">
+              <div className="my-auto flex flex-col justify-center w-full max-w-lg">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
                     key={currentIndex}
@@ -304,7 +306,7 @@ export function TimelineGallery() {
                     <span className="font-sans text-[10px] text-brand-gold font-bold tracking-[0.25em] uppercase mb-2 block">
                       Expedition Milestone
                     </span>
-                    <h3 className="font-serif text-3xl sm:text-4xl text-brand-heading font-bold mb-5 leading-tight">
+                    <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-brand-heading font-bold mb-5 leading-tight">
                       {currentSlide.title}
                     </h3>
                     <p className="font-sans text-brand-white/80 text-sm md:text-base leading-relaxed mb-8">
@@ -314,10 +316,10 @@ export function TimelineGallery() {
                 </AnimatePresence>
 
                 {/* Status & Control Panel */}
-                <div className="flex flex-col gap-4 border-t border-brand-white/10 pt-6">
+                <div className="flex flex-col items-center md:items-start gap-4 border-t border-brand-white/10 pt-6 w-full">
                   
                   {/* Mute/Unmute Toggle Button */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
                     <button
                       onClick={toggleMute}
                       className="flex items-center gap-3 px-6 py-3 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
@@ -334,12 +336,12 @@ export function TimelineGallery() {
                         </>
                       )}
                     </button>
-                    <span className="font-sans text-[10px] text-brand-white/40 uppercase tracking-widest">
+                    <span className="font-sans text-[10px] text-brand-white/40 uppercase tracking-widest mt-2 sm:mt-0">
                       Toggle Background Music
                     </span>
                   </div>
 
-                  {/* Controls */}
+                  {/* Play/Pause controls */}
                   <div className="flex items-center gap-4 mt-2">
                     <button
                       onClick={toggleVideoPlayback}
@@ -352,8 +354,8 @@ export function TimelineGallery() {
                 </div>
               </div>
 
-              {/* Timeline Navigation Arrows (Desktop position) */}
-              <div className="absolute bottom-8 right-8 z-30 flex gap-3">
+              {/* Timeline Navigation Arrows */}
+              <div className="flex gap-3 mt-8 md:mt-0 md:absolute md:bottom-8 md:right-8 z-30">
                 <button
                   onClick={handlePrev}
                   className="p-3.5 rounded-full border border-brand-white/20 text-brand-white bg-brand-green/60 hover:bg-brand-gold hover:text-brand-green hover:border-transparent transition-all duration-300 focus:outline-none cursor-pointer"
@@ -370,8 +372,8 @@ export function TimelineGallery() {
                 </button>
               </div>
             </div>
-
           </div>
+
         </div>
       </div>
     </section>
