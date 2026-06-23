@@ -27,7 +27,7 @@ export function TimelineGallery() {
       year: "2020",
       label: "2020",
       title: "Getting Funky in Havana",
-      desc: "In January 2020, our inaugural trip proved to be far more than a travel experience—it was a life-changing expedition. Taking place during a pivotal moment for US-Cuba relations and just before the world paused for COVID-19, the journey was anchored by the first historic exchange between the Trombone Shorty Foundation students and their Cuban counterparts. From powerful instrument giveaways at local schools to intimate concerts uniting our musicians, the trip culminated in an iconic street second-line that infused the city of Havana with pure, electric energy.",
+      desc: "In January 2020, our inaugural trip proved to be far more than a travel experience, it was a life-changing expedition. Taking place during a pivotal moment for US-Cuba relations and just before the world paused for COVID-19, the journey was anchored by the first historic exchange between the Trombone Shorty Foundation students and their Cuban counterparts. From powerful instrument giveaways at local schools to intimate concerts uniting our musicians, the trip culminated in an iconic street second-line that infused the city of Havana with pure, electric energy.",
       reelFile: "2020.mp4"
     },
     {
