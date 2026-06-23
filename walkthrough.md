@@ -47,6 +47,8 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 *   **Dynamic Video Orientation Sizing**: Scaled vertical reels to `width: 100vw; height: 65vh;` and horizontal reels to `width: 100vw; height: 45vh;` on mobile with `object-fit: cover;` to center the video content perfectly on the screen.
 *   **Seamless Desktop Split Layout**: Enforced a perfect 50/50 split on desktop screens (>=768px) where the left media column binds to the absolute left edge of the display, the right narrative column binds to the absolute right edge, and they meet in the center with zero pixels of separation.
 *   **Premium Copy & Grammatical Refinement**: Integrated premium copy descriptions across all project years (2020–2026) with the em-dash edit for 2020 (*"travel experience, it was"*).
+*   **Removal of Audio Controls**: Removed the duplicate "Mute Audio" button and "Toggle Background Music" text label from the timeline control panels, keeping controls clean and visually tidy.
+
 
 
 ### 6. Day-to-Day Itinerary Program Details
