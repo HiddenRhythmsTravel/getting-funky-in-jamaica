@@ -283,11 +283,12 @@ export function ArtistLineUp() {
     "Cimafunk",
     "Habana D'Primeara",
     "Interactivo",
+    "La Reyna y Real",
     "Los Datway",
     "Los Van Van",
     "Primera Linea",
-    "Wampi",
     "Victor Campbell",
+    "Wampi",
     "X Alfonso",
     "Yissy Garcia"
   ];
