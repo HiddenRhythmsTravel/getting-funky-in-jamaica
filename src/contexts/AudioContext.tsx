@@ -20,13 +20,13 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 const TRACK_LIST = [
-  "/assets/audio/track2.mp3", // Track 1: Filosofando en Clave
+  "/assets/audio/track2.mp3", // Track 1: Juicy Fruit
   "/assets/audio/track1.mp3", // Track 2: I Don't Care
   "/assets/audio/track3.mp3", // Track 3: Carnival Horns
 ];
 
 export const TRACK_METADATA = [
-  { title: "Filosofando en Clave", artist: "Pedrito Martinez & Cimafunk" },
+  { title: "Juicy Fruit", artist: "Bacao Rhythm & Steel Band" },
   { title: "I Don't Care", artist: "Cimafunk, George Clinton, Nik West, Trombone Shorty" },
   { title: "Carnival Horns", artist: "Mista Savona Session" },
 ];
@@ -144,10 +144,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       audio.src = TRACK_LIST[0];
       audio.loop = false;
       audio.volume = 0.50;
-      audio.currentTime = 54;
+      audio.currentTime = 0;
       setCurrentTrackIndex(0);
     } else {
-      audio.currentTime = 54;
+      audio.currentTime = 0;
     }
     
     // Temporarily unmute to attempt playback
@@ -158,7 +158,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       .then(() => {
         setIsPlaying(true);
         setIsUnlocked(true); // Lock as successfully unlocked
-        console.log("Audio successfully unlocked and playing Track 1 starting at 0:54");
+        console.log("Audio successfully unlocked and playing Track 1 starting at 0:00");
       })
       .catch((err) => {
         // If blocked by browser (e.g. scroll is not considered a gesture),
@@ -199,7 +199,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setIsUnlocked(true);
     isReelOverrideRef.current = true;
     
-    crossfadeToTrack(0, 54, false);
+    crossfadeToTrack(0, 0, false);
   };
 
   const playRegistrationOverride = () => {
