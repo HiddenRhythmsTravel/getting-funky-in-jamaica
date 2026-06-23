@@ -91,15 +91,33 @@ export default function GalleryPage() {
   const activeItem = slideshowItems[currentLightboxIndex];
   const activeIsVideo = activeItem ? isVideo(activeItem.src) : false;
 
+  const prevActiveIsVideoRef = useRef<boolean | null>(null);
+  const prevLightboxOpenRef = useRef<boolean>(false);
+
   useEffect(() => {
-    if (lightboxOpen && activeIsVideo) {
-      pause();
-      const videoEl = document.querySelector(".lightbox-video") as HTMLVideoElement;
-      if (videoEl) {
-        videoEl.muted = false;
-        videoEl.play().catch(() => {});
+    // 1. If lightbox was closed and is now opened:
+    if (lightboxOpen && !prevLightboxOpenRef.current) {
+      if (activeIsVideo) {
+        pause();
       }
-    } else {
+    }
+    // 2. If lightbox is open and slide index transitioned:
+    else if (lightboxOpen && prevLightboxOpenRef.current) {
+      const prevActiveIsVideo = prevActiveIsVideoRef.current;
+      
+      // Image -> Video transition
+      if (!prevActiveIsVideo && activeIsVideo) {
+        pause();
+      }
+      // Video -> Image transition
+      else if (prevActiveIsVideo && !activeIsVideo) {
+        if (isUnlocked) {
+          resume();
+        }
+      }
+    }
+    // 3. If lightbox was open and is now closed:
+    else if (!lightboxOpen && prevLightboxOpenRef.current) {
       const videoEl = document.querySelector(".lightbox-video") as HTMLVideoElement;
       if (videoEl) {
         videoEl.pause();
@@ -109,6 +127,24 @@ export default function GalleryPage() {
         resume();
       }
     }
+
+    // 4. Handle video HTML5 elements play/pause state updates:
+    const videoEl = document.querySelector(".lightbox-video") as HTMLVideoElement;
+    if (lightboxOpen && activeIsVideo) {
+      if (videoEl) {
+        videoEl.muted = false;
+        videoEl.play().catch(() => {});
+      }
+    } else {
+      if (videoEl) {
+        videoEl.pause();
+        videoEl.currentTime = 0;
+      }
+    }
+
+    // Update refs for next run
+    prevActiveIsVideoRef.current = activeIsVideo;
+    prevLightboxOpenRef.current = lightboxOpen;
   }, [lightboxOpen, activeIsVideo, currentLightboxIndex, isUnlocked, pause, resume]);
 
   // Touch state for swipe navigation
