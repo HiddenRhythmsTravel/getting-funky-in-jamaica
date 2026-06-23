@@ -27,42 +27,42 @@ export function TimelineGallery() {
       year: "2020",
       label: "2020",
       title: "Getting Funky in Havana",
-      desc: "In January of 2020, the inaugural trip proved to be more than just an experience, but a life changing expedition taking place during a pivotal moment of not for US-Cuba relations, and also right before COVID. The trip was highlighted by the first exchange between the Trombone Shorty Foundation students, and their counterparts, instrument giveaways at local schools, incredible concerts bringing our musicians together, and of course the iconic second line that infused the city of Havana with electric energy.",
+      desc: "In January 2020, our inaugural trip proved to be far more than a travel experience—it was a life-changing expedition. Taking place during a pivotal moment for US-Cuba relations and just before the world paused for COVID-19, the journey was anchored by the first historic exchange between the Trombone Shorty Foundation students and their Cuban counterparts. From powerful instrument giveaways at local schools to intimate concerts uniting our musicians, the trip culminated in an iconic street second-line that infused the city of Havana with pure, electric energy.",
       reelFile: "2020.mp4"
     },
     {
       year: "2023",
       label: "2023",
       title: "Havana Funk Expedition",
-      desc: "During our second installment of the event, the cohort of Funky travelers grew, and the timing coming out of COVID was just what was needed for Cubans and our travelers alike. Trombone Shorty co-headlined a public concert at the famous Fabrica de Arte Cubano (FAC), which drew thousands and featured a superjam that became one of the trip’s highlights. No Getting Funky trip would ever be complete without the high impact visit to music schools where the delegation doubled its donations, thus continuing the belief that a musical instrument has the power to change a life.",
+      desc: "For our second installment, the Getting Funky family expanded significantly. Emerging from the pandemic, the timing of this trip was exactly what both our travelers and the Cuban community needed most. Trombone Shorty co-headlined a massive public concert at the famous Fábrica de Arte Cubano (FAC), drawing thousands of fans for a historic superjam that became an absolute highlight of the trip. True to our mission, the heart of the journey remained our high-impact visits to local music schools, where our delegation doubled its donations, continuing our fierce belief that a single musical instrument has the power to change a life.",
       reelFile: "2023.mp4"
     },
     {
       year: "2024",
       label: "2024",
       title: "Getting Funky in Havana, part 3",
-      desc: "2024 grew to a larger crowd from the US, allowing for more incredible artists to join us. More students from the Trombone Shorty Foundation made the trip down, and real momentum was built from the previous two trips. Trombone Shorty headlined a show at an old baseball field, drawing tens of thousands of Cubans for a free concert. The trip also introduced Primera Linea, Wampi, Los Van Van, and attracted names like Carlos Varela, Big Freedia, Ivan Neville, DJ Mannie Fresh and more to join in throughout the weekend.",
+      desc: "In 2024, our community grew even larger, welcoming a massive group of travelers from the US and a stellar roster of world-class artists. With more students from the Trombone Shorty Foundation making the journey down, we built immense momentum from our previous years. Trombone Shorty headlined a legendary free concert at an old baseball field, drawing tens of thousands of local Cubans. The trip also introduced audiences to powerhouse acts like Primera Linea, Wampi, and Los Van Van, while drawing legendary names like Carlos Varela, Big Freedia, Ivan Neville, and DJ Mannie Fresh to join the groove throughout the weekend.",
       reelFile: "2024.mp4"
     },
     {
       year: "2025",
       label: "2025",
       title: "Getting Funky in Havana, part 4 – The Sunset Sessions",
-      desc: "2025 continued the trend of magical experiences that Getting Funky in Havana came to be. Legends like George Clinton and Taj Mahal joined forces with Cimafunk, Maurice Brown, PJ Morton and more for what everyone describes as one of the best musical trips in their life. Hoards of instruments were donated, lifelong relationships fortified between the students from The Trombone Shorty Foundation and the school in Guanabacoa, and each night featured an epic medley of music from New Orleans, Havana, Colombia, and beyond at an iconic amphitheatre in Old Havana. The music and memories given to everyone who attended will be forever cherished.",
+      desc: "2025 continued the tradition of pure magic that Getting Funky in Havana is known for. Icons like George Clinton and Taj Mahal joined forces with Cimafunk, Maurice Brown, PJ Morton, and more for an experience that everyone described as one of the greatest musical journeys of their lives. Hordes of instruments were donated, and lifelong bonds were fortified between the Trombone Shorty Foundation students and the music school in Guanabacoa. Each night culminated in an epic medley of New Orleans jazz, Havana funk, and Afro-Colombian rhythms at an iconic amphitheater in Old Havana, leaving everyone with memories that will be cherished forever.",
       reelFile: "2025.mp4"
     },
     {
       year: "2025-medellin",
       label: "2025 Medellín",
-      title: "Getting Funky in Medellin",
-      desc: "September 2025 saw for an exploratory mission to Medellin, which has its own story to tell. The Trombone Shorty Foundation brought a small contingent of students who were weaved into different performances and opportunities to learn and capture the spirit of Afro-Colombian music. Members from Colombian Music legend, Juanes team, who head up his Mi Sangre foundation joined as our small group of VIPs entrenched themselves into the city of Eternal Spring for 4 days. Victor Campbell, Cimafunk, Primera Linea, Wampi, jammed with their Colombian counterparts that included ChuQuibtown, El Niko Arias, Robe L Ninho, La Bamperya and Juancho Valencia. Medellin carries its own story worth telling, and Getting Funky in Medellin will be in the horizon in the coming years for a larger event.",
+      title: "Getting Funky in Medellín",
+      desc: "September 2025 marked our first exploratory mission to Medellín, a city with an incredible musical story of its own. The Trombone Shorty Foundation brought a select contingent of youth musicians who embedded themselves into local performances, beautifully capturing the spirit of Afro-Colombian music. We were joined by key members of Colombian music legend Juanes’ team from his Mi Sangre Foundation, while our small group of VIPs spent four unforgettable days in the City of Eternal Spring. Mind-blowing jam sessions united Victor Campbell, Cimafunk, Primera Linea, and Wampi with brilliant Colombian counterparts like ChocQuibTown, El Niko Arias, Robe L Ninho, La Bamperya, and Juancho Valencia. Medellín proved its groove is undeniable, setting the stage for a major event on the horizon.",
       reelFile: "2025-medellin.mp4"
     },
     {
       year: "2026",
       label: "2026",
       title: "Music Donation and High Impact Work",
-      desc: "While the 2026 Getting Funky event in Havana couldn't take place for a myriad of reasons, it didn't stop the commitment to the work. Our beloved family of funkers have continued to lend their support, and we are proud to say that January 2026 started the first of many small trips where our leadership has brought down countless instruments and humanitarian goods at a time when people could use it the most. Bi monthly will continue to take place. In April 2026, the Funky family was brought together during the Heritage Jazz Festival in New Orleans. Thanks to everyone for showing up, and most importantly to the Foundation and its board for its continued support.",
+      desc: "Although our main 2026 Getting Funky festival in Havana couldn’t take place, our deep commitment to the community never wavered. Our beloved family of funkers has continued to lend incredible support, and January 2026 kicked off the first of ongoing, bi-monthly mini-trips where our leadership team hand-delivers instruments and humanitarian goods at a time when local people need it most. Closer to home, the Funky family reunited in April 2026 during the New Orleans Jazz & Heritage Festival to celebrate our community. A massive thank you to everyone for showing up, and most importantly, to the Foundation and its board for their unwavering, continued support.",
       reelFile: "2026.mp4"
     }
   ];
@@ -289,7 +289,7 @@ export function TimelineGallery() {
                   loop
                   playsInline
                   muted={true}
-                  className="w-full h-full object-contain object-center transition-all duration-500"
+                  className="w-full h-full object-cover object-center transition-all duration-500"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 pointer-events-none z-10"></div>
