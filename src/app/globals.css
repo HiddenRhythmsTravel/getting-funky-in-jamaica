@@ -157,4 +157,79 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 400;
 }
 
+/* Password Gate Screen Lock Styles & Keyboard Compensations */
+.password-gate-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: var(--color-brand-green);
+  z-index: 999999;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.password-gate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 24rem; /* max-w-sm */
+  margin: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.password-gate-logo {
+  position: relative;
+  width: 10rem; /* w-40 */
+  height: 10rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(229, 178, 76, 0.3); /* brand-gold/30 */
+  background-color: rgba(11, 71, 69, 0.1); /* brand-green/10 */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2rem;
+  flex-shrink: 1; /* Allow shrinking when space is constrained */
+  transition: all 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .password-gate-logo {
+    width: 14rem; /* w-56 */
+    height: 14rem;
+  }
+}
+
+/* Dynamically shrink the logo and margins when heights get constrained (such as when mobile keyboard opens) */
+@media (max-height: 700px) {
+  .password-gate-logo {
+    width: 7.5rem;
+    height: 7.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .password-gate-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-height: 500px) {
+  .password-gate-logo {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
 
