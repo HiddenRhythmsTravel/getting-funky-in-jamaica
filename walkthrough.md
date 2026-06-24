@@ -178,3 +178,11 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 
 ### 23. Featured Artists Video Element Alignment
 *   **Re-Anchored Focus Coordinates**: Configured custom video framing offsets for Trombone Shorty and Primera Linea cards. Specifically updated their CSS positioning values to `object-position: center 15%` to keep the camera focus cleanly on the artists' faces and heads, preventing head cutoffs from high-contrast vertical crops while maintaining layout-covering dynamic sizes (`object-fit: cover`).
+
+### 24. Exclusive Teaser Launch Microsite (announcement.html)
+*   **Standalone Build & Routing**: Compiled a static, conversion-optimized teaser microsite (`public/announcement.html`) served directly at `/announcement.html`.
+*   **Branding & Typography Capture**: Styled the background in deep premium brand green (`#0b4745`), mapped headings/headers to the custom *Carla Sans* display font with uppercase constraints and `0.05em` letter tracking, and centered the isolated transparent hummingbird logo (`/assets/white-bird-only.png`) at the top.
+*   **Narrative Flow & Timeline**: Designed Section I (Hero) with CTA smooth-scroll buttons, Section II (Timeline) showing a minimalist Day 1-5 vertical schedule, and Section III (Featured Media) with adjacent 50vw video loops ( Trombone Shorty and Primera Linea) with facial focus coordinates (`object-position: center 15%`).
+*   **Viewport Audio Coordination**: Programmed a custom vanilla JS controller matrix providing click-to-unlock, hover-to-listen (desktop volume `0.60` with background music fade), scroll-to-listen (mobile Intersection Observer center 60%), and persistent mute opt-out button controls.
+*   **Zoho Campaigns Capture Form**: Provided the empty `<div id="zoho-announcement-form"></div>` wrapper script anchor. Added defensive table-breaking styles and generic inputs matching Zoho Campaigns forms, overriding dynamic themes to force 100% width layouts and high-contrast cream borders (`#f9eee7`).
+
