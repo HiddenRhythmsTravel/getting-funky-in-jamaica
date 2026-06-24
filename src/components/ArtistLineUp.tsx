@@ -40,30 +40,36 @@ function ArtistCard({ artist }: { artist: Artist }) {
     }
   }, [isGlobalMuted]);
 
-  // IntersectionObserver to auto-play on mobile scroll, and mute when scrolled out of view
+  // Mobile-specific viewport tracker script (< 768px)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
-        
+        if (!isMobile) return;
+
         if (entry.isIntersecting) {
-          if (isMobile) {
-            // On mobile: auto-play when card enters viewport
-            pauseGlobalAudio();
-            setIsLocalMuted(false);
+          // Play video silently when 50% enters viewport
+          if (videoRef.current) {
+            videoRef.current.play().catch((err) => {
+              console.log("Mobile video scroll-play failed:", err);
+            });
           }
         } else {
-          // Scrolled out of view: mute video, unflip, and resume global audio
-          setIsFlipped(false);
-          if (!isLocalMuted) {
-            setIsLocalMuted(true);
-            resumeGlobalAudio();
+          // Pause video, flip back, mute local audio, and resume global audio when it rolls off screen
+          if (videoRef.current) {
+            videoRef.current.pause();
           }
+          setIsFlipped(false);
+          setIsLocalMuted((wasMuted) => {
+            if (!wasMuted) {
+              resumeGlobalAudio();
+            }
+            return true;
+          });
         }
       },
       { 
-        threshold: 0.5, // require at least 50% of card to be visible
-        rootMargin: "-10% 0px -10% 0px"
+        threshold: 0.5,
       }
     );
 
@@ -77,25 +83,9 @@ function ArtistCard({ artist }: { artist: Artist }) {
         observer.unobserve(currentCard);
       }
     };
-  }, [isLocalMuted, resumeGlobalAudio, pauseGlobalAudio]);
-
-  const handleMouseEnter = () => {
-    pauseGlobalAudio();
-    setIsLocalMuted(false);
-  };
-
-  const handleMouseLeave = () => {
-    setIsLocalMuted(true);
-    setIsFlipped(false);
-    resumeGlobalAudio();
-  };
+  }, [resumeGlobalAudio]);
 
   const handleClick = () => {
-    // Tapping/clicking should make sure audio is playing (especially on mobile)
-    if (isLocalMuted) {
-      pauseGlobalAudio();
-      setIsLocalMuted(false);
-    }
     setIsFlipped(!isFlipped);
   };
 
@@ -103,8 +93,6 @@ function ArtistCard({ artist }: { artist: Artist }) {
     <div 
       ref={cardRef}
       className="perspective-1000 w-full h-[400px] cursor-pointer"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
       <div 
@@ -142,9 +130,42 @@ function ArtistCard({ artist }: { artist: Artist }) {
               </span>
             </div>
             
-            <div className="flex items-center justify-between text-[9px] text-brand-white/40 font-bold uppercase tracking-wider mt-2 border-t border-brand-white/5 pt-2">
-              <span className="flex items-center gap-1"><Music size={10} /> Live Media</span>
-              <span className="text-brand-gold">Hover to Listen</span>
+            <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mt-2 border-t border-brand-white/5 pt-2">
+              {/* Click for artist profile Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsFlipped(true);
+                }}
+                className="flex items-center gap-1 text-brand-white/40 hover:text-brand-gold transition-colors cursor-pointer"
+                title="Click for artist profile"
+              >
+                <Music size={10} />
+                <span>Click for artist profile</span>
+              </button>
+
+              {/* Mute media Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsLocalMuted((prev) => {
+                    const next = !prev;
+                    if (!next) {
+                      pauseGlobalAudio();
+                    } else {
+                      resumeGlobalAudio();
+                    }
+                    return next;
+                  });
+                }}
+                className={`flex items-center gap-1 font-bold uppercase transition-colors cursor-pointer ${
+                  isLocalMuted ? "text-brand-gold/60 hover:text-brand-gold" : "text-brand-gold hover:text-brand-white"
+                }`}
+                title="Toggle local media audio"
+              >
+                {isLocalMuted ? <VolumeX size={10} /> : <Volume2 size={10} />}
+                <span>Mute media</span>
+              </button>
             </div>
           </div>
         </div>
@@ -208,7 +229,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
 
             {/* Footer Control */}
             <div className="pt-3 border-t border-brand-white/10 flex items-center justify-center">
-              <a
+              <a 
                 href={artist.instagram}
                 target="_blank"
                 rel="noopener noreferrer"

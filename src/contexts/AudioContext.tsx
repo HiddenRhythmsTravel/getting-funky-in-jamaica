@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 interface AudioContextType {
   isPlaying: boolean;
@@ -39,10 +40,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isPlayerMinimized, setIsPlayerMinimized] = useState(true);
   
+  const pathname = usePathname();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isTransitioningRef = useRef(false);
   const cachedTimeRef = useRef<number>(0);
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hasInitiatedUnlockRef = useRef(false);
 
   // Initialize audio element on client mount
   useEffect(() => {
@@ -73,6 +76,36 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (!audioRef.current) return;
     audioRef.current.muted = isMuted;
   }, [isMuted]);
+
+  // Synchronize audio track and player widget state with page navigation paths
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    if (pathname === "/gallery") {
+      setIsPlayerMinimized(false);
+      if (currentTrackIndex !== 2) {
+        if (isUnlocked) {
+          crossfadeToTrack(2, 0, false, !isMuted);
+        } else {
+          audioRef.current.src = TRACK_LIST[2];
+          audioRef.current.currentTime = 0;
+          setCurrentTrackIndex(2);
+        }
+      } else {
+        audioRef.current.currentTime = 0;
+      }
+    } else if (pathname === "/") {
+      if (currentTrackIndex !== 0) {
+        if (isUnlocked) {
+          crossfadeToTrack(0, 0, false, !isMuted);
+        } else {
+          audioRef.current.src = TRACK_LIST[0];
+          audioRef.current.currentTime = 0;
+          setCurrentTrackIndex(0);
+        }
+      }
+    }
+  }, [pathname, isUnlocked]);
 
   // Smooth crossfade function
   const crossfadeToTrack = (trackIndex: number, startTime: number = 0, loop: boolean = false, forcePlay: boolean = false) => {
@@ -141,14 +174,17 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   // Autoplay sequence: plays Track 1 on first interaction
   const unlockAndPlay = () => {
-    if (isUnlocked || !audioRef.current) return;
+    if (isUnlocked || hasInitiatedUnlockRef.current || !audioRef.current) return;
     
+    hasInitiatedUnlockRef.current = true;
     const audio = audioRef.current;
-    audio.src = TRACK_LIST[0];
+    const targetIndex = currentTrackIndex !== null ? currentTrackIndex : 0;
+    
+    audio.src = TRACK_LIST[targetIndex];
     audio.loop = false;
     audio.volume = 0.0; // Start at 0 volume
     audio.currentTime = 0;
-    setCurrentTrackIndex(0);
+    setCurrentTrackIndex(targetIndex);
     
     setIsMuted(false);
     audio.muted = false;
@@ -162,6 +198,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       .then(() => {
         setIsPlaying(true);
         setIsUnlocked(true);
+        setIsPlayerMinimized(false); // Maximize the player widget on play
         
         // 3.5s linear fade-in script
         const duration = 3500; // ms
@@ -184,12 +221,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           }
         }, intervalTime);
         
-        console.log("Audio successfully unlocked and playing Track 1 Juicy Fruit starting at 0:00 with 3.5s fade-in");
+        console.log(`Audio successfully unlocked and playing Track ${targetIndex + 1} starting at 0:00 with 3.5s fade-in`);
       })
       .catch((err) => {
         console.log("Autoplay blocked, waiting for gesture:", err);
         setIsMuted(true);
         audio.muted = true;
+        hasInitiatedUnlockRef.current = false; // Reset so that next user click can try again
       });
   };
 

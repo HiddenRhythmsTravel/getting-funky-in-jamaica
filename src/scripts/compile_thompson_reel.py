@@ -51,19 +51,18 @@ def create_text_overlay(duration):
                     print(f"Error loading {p}: {e}")
         return ImageFont.load_default()
 
-    # Load "fun" font for Just Listed and Price
-    # Prefer Comic Sans MS Bold or Marker Felt
+    # Load "fun" font for Offer Accepted and Congratulations
     fun_font = load_font([
         (comic_bold_font_path, None),
         (marker_felt_path, 0),
         (helvetica_path, 4)
-    ], 110)
+    ], 95)
     
-    price_font = load_font([
+    congrats_font = load_font([
         (comic_bold_font_path, None),
         (marker_felt_path, 0),
         (helvetica_path, 4)
-    ], 150)
+    ], 80)
     
     # Load clean font for Address
     clean_font = load_font([
@@ -87,8 +86,8 @@ def create_text_overlay(duration):
     )
     
     # Text contents
-    line1 = "JUST LISTED"
-    line2 = "$639k"
+    line1 = "OFFER ACCEPTED"
+    line2 = "CONGRATULATIONS!"
     line3_address = "1032 Thompson Dr"
     line4_city = "Bay Shore, NY"
     
@@ -101,7 +100,7 @@ def create_text_overlay(duration):
             return w
 
     l1_w = get_text_width(line1, fun_font)
-    l2_w = get_text_width(line2, price_font)
+    l2_w = get_text_width(line2, congrats_font)
     l3_w = get_text_width(line3_address, clean_font)
     l4_w = get_text_width(line4_city, clean_font)
     
@@ -113,25 +112,37 @@ def create_text_overlay(duration):
     l2_y = card_y + 140
     
     l3_x = card_x + (card_w - l3_w) // 2
-    l3_y = card_y + 280
+    l3_y = card_y + 265
     
     l4_x = card_x + (card_w - l4_w) // 2
-    l4_y = card_y + 345
+    l4_y = card_y + 335
+    
+    # Premium Green Color (Emerald)
+    green_color = (46, 204, 113)
     
     # Draw shadows for readability
     draw.text((l1_x + 3, l1_y + 3), line1, font=fun_font, fill=(0, 0, 0, 150))
-    draw.text((l2_x + 3, l2_y + 3), line2, font=price_font, fill=(0, 0, 0, 150))
+    draw.text((l2_x + 3, l2_y + 3), line2, font=congrats_font, fill=(0, 0, 0, 150))
     draw.text((l3_x + 2, l3_y + 2), line3_address, font=clean_font, fill=(0, 0, 0, 150))
     draw.text((l4_x + 2, l4_y + 2), line4_city, font=clean_font, fill=(0, 0, 0, 150))
     
     # Draw foreground text
-    # "JUST LISTED" in fun vibrant letters (Gold/Yellow)
-    draw.text((l1_x, l1_y), line1, font=fun_font, fill=(255, 215, 0)) # Gold
-    # "$639k" in fun numbers (Neon Yellow/Green or gold)
-    draw.text((l2_x, l2_y), line2, font=price_font, fill=(255, 255, 0)) # Bright Yellow
-    # Address lines in clean white
+    # Green text for Offer Accepted and Congrats
+    draw.text((l1_x, l1_y), line1, font=fun_font, fill=green_color)
+    draw.text((l2_x, l2_y), line2, font=congrats_font, fill=green_color)
+    # Address lines in clean white/silver
     draw.text((l3_x, l3_y), line3_address, font=clean_font, fill=(255, 255, 255))
     draw.text((l4_x, l4_y), line4_city, font=clean_font, fill=(240, 240, 240))
+    
+    # Paste logo above the card
+    logo_path = "jones_hollow_logo_white.png"
+    if os.path.exists(logo_path):
+        logo_img = Image.open(logo_path).convert("RGBA")
+        logo_w, logo_h = logo_img.size
+        logo_x = (TARGET_W - logo_w) // 2
+        logo_y = card_y - logo_h - 20
+        img.paste(logo_img, (logo_x, logo_y), logo_img)
+        print(f"Pasted logo at x={logo_x}, y={logo_y}")
     
     # Save temporary overlay image
     overlay_path = "temp_overlay_1032.png"
@@ -147,8 +158,13 @@ def build_reel():
     output_filename = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/1032_Thompson_Reel.mp4"
     
     if not os.path.exists(video_file):
-        print(f"Error: {video_file} not found!")
-        return
+        # Check alternative name
+        alt_video_file = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/1032 Raw (1).mp4"
+        if os.path.exists(alt_video_file):
+            video_file = alt_video_file
+        else:
+            print(f"Error: {video_file} not found!")
+            return
         
     if not os.path.exists(audio_file):
         print(f"Error: {audio_file} not found!")
@@ -156,7 +172,7 @@ def build_reel():
         
     print(f"Found input video: {video_file}")
     print(f"Found input audio: {audio_file}")
-    print("Processing vertical Instagram Reel for 1032 Thompson Dr...")
+    print("Processing vertical Instagram Reel for 1032 Thompson Dr (Offer Accepted)...")
     
     # Load raw video clip
     full_clip = VideoFileClip(video_file)
