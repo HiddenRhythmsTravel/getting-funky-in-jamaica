@@ -11,6 +11,7 @@ interface Artist {
   bioSpacing: string;
   instagram: string;
   loopVideo: string;
+  videoPosition?: string;
 }
 
 function ArtistCard({ artist }: { artist: Artist }) {
@@ -212,7 +213,8 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted={isLocalMuted}
               playsInline
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
             
@@ -264,7 +266,8 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover object-center blur-[4px] scale-105 opacity-25"
+              className="w-full h-full object-cover blur-[4px] scale-105 opacity-25"
+              style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-accent/95 via-brand-green/90 to-brand-dark-accent/95"></div>
           </div>
@@ -337,7 +340,8 @@ export function ArtistLineUp() {
       role: "New Orleans Brass Icon",
       bioSpacing: "Troy Andrews (Trombone Shorty) is a Grammy-winning New Orleans brass icon. Blending funk, hip-hop, and jazz, he leads our brass workshops, instrument clinics, and joint student concerts.",
       instagram: "https://instagram.com/tromboneshorty",
-      loopVideo: "/assets/reels/trombone_shorty_loop.mp4"
+      loopVideo: "/assets/reels/trombone_shorty_loop.mp4",
+      videoPosition: "center 15%"
     },
     {
       name: "Cimafunk",
@@ -351,7 +355,8 @@ export function ArtistLineUp() {
       role: "Havana's Premier All-Stars",
       bioSpacing: "An elite collaborative band uniting Cuba's top session players, horn sections, and master percussionists, providing a high-energy Cuban backup force.",
       instagram: "https://instagram.com/primeralineacuba",
-      loopVideo: "/assets/reels/primera_linea_loop.mp4"
+      loopVideo: "/assets/reels/primera_linea_loop.mp4",
+      videoPosition: "center 15%"
     }
   ];
 
