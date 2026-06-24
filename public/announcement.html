@@ -384,18 +384,45 @@
       gap: 1.25rem;
     }
 
-    #zoho-announcement-form label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-brand-gold);
-      margin-bottom: 0.5rem;
+    /* Force nested table structures to stack vertically on mobile/desktop */
+    #zoho-announcement-form table,
+    #zoho-announcement-form tbody,
+    #zoho-announcement-form tr,
+    #zoho-announcement-form td {
+      display: block !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
+    #zoho-announcement-form td {
+      margin-bottom: 0.75rem !important;
+    }
+
+    #zoho-announcement-form label {
+      display: block !important;
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+      color: var(--color-brand-gold) !important;
+      margin-bottom: 0.5rem !important;
+      float: none !important;
+      text-align: left !important;
+      width: auto !important;
+    }
+
+    /* Target all input fields cleanly, including text, email, custom, and name-based attributes */
     #zoho-announcement-form input[type="text"],
-    #zoho-announcement-form input[type="email"] {
+    #zoho-announcement-form input[type="email"],
+    #zoho-announcement-form input[class*="text"],
+    #zoho-announcement-form input[class*="email"],
+    #zoho-announcement-form input[name*="NAME"],
+    #zoho-announcement-form input[name*="EMAIL"],
+    #zoho-announcement-form input:not([type="submit"]):not([type="button"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]) {
       width: 100% !important;
       background-color: rgba(11, 71, 69, 0.6) !important;
       border: 1px solid #f9eee7 !important; /* Cream accent border */
@@ -407,15 +434,22 @@
       box-sizing: border-box !important;
       transition: border-color 0.3s ease;
       outline: none;
+      height: auto !important;
     }
 
-    #zoho-announcement-form input[type="text"]:focus,
-    #zoho-announcement-form input[type="email"]:focus {
+    #zoho-announcement-form input:focus {
       border-color: var(--color-brand-gold) !important;
     }
 
+    /* Style checkboxes or privacy policy controls if present */
+    #zoho-announcement-form input[type="checkbox"] {
+      accent-color: var(--color-brand-gold) !important;
+      margin-right: 0.5rem !important;
+    }
+
     #zoho-announcement-form button,
-    #zoho-announcement-form input[type="submit"] {
+    #zoho-announcement-form input[type="submit"],
+    #zoho-announcement-form button[type="submit"] {
       width: 100% !important;
       padding: 1.1rem !important;
       margin-top: 1rem !important;
@@ -430,6 +464,8 @@
       cursor: pointer !important;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      display: block !important;
+      text-align: center !important;
     }
 
     #zoho-announcement-form button:hover,
