@@ -100,17 +100,38 @@ export default function RootLayout({
         />
         <Script id="ZC_Forms_Popup_Init" strategy="afterInteractive">
           {`
-            window.onload = function() {
-              if (typeof loadZCPopup === 'function') {
-                loadZCPopup('3z885d5fdd585765019298a8935476f16df0d899a326f420f4134b355ed0d0cec0','ZCFORMVIEW','3z3d2f2306564f279d03c79cd4c4e617ab');
+            (function() {
+              var popupLoaded = false;
+              function triggerPopup() {
+                if (popupLoaded) return;
+                if (typeof loadZCPopup === 'function') {
+                  loadZCPopup('3z885d5fdd585765019298a8935476f16df0d899a326f420f4134b355ed0d0cec0','ZCFORMVIEW','3z3d2f2306564f279d03c79cd4c4e617ab');
+                  popupLoaded = true;
+                  cleanup();
+                }
               }
-            };
-            // Fallback in case window.onload already fired or optin script loaded late
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
-              if (typeof loadZCPopup === 'function') {
-                loadZCPopup('3z885d5fdd585765019298a8935476f16df0d899a326f420f4134b355ed0d0cec0','ZCFORMVIEW','3z3d2f2306564f279d03c79cd4c4e617ab');
+
+              function handleMouseLeave(e) {
+                if (e.clientY < 50) {
+                  triggerPopup();
+                }
               }
-            }
+
+              function handleVisibilityChange() {
+                if (document.visibilityState === 'hidden') {
+                  triggerPopup();
+                }
+              }
+
+              function cleanup() {
+                document.removeEventListener('mouseleave', handleMouseLeave);
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+              }
+
+              // Bind trigger events
+              document.addEventListener('mouseleave', handleMouseLeave);
+              document.addEventListener('visibilitychange', handleVisibilityChange);
+            })();
           `}
         </Script>
       </body>
