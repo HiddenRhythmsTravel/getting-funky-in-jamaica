@@ -16,10 +16,39 @@ interface Artist {
 function ArtistCard({ artist }: { artist: Artist }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isLocalMuted, setIsLocalMuted] = useState(true);
+  const [artistAudioOptOut, setArtistAudioOptOut] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const videoVolumeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
-  const { pause: pauseGlobalAudio, resume: resumeGlobalAudio, isMuted: isGlobalMuted } = useAudio();
+  const { isMuted: isGlobalMuted, fadeGlobalOut, fadeGlobalIn } = useAudio();
+
+  const fadeVideoVolume = (targetVolume: number, duration: number = 300, onComplete?: () => void) => {
+    if (!videoRef.current) return;
+    const video = videoRef.current;
+    
+    if (videoVolumeIntervalRef.current) {
+      clearInterval(videoVolumeIntervalRef.current);
+    }
+    
+    const initialVol = video.volume;
+    const steps = 10;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+    
+    videoVolumeIntervalRef.current = setInterval(() => {
+      currentStep++;
+      const nextVol = initialVol + (targetVolume - initialVol) * (currentStep / steps);
+      video.volume = Math.max(0, Math.min(1, nextVol));
+      if (currentStep >= steps) {
+        if (videoVolumeIntervalRef.current) {
+          clearInterval(videoVolumeIntervalRef.current);
+          videoVolumeIntervalRef.current = null;
+        }
+        if (onComplete) onComplete();
+      }
+    }, stepTime);
+  };
 
   // Sync video mute state and ensure explicit play trigger
   useEffect(() => {
@@ -29,6 +58,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
         videoRef.current.play().catch((err) => {
           console.log("Local video playback failed to start:", err);
         });
+        fadeVideoVolume(0.60, 300);
       }
     }
   }, [isLocalMuted]);
@@ -36,9 +66,27 @@ function ArtistCard({ artist }: { artist: Artist }) {
   // If global audio unmutes, automatically mute local video to avoid double playback
   useEffect(() => {
     if (!isGlobalMuted) {
-      setIsLocalMuted(true);
+      if (videoRef.current && !isLocalMuted) {
+        fadeVideoVolume(0.0, 300, () => {
+          setIsLocalMuted(true);
+        });
+      } else {
+        setIsLocalMuted(true);
+      }
     }
   }, [isGlobalMuted]);
+
+  // Keep refs updated for the observer callback
+  const artistAudioOptOutRef = useRef(artistAudioOptOut);
+  const isLocalMutedRef = useRef(isLocalMuted);
+  
+  useEffect(() => {
+    artistAudioOptOutRef.current = artistAudioOptOut;
+  }, [artistAudioOptOut]);
+
+  useEffect(() => {
+    isLocalMutedRef.current = isLocalMuted;
+  }, [isLocalMuted]);
 
   // Mobile-specific viewport tracker script (< 768px)
   useEffect(() => {
@@ -48,28 +96,35 @@ function ArtistCard({ artist }: { artist: Artist }) {
         if (!isMobile) return;
 
         if (entry.isIntersecting) {
-          // Play video silently when 50% enters viewport
+          // Play video silently when enters viewport
           if (videoRef.current) {
             videoRef.current.play().catch((err) => {
               console.log("Mobile video scroll-play failed:", err);
             });
           }
+          
+          // Auto-unmute if not opted out
+          if (!artistAudioOptOutRef.current) {
+            fadeGlobalOut(300);
+            setIsLocalMuted(false);
+          }
         } else {
-          // Pause video, flip back, mute local audio, and resume global audio when it rolls off screen
+          // Pause video when leaving viewport
           if (videoRef.current) {
             videoRef.current.pause();
           }
           setIsFlipped(false);
-          setIsLocalMuted((wasMuted) => {
-            if (!wasMuted) {
-              resumeGlobalAudio();
-            }
-            return true;
-          });
+          
+          // If unmuted, mute and resume global audio
+          if (!isLocalMutedRef.current) {
+            setIsLocalMuted(true);
+            fadeGlobalIn(300);
+          }
         }
       },
       { 
         threshold: 0.5,
+        rootMargin: "-20% 0px -20% 0px" // center 60% viewport
       }
     );
 
@@ -83,16 +138,64 @@ function ArtistCard({ artist }: { artist: Artist }) {
         observer.unobserve(currentCard);
       }
     };
-  }, [resumeGlobalAudio]);
+  }, [fadeGlobalOut, fadeGlobalIn]);
+
+  const handleMouseEnter = () => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+    if (artistAudioOptOut) return;
+
+    fadeGlobalOut(300);
+    setIsLocalMuted(false);
+  };
+
+  const handleMouseLeave = () => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+    if (artistAudioOptOut) return;
+
+    fadeGlobalIn(300);
+    if (videoRef.current) {
+      fadeVideoVolume(0.0, 300, () => {
+        setIsLocalMuted(true);
+      });
+    } else {
+      setIsLocalMuted(true);
+    }
+  };
 
   const handleClick = () => {
     setIsFlipped(!isFlipped);
+  };
+
+  const handleMuteOverrideClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // prevent card flip
+    
+    if (!isLocalMuted) {
+      // Mute (Opt-out)
+      setArtistAudioOptOut(true);
+      if (videoRef.current) {
+        fadeVideoVolume(0.0, 300, () => {
+          setIsLocalMuted(true);
+        });
+      } else {
+        setIsLocalMuted(true);
+      }
+      fadeGlobalIn(300);
+    } else {
+      // Unmute (Opt-back-in)
+      setArtistAudioOptOut(false);
+      setIsLocalMuted(false);
+      fadeGlobalOut(300);
+    }
   };
 
   return (
     <div 
       ref={cardRef}
       className="perspective-1000 w-full h-[400px] cursor-pointer"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
       <div 
@@ -113,11 +216,15 @@ function ArtistCard({ artist }: { artist: Artist }) {
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
-            {/* Visual indicator of playing */}
-            <div className="absolute top-3 right-3 bg-brand-green/80 backdrop-blur-sm px-2 py-1 rounded-full text-[8px] font-bold text-brand-gold tracking-widest uppercase z-20 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 bg-brand-gold rounded-full animate-ping"></span>
-              <span>Loop</span>
-            </div>
+            
+            {/* User Mute Override Button */}
+            <button
+              onClick={handleMuteOverrideClick}
+              className="absolute top-3 right-3 z-30 bg-brand-green/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-brand-gold/30 text-[9px] font-bold text-brand-gold uppercase tracking-wider hover:bg-brand-gold hover:text-brand-green hover:border-transparent transition-all duration-300 cursor-pointer flex items-center gap-1 shadow-lg"
+            >
+              {isLocalMuted ? <VolumeX size={10} /> : <Volume2 size={10} />}
+              <span>{isLocalMuted ? "Unmute" : "Mute"}</span>
+            </button>
           </div>
           
           <div className="p-5 flex flex-col justify-between flex-grow bg-brand-green/20">
@@ -142,29 +249,6 @@ function ArtistCard({ artist }: { artist: Artist }) {
               >
                 <Music size={10} />
                 <span>Click for artist profile</span>
-              </button>
-
-              {/* Mute media Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsLocalMuted((prev) => {
-                    const next = !prev;
-                    if (!next) {
-                      pauseGlobalAudio();
-                    } else {
-                      resumeGlobalAudio();
-                    }
-                    return next;
-                  });
-                }}
-                className={`flex items-center gap-1 font-bold uppercase transition-colors cursor-pointer ${
-                  isLocalMuted ? "text-brand-gold/60 hover:text-brand-gold" : "text-brand-gold hover:text-brand-white"
-                }`}
-                title="Toggle local media audio"
-              >
-                {isLocalMuted ? <VolumeX size={10} /> : <Volume2 size={10} />}
-                <span>Mute media</span>
               </button>
             </div>
           </div>

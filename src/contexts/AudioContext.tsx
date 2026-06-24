@@ -16,6 +16,8 @@ interface AudioContextType {
   pause: () => void;
   resume: () => void;
   playNextTrack: () => void;
+  fadeGlobalOut: (duration?: number) => void;
+  fadeGlobalIn: (duration?: number) => void;
   trackMetadata: { title: string; artist: string }[];
 }
 
@@ -309,6 +311,68 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     crossfadeToTrack(nextIndex, 0, false, true);
   };
 
+  const fadeGlobalOut = (duration: number = 300) => {
+    if (!audioRef.current || isMuted) return;
+    const audio = audioRef.current;
+    cachedTimeRef.current = audio.currentTime;
+    
+    const initialVol = audio.volume;
+    const steps = 10;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+    
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+    }
+    
+    fadeIntervalRef.current = setInterval(() => {
+      currentStep++;
+      audio.volume = Math.max(0, initialVol * (1 - currentStep / steps));
+      if (currentStep >= steps) {
+        if (fadeIntervalRef.current) {
+          clearInterval(fadeIntervalRef.current);
+          fadeIntervalRef.current = null;
+        }
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }, stepTime);
+  };
+
+  const fadeGlobalIn = (duration: number = 300) => {
+    if (!audioRef.current || isMuted) return;
+    const audio = audioRef.current;
+    audio.currentTime = cachedTimeRef.current;
+    
+    if (fadeIntervalRef.current) {
+      clearInterval(fadeIntervalRef.current);
+    }
+    
+    audio.volume = 0;
+    audio.play()
+      .then(() => {
+        setIsPlaying(true);
+        const targetVolume = 0.45;
+        const steps = 10;
+        const stepTime = duration / steps;
+        let currentStep = 0;
+        
+        fadeIntervalRef.current = setInterval(() => {
+          currentStep++;
+          audio.volume = Math.min(targetVolume, targetVolume * (currentStep / steps));
+          if (currentStep >= steps) {
+            if (fadeIntervalRef.current) {
+              clearInterval(fadeIntervalRef.current);
+              fadeIntervalRef.current = null;
+            }
+          }
+        }, stepTime);
+      })
+      .catch((err) => {
+        console.log("Fade in resume failed:", err);
+      });
+  };
+
   return (
     <AudioContext.Provider
       value={{
@@ -324,6 +388,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         pause,
         resume,
         playNextTrack,
+        fadeGlobalOut,
+        fadeGlobalIn,
         trackMetadata: TRACK_METADATA,
       }}
     >
