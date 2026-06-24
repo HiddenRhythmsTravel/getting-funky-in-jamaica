@@ -16,12 +16,11 @@ interface Artist {
 function ArtistCard({ artist }: { artist: Artist }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isLocalMuted, setIsLocalMuted] = useState(true);
-  const [artistAudioOptOut, setArtistAudioOptOut] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const videoVolumeIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
-  const { isMuted: isGlobalMuted, fadeGlobalOut, fadeGlobalIn } = useAudio();
+  const { isMuted: isGlobalMuted, fadeGlobalOut, fadeGlobalIn, artistAudioOptOut, setArtistAudioOptOut } = useAudio();
 
   const fadeVideoVolume = (targetVolume: number, duration: number = 300, onComplete?: () => void) => {
     if (!videoRef.current) return;

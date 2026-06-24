@@ -18,6 +18,8 @@ interface AudioContextType {
   playNextTrack: () => void;
   fadeGlobalOut: (duration?: number) => void;
   fadeGlobalIn: (duration?: number) => void;
+  artistAudioOptOut: boolean;
+  setArtistAudioOptOut: (optOut: boolean) => void;
   trackMetadata: { title: string; artist: string }[];
 }
 
@@ -41,6 +43,23 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(0); // Initialize as 0 to show first track info
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isPlayerMinimized, setIsPlayerMinimized] = useState(true);
+  const [artistAudioOptOut, setArtistAudioOptOut] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = sessionStorage.getItem("artist_audio_opt_out") === "true";
+      if (saved) {
+        setArtistAudioOptOut(true);
+      }
+    }
+  }, []);
+
+  const updateArtistAudioOptOut = (optOut: boolean) => {
+    setArtistAudioOptOut(optOut);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("artist_audio_opt_out", optOut ? "true" : "false");
+    }
+  };
   
   const pathname = usePathname();
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -390,6 +409,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playNextTrack,
         fadeGlobalOut,
         fadeGlobalIn,
+        artistAudioOptOut,
+        setArtistAudioOptOut: updateArtistAudioOptOut,
         trackMetadata: TRACK_METADATA,
       }}
     >
