@@ -186,3 +186,20 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 *   **Viewport Audio Coordination**: Programmed a custom vanilla JS controller matrix providing click-to-unlock, hover-to-listen (desktop volume `0.60` with background music fade), scroll-to-listen (mobile Intersection Observer center 60%), and persistent mute opt-out button controls.
 *   **Zoho Campaigns Capture Form**: Provided the empty `<div id="zoho-announcement-form"></div>` wrapper script anchor. Added defensive table-breaking styles and generic inputs matching Zoho Campaigns forms, overriding dynamic themes to force 100% width layouts and high-contrast cream borders (`#f9eee7`).
 
+### 25. 18-Second Silent Promo Video Loops
+*   **Multi-Source Video Ingestion**: Downloaded and cached raw footage from Instagram Reel (Source A, `DX_8zrzBojI`) and the experience promo montage (Source B) in the sandbox-mounted scratch space.
+*   **Dynamic Sequencing & Cuts**: Compiled an 18-second quick-cut looping montage with straight cuts:
+    *   `0:00 - 0:02` (2s): Source A landscape & backside of man looking out at hills (excluding face).
+    *   `0:02 - 0:05` (3s): Source B night-time jam session featuring local dancers (excluding commercial hotels).
+    *   `0:05 - 0:08` (3s): Source A guitar close-up showing fingers playing.
+    *   `0:08 - 0:14` (6s): Woven transitions across the three vertical artist loop reels (Trombone Shorty, Primera Linea, Cimafunk).
+    *   `0:14 - 0:17` (3s): Source B jerk chicken grilling scene (cultural energy).
+    *   `0:17 - 0:18` (1s): Smooth crossfade matching the end of the jerk chicken segment back into the start of the landscape hills scene.
+*   **Visual Safety & Exclusions**: Filters ensure the man's face in Source A remains unidentifiable, and commercial hotels, resort dining, or luxury pools are fully excluded.
+*   **Codec & Aspect Render Passes**:
+    *   Dropped all audio tracks (`-an`) to create 100% silent background loops.
+    *   Compiled H.264 mp4 videos targetted at `3 Mbps` bitrate.
+    *   Generated Widescreen 16:9 format at [promo_16_9.mp4](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels/promo_16_9.mp4) (using center-cropping).
+    *   Generated Vertical 9:16 format at [promo_9_16.mp4](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels/promo_9_16.mp4).
+
+
