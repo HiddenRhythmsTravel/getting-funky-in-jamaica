@@ -53,8 +53,14 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 
 
 
-### 6. Day-to-Day Itinerary Program Details
-*   **Updated Itinerary**: Replaced the Day 1 and Day 2 itinerary program descriptions in [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) to match the new user specifications (Dinner Reception on Ashe Company grounds, optional late-night live music event, Trench Town visit with the Ghetto Youth Foundation and music education discussion panel, and lunch/performances at Haile Selassie High School).
+### 6. Day-to-Day Itinerary Program Details Overwrite
+*   **Verbatim Copy Ingestion**: Replaced the entire itinerary dataset inside [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) with the high-end 5-day Day-to-Day itinerary text. Printed 100% verbatim, including optional events, sound-system bullets, and Island Exodus URLs.
+*   **Interactive Day Sub-Tabs Selector**: Implemented a polished sub-tab navigation (`[Day 1] [Day 2] [Day 3] [Day 4] [Day 5]`) under the Itinerary section using Framer Motion (`layoutId="activeDayPill"`) for fluid spring transitions.
+*   **Gradient Timeline Layout Container**: Built a flowing vertical timeline design with a gold-to-transparent line gradient, glowing nodes, and clean structural line breaks separating:
+    - Time tags (rendered as a custom gold outlined badge with a `Clock` icon)
+    - Block headers (large, bold font-serif text)
+    - Narrative paragraphs (soft white text, with line breaks and interactive URLs parsed on the fly)
+*   **Markdown & URL Ingestion Parser**: Added a dynamic client-side text formatter that splits paragraphs, preserves hanging list item layouts (for the Day 4 Deep Dives), bolds Markdown elements (`**Optional...**`), and creates clickable links (`https://www.islandexodus.com`) automatically.
 
 ### 7. Getting Funky Logo Spacing Adjustment
 *   **Desktop Logo Shift**: Added a top margin class spacer (`mt-4 md:mt-12`) to the Getting Funky logo container inside [Hero.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Hero.tsx). This shifts the logo down slightly on desktop upon page load for optimal header spacing, while keeping it perfectly centered.
@@ -77,4 +83,87 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     *   *VIP Program Trigger*: Created an `IntersectionObserver` on the VIP Program section in [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) and updated click handlers in [Navbar.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Navbar.tsx) to immediately crossfade into Track 2 ("I Don't Care") when entered or clicked.
     *   *Gallery Trigger*: Set up an `IntersectionObserver` on the Gallery grid in [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) and updated navigation handlers in [Navbar.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Navbar.tsx) to immediately crossfade into Track 3 ("Carnival Horns") when loaded, scrolled into view, or clicked.
 
+### 11. Artist Roster & Section Renaming
+*   **Added Robe L Ninho & La Reyna y Real**:
+    *   Added Colombian artist `"Robe L Ninho"` to the `travelingArtists` array, fully alphabetized in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx).
+    *   Added Cuban hip-hop duo `"La Reyna y Real"` to the `cubanArtists` array, fully alphabetized in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx).
+*   **Renamed Subsection Header**: Renamed the section header from `"Traveling Artists"` to `"International Artists"` in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx) to match the user's preference.
+*   **Roster Alphabetization Correction**: Corrected the sorting order of the `cubanArtists` array in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx) to ensure `"Victor Campbell"` correctly precedes `"Wampi"`.
 
+### 12. Media Re-indexing, Reel Rebuilding, and Dynamic Captions
+*   **Re-indexed 2020 and 2026 Directories**: Sync-copied the updated Google Drive media folders to local assets, automatically resizing images to a max width/height of 1000px, converting HEIC files to web-friendly `.jpg` formats via `sips`, and regenerating `gallery-images.json` and `gallery-active.json`.
+*   **Rebuilt & Optimized Background Reels**: Recompiled `2020.mp4` and `2026.mp4` using local `ffmpeg`. Optimizations include:
+    *   Setting resolution to `540x960` (providing 4x pixel reduction to make background video loading extremely fast on both mobile and desktop viewports).
+    *   Changing compilation compression parameter to `-crf 26` with `-preset faster` for highly efficient file size reduction.
+    *   Lifting 2020 custom format exclusions to include all valid media assets (including `.mov` clips like `Maracas in Old Havana.mov`).
+    *   Automatically mapping Google Drive HEIC assets to their converted local JPG files to resolve video compilation errors.
+*   **Dynamic Filename-to-Caption Rendering Engine**: Integrated a formatting utility in [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) that extracts raw filename strings, strips out their file format extensions, replaces all underscores and hyphens with clean spaces, and displays the result as clean text descriptions on the gallery grid hover overlays and inside the fullscreen lightbox slideshow.
+
+### 13. Lightbox State Decoupled from Audio Player
+*   **Isolated Image-to-Image Navigation**: Introduced `prevActiveIsVideoRef` and `prevLightboxOpenRef` in [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) to capture state transitions between slides explicitly. Image-to-image slide navigation now updates the layout slideshow DOM without calling `.play()`, `.pause()`, or changing the background music track time. The track (Track 3: Carnival Horns) plays continuously and uninterrupted.
+*   **Life-Cycle Video Coordination**:
+    *   *Image &rarr; Video*: Pauses the background track and caches the playback timestamp, allowing the native video audio stream to play.
+    *   *Video &rarr; Image / Closed*: Stops the video timeline playback and un-mutes/resumes the background audio track precisely from its cached timestamp position without restarting the track from the beginning.
+    *   *Video &rarr; Video*: Destroys the unmounted video element, automatically terminating its audio feed, and mounts the next video element to initialize playback without invoking background audio triggers.
+
+### 14. Gallery Grid Re-Ingestion & Web Optimization
+*   **Roster Re-Ingestion & Cache Purge**: Flushed the local `public/assets/gallery/permanent` directory and synced the 22 new permanent files from the Google Drive `Gallery` folder. Formats include high-resolution images, `.mp4` and `.mov` movie clips, and a `.heic` file which was converted natively to `.jpg` via `sips`.
+*   **Masterful Web Size Compression**:
+    *   *Images*: Resized all images to a maximum height/width of `1000px` on the longest edge, compressing them to standard `.jpg` format. This reduced files like `Conga Line at Yarini.jpg` and `Tropical Crowd.jpg` from **22-23 MB** down to **~150-200 KB** (over a 99% size reduction).
+    *   *Videos*: Scaled movie clips to a maximum height of `720px` (maintaining native aspect ratio) and encoded them into `.mp4` format using `ffmpeg` with compression parameter `-crf 28` and `-preset faster`. This compressed the `Super Jam Colombian style...` clip from **77.89 MB** down to a highly optimized **2.34 MB**.
+    *   *Roster Size Reduction*: Squeezed the entire folder from **230 MB+** down to under **17 MB** total, ensuring lightning-fast load times.
+*   **Advanced Title-Case Capitalization**: Enhanced the dynamic `formatCaption` helper in [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) to apply proper Title Case formatting. Words are capitalized except for minor articles, conjunctions, and prepositions (unless they are the first word), while developer abbreviations (like `FAC`, `GF`) are kept fully uppercase.
+
+### 15. Branding Update & Typography Sync
+*   **Font Discovery (Carla Sans)**: Extracted and copied the brand's proprietary font family files (**Carla Sans** in Light, Regular, Semibold, and Bold) from Google Drive to `public/fonts/`.
+*   **Universal Heading Typography Override**: Configured `@font-face` rules in [globals.css](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/globals.css) and appended a universal CSS rule applying `'Carla Sans'` (with `serif` fallback) to all headings, tags `h1`-`h6`, hero main texts, timeline year titles, and title classes, forcing them to uppercase with `0.05em` letter spacing.
+*   **Navigation Logo Replacement**: Swapped the top-left navigation square logo with the designer's pre-made transparent horizontal logo (`logo_transparent.png`), cropped from `PNG HORIZONTAL 1.png` in Google Drive. Re-scaled the wrapper element responsibly (`w-32 h-9 md:w-40 md:h-11`) to prevent squishing.
+*   **Navbar Redundancy Cleanup**: Removed the redundant "hosted by Hidden Rhythms" text link block next to the brand logo, keeping the header clean and balanced since the new horizontal logo already includes the brand name.
+
+### 16. Audio UX Refactor & Omnipresent Mute Widget
+*   **3.5-Second Linear Fade-In**: Integrated a linear autoplay volume ramp-up script in [AudioContext.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/contexts/AudioContext.tsx) for the initial playback of Track 1 ("Juicy Fruit"). The volume starts at `0.0` and increases to the ambient target `0.45` over 3.5 seconds.
+*   **Conflict Prevention & State Safety**: Added interval clearance safety logic. Any event that alters the volume state during the 3.5-second fade-in window (such as muting, pausing, or crossfading to another track) immediately clears the active interval.
+*   **Omnipresent Minimized Pill**: Upgraded the minimized layout in [GlobalAudioPlayer.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/GlobalAudioPlayer.tsx) from a basic music icon to an horizontal floating pill widget.
+*   **1-Click Mute Control**: Placed a direct, responsive mute/unmute toggle button (`Volume2`/`VolumeX` icons) on the left side of the minimized pill, enabling instant audio control in a single tap from any viewport.
+*   **Track Status & Visual Equalizer**: Configured the pill to display current track metadata ("Muted" when silent, song title and artist when playing) next to a compact animated equalizer graphic, keeping playback status completely visible.
+*   **Layering Overrides**: Set the player widget container to `z-[99999]` to guarantee it remains sticky and floats cleanly on top of all page layers and interactive sections.
+
+### 17. Opt-In Expanded Controller Matrix & User-Directed Playback
+*   **Deletion of Automated Section Triggers**: Completely removed the `IntersectionObserver` scroll triggers in [VipProgram.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/VipProgram.tsx) and [page.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/gallery/page.tsx) that automatically forced background track overrides.
+*   **Navbar & Navigation Link Cleanup**: Removed the `forceVIPTrack` and `forceGalleryTrack` click handlers from all links and mobile menu triggers in [Navbar.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/Navbar.tsx). Navigating the site now has zero impact on active audio playback states.
+*   **Track Completion Hard Stop & Auto-Expand**: Updated the HTML5 audio `ended` event hook in [AudioContext.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/contexts/AudioContext.tsx) to stop playback entirely (no loop, no autoplay next) and instantly expand the player widget from its minimized pill layout.
+*   **Global Minimize State**: Migrated the player's minimized/maximized layout state to the global `useAudio` context so it can be controlled programmatically from event hooks.
+*   **Polished Controller Controls Layout**: Redesigned the maximized card inside [GlobalAudioPlayer.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/GlobalAudioPlayer.tsx) to display three prominent, labeled, and styled user options:
+    *   **[REPLAY]**: Restarts the active track from `0:00`, unmutes the engine, sets volume to ambient `0.45`, and calls `.play()`.
+    *   **[NEXT TRACK]**: Cycles manually through the background portfolio songs.
+    *   **[MINIMIZE / CLOSE]**: An explicit button at the bottom of the card to fold the widget back into the compact music pill layout.
+*   **Successful Verification**: Compiled the site locally using `npm run build` with Google Fonts network fetches verified. Pushed all codebase files cleanly.
+
+### 18. Featured Artist Video Scroll-Play & Controls Refactor
+*   **Viewport Tracker Observer for Mobile**: Implemented a mobile-specific (`max-width: 768px`) `IntersectionObserver` on the featured artist cards in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx). This automatically starts video playback (`.play()`) at a 50% screen visibility threshold, and pauses playback (`.pause()`) when the card rolls off-screen, conserving device processing power and battery.
+*   **Auto-Loop & Playsinline Mobile Fixes**: Standardized autoplay settings (`autoPlay`, `loop`, `muted={isLocalMuted}`, and `playsInline`) on both front and back face video elements to prevent iOS Safari/Android browser overrides.
+*   **Card Overhaul & Verbatim Labels**:
+    - Removed the desktop-specific `"Hover to listen"` visual overlay text from the card DOM.
+    - Added an interactive button labeled exactly **`"Click for artist profile"`** to trigger the card flip animation.
+    - Added an interactive button labeled exactly **`"Mute media"`** with dynamic volume indicators (`VolumeX`/`Volume2`) that toggles local video audio play states and coordinates automatically with the global audio engine state.
+*   **Decoupled Card Flip & Audio Controls**: Separated card flip navigation from audio play states. Clicking the flip button now reveals the bio text without unmuting or altering video playback.
+*   **Successful Staging Deploy**: Verified the project build compilation via `npm run build` and promoted the changes to staging/production on Vercel.
+
+### 19. Exit-Intent Zoho Campaigns Popup Trigger
+*   **Client-Side Event Wrapper**: Wrapped the Zoho Campaigns initialization script (`loadZCPopup`) inside a custom event handler in [layout.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/layout.tsx).
+*   **Desktop Exit-Intent Trigger**: Listens for the mouse cursor exiting the upper boundary of the viewport (`mouseleave` event, with `clientY < 50` check), indicating intent to switch tabs or close the browser.
+*   **Mobile Visibility Trigger**: Listens for the tab or browser being backgrounded (`visibilitychange` event, checking `visibilityState === 'hidden'`), identifying exit intent on touch screen devices.
+*   **Event Cleanup**: Automatically removes active event listeners once the script is loaded to optimize frontend resources.
+
+### 20. Advanced Vercel Toolbar Blocker
+*   **Global CSS Hiding Rule**: Injected an absolute CSS rule in [layout.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/layout.tsx) that targets the Vercel Toolbar custom elements (`vercel-live-feedback`, `vercel-preview-feedback-iframe`, `[id*="vercel-preview-feedback"]`, `iframe[src*="vercel.com"]`) and hides them instantly (`display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; pointer-events: none !important;`). This guarantees that even if loaded at the Edge proxy level or by browser extensions, the toolbar can never be rendered or interacted with.
+*   **Proactive JavaScript Purge**: Added a startup parser that immediately searches for and removes any `script[src*="vercel"]` tags or toolbar custom elements during DOM parsing and loading stages.
+*   **Persistent Cleanup Loop**: Deployed a passive intervals timer (`setInterval(purge, 500)`) that regularly sweeps and removes any delayed toolbar DOM injections.
+
+### 21. Hover/Scroll Audio Crossfader & Card Overhaul
+*   **Purged Loop Overlay**: Completely removed the "Loop" indicator from the top corner of the artist video layouts in [ArtistLineUp.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/components/ArtistLineUp.tsx).
+*   **Master-Slave Crossfader APIs**: Implemented `fadeGlobalOut` and `fadeGlobalIn` in [AudioContext.tsx](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/contexts/AudioContext.tsx) to fade background tracks to 0 volume and pause, or resume and fade them back up to standard `0.45` volume over 300ms.
+*   **Desktop Hover Crossfader**: Handled `onMouseEnter` / `onMouseLeave` on desktop viewports to fade global audio and smoothly fade-in/fade-out the local card video's audio to a crisp `0.60` volume limit.
+*   **Mobile Scroll-To-Listen Observer**: Deployed an `IntersectionObserver` targeting a 60% center-screen viewport threshold (`rootMargin: "-20% 0px -20% 0px"`) on mobile breakpoints (< 768px). This automatically silences the global background music and plays/unmutes the video's audio when scrolled into view, reverting on scroll-out.
+*   **Mute Override Button Layer (Opt-Out)**: Integrated a floating "Mute / Unmute" button layer directly over each video frame. Clicking it sets a local `artist_audio_opt_out = true` state that blocks any further scroll/hover audio triggers, force-mutes the video, and immediately restores the background music.
+*   **Session-Wide Persistence & Syncing**: Connected the `artistAudioOptOut` state to `AudioContext` and backed it up using `sessionStorage.setItem("artist_audio_opt_out")`. This ensures that when a user clicks the mute override button on any individual video card, all other cards on the page instantly recognize the preference change and prevent subsequent hover or scroll unmuting triggers.
