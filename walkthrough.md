@@ -175,3 +175,6 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 *   **Subtle Error Notifications**: Displays an elegant warning (*"Invalid code. Please try again."*) below the input field on wrong entries.
 *   **Autoplay Silence Enforcement**: Wraps layout children (including `InteractionUnlocker` and `GlobalAudioPlayer`) inside the auth check, preventing any background audio or interaction trackers from activating until the user successfully authenticates.
 *   **Mobile Viewport Height Adaptive Scaling**: Integrated CSS height media queries (`@media (max-height: 700px)` and `@media (max-height: 500px)`) in [globals.css](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/app/globals.css) to automatically scale down the brand logo when the soft keyboard is visible, preventing layout elements from getting pushed off-screen.
+
+### 23. Featured Artists Video Element Alignment
+*   **Re-Anchored Focus Coordinates**: Configured custom video framing offsets for Trombone Shorty and Primera Linea cards. Specifically updated their CSS positioning values to `object-position: center 15%` to keep the camera focus cleanly on the artists' faces and heads, preventing head cutoffs from high-contrast vertical crops while maintaining layout-covering dynamic sizes (`object-fit: cover`).
