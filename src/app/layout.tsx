@@ -63,21 +63,74 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* CSS Override to completely hide the Vercel Toolbar under all conditions */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              vercel-live-feedback,
+              #vercel-live-feedback,
+              .vercel-live-feedback,
+              [id*="vercel-preview-feedback"],
+              [class*="vercel-preview-feedback"],
+              [id*="vercel-live-feedback"],
+              [class*="vercel-live-feedback"],
+              iframe[src*="vercel.com"],
+              iframe[src*="vercel-preview-feedback"],
+              #__next-prerender-indicator {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                width: 0 !important;
+                height: 0 !important;
+              }
+            `
+          }}
+        />
+        {/* JS Override to proactively intercept and purge Vercel Toolbar scripts/elements */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 if (typeof window === 'undefined') return;
+
+                // 1. Purge any scripts/elements that exist during startup
+                function purge() {
+                  const existing = document.querySelectorAll('script[src*="vercel"], vercel-live-feedback, [id*="vercel-preview-feedback"]');
+                  existing.forEach(function(el) {
+                    if (el.parentNode) el.parentNode.removeChild(el);
+                  });
+                }
+                
+                // Run immediate purge
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', purge);
+                } else {
+                  purge();
+                }
+
+                // 2. Active MutationObserver to catch subsequent injections
                 const observer = new MutationObserver(function(mutations) {
                   mutations.forEach(function(mutation) {
                     mutation.addedNodes.forEach(function(node) {
-                      if (node.nodeName === 'SCRIPT' && node.src && node.src.indexOf('vercel.com/toolbar') !== -1) {
+                      if (node.nodeName === 'SCRIPT' && node.src && (node.src.indexOf('vercel') !== -1 || node.src.indexOf('vercel.com/toolbar') !== -1)) {
+                        node.parentNode.removeChild(node);
+                      }
+                      if (node.nodeName && (
+                        node.nodeName.startsWith('VERCEL') || 
+                        node.nodeName === 'VERCEL-LIVE-FEEDBACK' ||
+                        (node.id && node.id.indexOf('vercel') !== -1) ||
+                        (node.className && typeof node.className === 'string' && node.className.indexOf('vercel') !== -1)
+                      )) {
                         node.parentNode.removeChild(node);
                       }
                     });
                   });
                 });
                 observer.observe(document.documentElement, { childList: true, subtree: true });
+
+                // 3. Periodic sanity check fallback
+                setInterval(purge, 500);
               })();
             `
           }}
