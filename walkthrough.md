@@ -202,4 +202,10 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     *   Generated Widescreen 16:9 format at [promo_16_9.mp4](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels/promo_16_9.mp4) (using center-cropping).
     *   Generated Vertical 9:16 format at [promo_9_16.mp4](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels/promo_9_16.mp4).
 
+### 26. YouTube-Style Email Video Card & Zoho Campaigns Template
+*   **Video Play Button Overlays**: Replaced the static group photo image with a custom brand-green image card containing the centered Getting Funky in Jamaica logo and an overlaid, highly recognizable YouTube-red play button (`/assets/email_video_thumbnail.png`).
+*   **Clear Call to Action**: Added a prominent capitalized text button reading "► CLICK HERE TO WATCH THE EXCLUSIVE PROMO REEL" under the video block, linking to the landing page.
+*   **Zoho HTML Template**: Wrote a fully email-safe table-based template at [email_template.html](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/email_template.html) with inline styles for seamless copy-pasting directly into Zoho Campaigns or Zoho CRM.
+
+
 
