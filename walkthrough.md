@@ -208,9 +208,10 @@ We have successfully completed all pending enhancements for the **Getting Funky 
     2. *1.0s - 2.0s*: Cimafunk performing.
     3. *2.0s - 3.0s*: Trombone Shorty performing.
     4. *3.0s - 4.0s*: Primera Linea live at Tipitina's.
-    Overlaid a YouTube-style red play button in the center and compiled the output to a highly optimized, flawless animated GIF at 12 fps and 540x304 px resolution (`/assets/email_video_loop.gif`) using a custom color palette (`dither=sierra2_4a`) to avoid grain and banding.
+    Overlaid a YouTube-style red play button in the center and compiled the output to a highly optimized, flawless animated GIF at **20 fps** and **480x270 px** resolution (`/assets/email_video_loop.gif`). This uses a custom color palette (`dither=sierra2_4a`) to avoid grain and banding while achieving buttery smooth video-like motion at an email-safe file size of 5.4 MB.
 *   **High-Visibility Alert Box**: Formatted the password warning as a premium alert box featuring a dark green card background (`#1a4d4a`), a gold border outline (`#ef9c82`), and clean bold text styling to make the access code (**Kingston2027**) highly prevalent.
 *   **Zoho HTML Template**: Updated [email_template.html](file:///Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/email_template.html) with these updates, ensuring a fully responsive, table-based template ready to copy-paste into Zoho.
+
 
 
 
