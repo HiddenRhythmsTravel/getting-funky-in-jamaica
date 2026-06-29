@@ -9,7 +9,7 @@ base_src_dir = "/Users/adamlinderman/Library/CloudStorage/GoogleDrive-adam@cubae
 dest_reels_dir = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/public/assets/reels"
 temp_dir = "/Users/adamlinderman/.gemini/antigravity/playground/fractal-kilonova/src/scripts/temp"
 
-folders = ["2020", "2026"]
+folders = ["2020", "2023", "2024", "2025", "2025 - Medellin", "2026"]
 output_names = {
     "2020": "2020.mp4",
     "2023": "2023.mp4",
@@ -49,8 +49,8 @@ def compile_clip(item, index, folder_name):
     # 3. Overlay the clean centered foreground on the blurred background.
     vertical_pad_filter = (
         "split[bg_in][fg_in];"
-        "[bg_in]scale=540:960:force_original_aspect_ratio=increase,crop=540:960,boxblur=30:5[bg];"
-        "[fg_in]scale=540:960:force_original_aspect_ratio=decrease[fg];"
+        "[bg_in]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=30:5[bg];"
+        "[fg_in]scale=1080:1920:force_original_aspect_ratio=decrease[fg];"
         "[bg][fg]overlay=(W-w)/2:(H-h)/2,setsar=1"
     )
     
@@ -70,7 +70,7 @@ def compile_clip(item, index, folder_name):
         except Exception as e:
             print(f"      Error reading image size with PIL: {e}. Defaulting to blur pad.")
             
-        img_filter = vertical_pad_filter if use_blur_pad else "scale=540:960:force_original_aspect_ratio=increase,crop=540:960,setsar=1"
+        img_filter = vertical_pad_filter if use_blur_pad else "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1"
         
         cmd = [
             ffmpeg_path, "-y",
@@ -210,8 +210,8 @@ def compile_reel(folder):
         ffmpeg_path, "-y",
         "-i", intermediate_path,
         "-t", str(total_dur),
-        "-c:v", "libx264", "-profile:v", "high", "-level", "4.0", "-crf", "26",
-        "-preset", "faster", "-movflags", "+faststart",
+        "-c:v", "libx264", "-profile:v", "high", "-level", "4.0", "-crf", "20",
+        "-preset", "medium", "-movflags", "+faststart",
         "-c:a", "aac", "-b:a", "128k",
         out_path
     ]
