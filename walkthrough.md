@@ -205,7 +205,7 @@ We have successfully completed all pending enhancements for the **Getting Funky 
 ### 26. YouTube-Style Animated GIF Video Card & Zoho Campaigns Template
 *   **Animated GIF Loop**: Compiled a custom 4.0-second high-definition sequence consisting of four 1-second cuts from your media sources:
     1. *0.0s - 1.0s*: Scenic cliff diving.
-    2. *1.0s - 2.0s*: Behind-the-scenes dressing room jam session from the new Instagram reel (`https://www.instagram.com/reels/DXfM1JckWja/` - cropped and centered at `y=120`).
+    2. *1.0s - 2.0s*: Behind-the-scenes dressing room jam session from the new Instagram reel (`https://www.instagram.com/reels/DXfM1JckWja/` - featuring Cimafunk lead singer with white sunglasses and tall box flat top, cropped at `y=200`).
     3. *2.0s - 3.0s*: Trombone Shorty performing.
     4. *3.0s - 4.0s*: Primera Linea live at Tipitina's.
     Overlaid a YouTube-style red play button in the center and compiled the output to a highly optimized, flawless animated GIF at **15 fps** and **480x270 px** resolution (`/assets/email_video_loop.gif`). This uses a custom color palette (`dither=sierra2_4a`) to avoid grain and banding while achieving buttery smooth video-like motion at an email-safe file size of 4.7 MB.
