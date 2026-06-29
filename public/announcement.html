@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exclusive Preview | Getting Funky in Jamaica</title>
-  <meta name="description" content="A Musical Journey Like No Other. Join us in Kingston for an exclusive 5-day immersion into Jamaican rhythm, culture, and connection.">
+  <title>Exclusive Invitation | Getting Funky in Jamaica</title>
+  <meta name="description" content="An exclusive invitation-only cultural and musical immersion in Kingston, Jamaica. January 14 - 18, 2027.">
   
+  <!-- Premium Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
-    /* Carla Sans Brand Font Declarations */
+    /* Carla Sans fallbacks and custom styles */
     @font-face {
       font-family: 'Carla Sans';
       src: url('/fonts/CarlaSans.otf') format('opentype');
@@ -23,15 +28,13 @@
       font-display: swap;
     }
 
-    /* Core Styles */
     :root {
       --color-brand-green: #0b4745;
       --color-brand-dark-accent: #1d4241;
       --color-brand-gold: #ef9c82;
+      --color-accent-gold: #d4af37;
       --color-brand-white: #f9eee7;
       --color-brand-heading: #ffd9be;
-      --color-tropical-orange: #f57c00;
-      --color-tropical-yellow: #fbc02d;
     }
 
     * {
@@ -40,1106 +43,269 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       background-color: var(--color-brand-green);
       color: var(--color-brand-white);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.8;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      padding: 3rem 1.5rem;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Carla Sans', serif !important;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 400;
-      color: var(--color-brand-heading);
-    }
-
-    /* Layout Containers */
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 1.5rem;
     }
 
-    /* Header Brand logo */
-    header {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 2.5rem 0 1.5rem 0;
+    /* Logo Styling */
+    .header-logo {
+      display: block;
+      margin: 0 auto 3rem auto;
+      width: 120px;
+      height: auto;
+      transition: transform 0.3s ease;
     }
 
-    .brand-logo-container {
-      width: 7rem;
-      height: 7rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(239, 156, 130, 0.25);
-      background-color: rgba(11, 71, 69, 0.2);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .brand-logo-container:hover {
+    .header-logo:hover {
       transform: scale(1.05);
     }
 
-    .brand-logo {
-      width: 90%;
-      height: 90%;
-      object-fit: contain;
-      opacity: 0.95;
-    }
-
-    /* SECTION I: HERO */
-    .hero-section {
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Carla Sans', 'Playfair Display', Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+      color: var(--color-brand-heading);
       text-align: center;
-      padding: 3rem 0 6rem 0;
-      position: relative;
     }
 
-    .hero-title {
-      font-size: 2.5rem;
-      line-height: 1.15;
-      margin-bottom: 1.5rem;
+    h1 {
+      font-size: 2.75rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
       color: var(--color-brand-white);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin: 2.5rem 0 1rem 0;
+      color: var(--color-brand-gold);
+      border-bottom: 1px solid rgba(239, 156, 130, 0.2);
+      padding-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--color-accent-gold);
+      margin-bottom: 2rem;
+    }
+
+    .invitation-only-badge {
+      display: block;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      color: var(--color-brand-gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      color: rgba(249, 238, 231, 0.9);
+      text-align: justify;
+    }
+
+    /* Glassmorphic narrative blocks */
+    .editorial-block {
+      background: rgba(29, 66, 65, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(239, 156, 130, 0.15);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Loop Video Player styling */
+    .promo-video-container {
+      width: 100%;
       max-width: 800px;
+      margin: 2.5rem auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(239, 156, 130, 0.25);
+    }
+
+    .promo-video-element {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* CTA Section styles */
+    .cta-container {
+      margin-top: 3.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .cta-button-group {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .btn-gold, .btn-outline {
+      display: block;
+      width: 100%;
+      padding: 1.1rem 2rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-gold {
+      background-color: var(--color-brand-gold);
+      color: var(--color-brand-green);
+      border: 1px solid var(--color-brand-gold);
+    }
+
+    .btn-gold:hover {
+      background-color: var(--color-brand-white);
+      border-color: var(--color-brand-white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 156, 130, 0.4);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--color-brand-white);
+      border: 1px solid rgba(249, 238, 231, 0.4);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(249, 238, 231, 0.08);
+      border-color: var(--color-brand-white);
+      transform: translateY(-2px);
+    }
+
+    .cta-subtext {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(249, 238, 231, 0.6);
+      margin-top: 0.5rem;
+      line-height: 1.4;
+      max-width: 450px;
       margin-left: auto;
       margin-right: auto;
     }
 
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 4.5rem;
+    /* Mobile Responsive Overrides */
+    @media (max-width: 600px) {
+      body {
+        padding: 2rem 1rem;
       }
-    }
-
-    .text-tropical-gradient {
-      background: linear-gradient(135deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 50%, var(--color-tropical-yellow) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subhead {
-      font-size: 1rem;
-      color: rgba(249, 238, 231, 0.8);
-      max-width: 600px;
-      margin: 0 auto 2.5rem auto;
-      font-weight: 300;
-    }
-
-    @media (min-width: 768px) {
-      .hero-subhead {
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
         font-size: 1.25rem;
       }
-    }
-
-    .btn-gold {
-      display: inline-block;
-      padding: 1.15rem 2.5rem;
-      background: linear-gradient(90deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 100%);
-      color: var(--color-brand-green);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      border-radius: 9999px;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-gold:hover {
-      transform: scale(1.03) translateY(-1px);
-      box-shadow: 0 15px 30px rgba(239, 156, 130, 0.35);
-    }
-
-    /* SECTION II: ITINERARY SNAPSHOT */
-    .itinerary-section {
-      padding: 6rem 0;
-      border-top: 1px solid rgba(249, 238, 231, 0.05);
-      background-color: rgba(29, 66, 65, 0.2);
-    }
-
-    .section-title {
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .itinerary-timeline {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .itinerary-timeline::before {
-      content: "";
-      position: absolute;
-      left: 0.35rem;
-      top: 0.5rem;
-      bottom: 0.5rem;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--color-brand-gold) 0%, rgba(239, 156, 130, 0.1) 100%);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 3.5rem;
-    }
-
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .timeline-node {
-      position: absolute;
-      left: -2rem;
-      top: 0.4rem;
-      width: 0.8rem;
-      height: 0.8rem;
-      border-radius: 9999px;
-      background-color: var(--color-brand-green);
-      border: 2px solid var(--color-brand-gold);
-      box-shadow: 0 0 10px var(--color-brand-gold);
-      z-index: 10;
-    }
-
-    .timeline-day {
-      font-family: 'Carla Sans', serif !important;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--color-brand-gold);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-      display: block;
-    }
-
-    .timeline-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--color-brand-white);
-      letter-spacing: 0.02em;
-    }
-
-    /* SECTION III: LOOPING VIDEO HOOKS */
-    .video-section {
-      width: 100vw;
-      margin-left: calc(-50vw + 50%);
-      margin-right: calc(-50vw + 50%);
-      display: flex;
-      flex-direction: column;
-    }
-
-    @media (min-width: 768px) {
-      .video-section {
-        flex-direction: row;
+      .editorial-block {
+        padding: 1.5rem;
       }
-    }
-
-    .video-block {
-      width: 100%;
-      height: 60vh;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    @media (min-width: 768px) {
-      .video-block {
-        width: 50vw;
-        height: 70vh;
+      p {
+        font-size: 1rem;
       }
-    }
-
-    .video-element {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: filter 0.3s ease-in-out;
-    }
-
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(11, 71, 69, 0.8) 0%, rgba(0,0,0,0) 60%);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 2.5rem;
-      pointer-events: none;
-    }
-
-    .artist-name {
-      font-size: 1.75rem;
-      color: var(--color-brand-white);
-      margin-bottom: 0.25rem;
-    }
-
-    .artist-role {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--color-brand-gold);
-    }
-
-    .mute-button {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 30;
-      background-color: rgba(11, 71, 69, 0.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(239, 156, 130, 0.3);
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      color: var(--color-brand-gold);
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
-
-    .mute-button:hover {
-      background-color: var(--color-brand-gold);
-      color: var(--color-brand-green);
-      border-color: transparent;
-    }
-
-    .mute-button svg {
-      width: 10px;
-      height: 10px;
-      fill: currentColor;
-    }
-
-    /* SECTION IV: CAPTURE FORM */
-    .form-section {
-      padding: 8rem 0;
-      background-color: rgba(11, 71, 69, 0.3);
-      border-top: 1px solid rgba(249, 238, 231, 0.05);
-    }
-
-    .form-card {
-      width: 100%;
-      max-width: 32rem;
-      margin: 0 auto;
-      background: rgba(11, 71, 69, 0.4);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(239, 156, 130, 0.18);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-      border-radius: 24px;
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    .form-card-title {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .form-card-desc {
-      font-size: 0.875rem;
-      color: rgba(249, 238, 231, 0.7);
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
-
-    /* ZOHO campaigns CSS overrides */
-    #zoho-announcement-form {
-      width: 100%;
-      text-align: left;
-    }
-
-    #zoho-announcement-form form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    /* Force nested table structures to stack vertically on mobile/desktop */
-    #zoho-announcement-form table,
-    #zoho-announcement-form tbody,
-    #zoho-announcement-form tr,
-    #zoho-announcement-form td {
-      display: block !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    #zoho-announcement-form td {
-      margin-bottom: 0.75rem !important;
-    }
-
-    #zoho-announcement-form label {
-      display: block !important;
-      font-size: 0.75rem !important;
-      font-weight: 600 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.1em !important;
-      color: var(--color-brand-gold) !important;
-      margin-bottom: 0.5rem !important;
-      float: none !important;
-      text-align: left !important;
-      width: auto !important;
-    }
-
-    /* Target all input fields cleanly, including text, email, custom, and name-based attributes */
-    #zoho-announcement-form input[type="text"],
-    #zoho-announcement-form input[type="email"],
-    #zoho-announcement-form input[class*="text"],
-    #zoho-announcement-form input[class*="email"],
-    #zoho-announcement-form input[name*="NAME"],
-    #zoho-announcement-form input[name*="EMAIL"],
-    #zoho-announcement-form input:not([type="submit"]):not([type="button"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]) {
-      width: 100% !important;
-      background-color: rgba(11, 71, 69, 0.6) !important;
-      border: 1px solid #f9eee7 !important; /* Cream accent border */
-      border-radius: 9999px !important;
-      color: #f9eee7 !important;
-      padding: 0.85rem 1.5rem !important;
-      font-family: inherit;
-      font-size: 0.875rem !important;
-      box-sizing: border-box !important;
-      transition: border-color 0.3s ease;
-      outline: none;
-      height: auto !important;
-    }
-
-    #zoho-announcement-form input:focus {
-      border-color: var(--color-brand-gold) !important;
-    }
-
-    /* Style checkboxes or privacy policy controls if present */
-    #zoho-announcement-form input[type="checkbox"] {
-      accent-color: var(--color-brand-gold) !important;
-      margin-right: 0.5rem !important;
-    }
-
-    #zoho-announcement-form button,
-    #zoho-announcement-form input[type="submit"],
-    #zoho-announcement-form button[type="submit"] {
-      width: 100% !important;
-      padding: 1.1rem !important;
-      margin-top: 1rem !important;
-      background: linear-gradient(90deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 100%) !important;
-      color: var(--color-brand-green) !important;
-      font-size: 0.75rem !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.25em !important;
-      border-radius: 9999px !important;
-      border: none !important;
-      cursor: pointer !important;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      display: block !important;
-      text-align: center !important;
-    }
-
-    #zoho-announcement-form button:hover,
-    #zoho-announcement-form input[type="submit"]:hover {
-      transform: scale(1.02) !important;
-      box-shadow: 0 15px 30px rgba(239, 156, 130, 0.35) !important;
-    }
-
-    /* Fallback local mock form styles if Zoho is not loaded */
-    .fallback-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      text-align: left;
-    }
-
-    .fallback-field {
-      width: 100%;
-    }
-
-    .fallback-field label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-brand-gold);
-      margin-bottom: 0.5rem;
-    }
-
-    .fallback-field input {
-      width: 100%;
-      background-color: rgba(11, 71, 69, 0.6);
-      border: 1px solid var(--color-brand-white);
-      border-radius: 9999px;
-      color: var(--color-brand-white);
-      padding: 0.85rem 1.5rem;
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-
-    .fallback-field input:focus {
-      border-color: var(--color-brand-gold);
-    }
-
-    .fallback-submit {
-      width: 100%;
-      padding: 1.1rem;
-      margin-top: 1rem;
-      background: linear-gradient(90deg, var(--color-brand-gold) 0%, var(--color-tropical-orange) 100%);
-      color: var(--color-brand-green);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      border-radius: 9999px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    .fallback-submit:hover {
-      transform: scale(1.02);
-      box-shadow: 0 15px 30px rgba(239, 156, 130, 0.35);
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 4rem 0;
-      font-size: 0.75rem;
-      color: rgba(249, 238, 231, 0.4);
-      letter-spacing: 0.05em;
-      border-top: 1px solid rgba(249, 238, 231, 0.05);
-    }
-
-    /* SECTION IA: TEASER REEL */
-    .teaser-section {
-      padding: 6rem 0;
-      background-color: rgba(11, 71, 69, 0.4);
-      border-top: 1px solid rgba(249, 238, 231, 0.05);
-      border-bottom: 1px solid rgba(249, 238, 231, 0.05);
-      text-align: center;
-    }
-
-    .teaser-video-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      border-radius: 24px;
-      border: 1px solid rgba(239, 156, 130, 0.25);
-      background-color: rgba(11, 71, 69, 0.2);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .teaser-video-wrapper:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 30px 60px rgba(239, 156, 130, 0.15);
-    }
-
-    .teaser-video-element {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .watch-again-overlay {
-      position: absolute;
-      inset: 0;
-      background-color: rgba(11, 71, 69, 0.9);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      z-index: 20;
-    }
-
-    .watch-again-overlay.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .desktop-only {
-      display: block;
-    }
-    .mobile-only {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .desktop-only {
-        display: none;
-      }
-      .mobile-only {
-        display: block;
-      }
-      .teaser-video-wrapper {
-        max-width: 380px;
-        aspect-ratio: 9 / 16;
+      .btn-gold, .btn-outline {
+        font-size: 0.95rem;
+        padding: 1rem 1.5rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music Element -->
-  <audio id="global-music" loop preload="auto">
-    <source src="/assets/audio/track2.mp3" type="audio/mpeg">
-  </audio>
-
-  <header>
-    <!-- Hummingbird logo -->
-    <div class="brand-logo-container">
-      <img src="/assets/white-bird-only.png" alt="Geometric Hummingbird Logo" class="brand-logo">
-    </div>
-  </header>
-
-  <main>
+  <div class="container">
     
-    <!-- SECTION I: HERO -->
-    <section class="hero-section">
-      <div class="container">
-        <h1 class="hero-title">A Musical Journey <br><span class="text-tropical-gradient">Like No Other</span></h1>
-        <p class="hero-subhead">Join us in Kingston for an exclusive 5-day immersion into Jamaican rhythm, culture, and connection.</p>
-        <a href="#access-form-section" class="btn-gold">Secure Your Access Code</a>
-      </div>
-    </section>
+    <!-- BRAND HEADER LOGO -->
+    <a href="https://gettingfunkyinjamaica.com">
+      <img src="https://gettingfunkyinjamaica.com/assets/getting_funky_logo.png" alt="Hummingbird Logo" class="header-logo">
+    </a>
 
-    <!-- SECTION IA: EXCLUSIVE TEASER REEL -->
-    <section class="teaser-section">
-      <div class="container">
-        <h2 class="section-title">Exclusive Teaser Reel</h2>
-        <div class="teaser-video-wrapper" id="teaser-video-wrapper">
-          <video 
-            id="teaser-video-desktop" 
-            class="teaser-video-element desktop-only" 
-            src="/assets/reels/promo_16_9.mp4" 
-            muted 
-            playsinline>
-          </video>
-          <video 
-            id="teaser-video-mobile" 
-            class="teaser-video-element mobile-only" 
-            src="/assets/reels/promo_9_16.mp4" 
-            muted 
-            playsinline>
-          </video>
-          <div class="watch-again-overlay" id="watch-again-overlay">
-            <button class="btn-gold" id="watch-again-btn">Watch Again</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- BLOCK I: INVITATION HERO HEADER -->
+    <span class="invitation-only-badge">Invitation Only</span>
+    <h1>Getting Funky in Jamaica</h1>
+    <h3>January 14 – 18, 2027</h3>
 
-    <!-- SECTION II: ITINERARY SNAPSHOT -->
-    <section class="itinerary-section">
-      <div class="container">
-        <h2 class="section-title">Itinerary Snapshot</h2>
-        <div class="itinerary-timeline">
-          
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <span class="timeline-day">Day 1</span>
-            <h3 class="timeline-title">Arrival & Welcome Jam at Ashe Company</h3>
-          </div>
+    <!-- BLOCK II: THE EDITORIAL TEASER NARRATIVE -->
+    <div class="editorial-block">
+      <h2>A Bold New Groove: From Havana to Kingston</h2>
+      <p>We have been working tirelessly behind the scenes to curate something truly extraordinary, and we are incredibly excited to announce that for January 2027, Getting Funky is heading to the absolute heart and soul of Caribbean rhythm: Kingston, Jamaica.</p>
+      <p>True to the Getting Funky tradition, this will be a deeply music-forward immersion. Together, we will dive into the roots of reggae, feel the baseline of the island, and connect our spirits to the vibrant energy of Jamaica.</p>
 
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <span class="timeline-day">Day 2</span>
-            <h3 class="timeline-title">Trench Town History & Rastafarian Hillside Feast</h3>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <span class="timeline-day">Day 3</span>
-            <h3 class="timeline-title">Bob Marley Museum & VIP Concert (Shorty + Cimafunk)</h3>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <span class="timeline-day">Day 4</span>
-            <h3 class="timeline-title">Cultural Workshops & Sunset Beach Celebration</h3>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <span class="timeline-day">Day 5</span>
-            <h3 class="timeline-title">Farewell & Optional Island Exodus Integration</h3>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION III: LOOPING VIDEO HOOKS -->
-    <section class="video-section">
-      
-      <!-- Video 1: Trombone Shorty -->
-      <div class="video-block" id="video-block-1">
-        <video 
-          id="artist-video-1" 
-          class="video-element" 
-          src="/assets/reels/trombone_shorty_loop.mp4" 
-          autoplay 
-          loop 
-          muted 
-          playsinline
-          style="object-position: center 15%;">
-        </video>
-        
-        <div class="video-overlay">
-          <h3 class="artist-name">Trombone Shorty</h3>
-          <span class="artist-role">New Orleans Brass Icon</span>
-        </div>
-
-        <button class="mute-button" id="mute-btn-1">
-          <!-- VolumeX icon svg -->
-          <svg viewBox="0 0 24 24" id="mute-svg-1" class="volume-off">
-            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-          </svg>
-          <span id="mute-text-1">Unmute</span>
-        </button>
-      </div>
-
-      <!-- Video 2: Primera Linea -->
-      <div class="video-block" id="video-block-2">
-        <video 
-          id="artist-video-2" 
-          class="video-element" 
-          src="/assets/reels/primera_linea_loop.mp4" 
-          autoplay 
-          loop 
-          muted 
-          playsinline
-          style="object-position: center 15%;">
-        </video>
-        
-        <div class="video-overlay">
-          <h3 class="artist-name">Primera Linea</h3>
-          <span class="artist-role">Havana's Premier All-Stars</span>
-        </div>
-
-        <button class="mute-button" id="mute-btn-2">
-          <svg viewBox="0 0 24 24" id="mute-svg-2" class="volume-off">
-            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-          </svg>
-          <span id="mute-text-2">Unmute</span>
-        </button>
-      </div>
-
-    </section>
-
-    <!-- SECTION IV: EMBEDDED FORM -->
-    <section class="form-section" id="access-form-section">
-      <div class="container">
-        <div class="form-card">
-          <h2 class="form-card-title font-serif">Join the Teaser Roster</h2>
-          <p class="form-card-desc">Enter your details below to receive updates, exclusive pricing, and secure your access code.</p>
-          
-          <!-- Zoho Campaigns Script/HTML Form Anchor -->
-          <div id="zoho-announcement-form">
-            <!-- Fallback form which will display or get replaced when Zoho Campaigns is injected -->
-            <form class="fallback-form" action="#" onsubmit="event.preventDefault(); alert('Access secured! Details will be sent to your email.');">
-              <div class="fallback-field">
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" placeholder="Enter first name" required>
-              </div>
-              <div class="fallback-field">
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" placeholder="Enter last name" required>
-              </div>
-              <div class="fallback-field">
-                <label for="email-address">Email Address</label>
-                <input type="email" id="email-address" placeholder="Enter email address" required>
-              </div>
-              <button type="submit" class="fallback-submit">Secure Access Code</button>
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Getting Funky in Jamaica. All Rights Reserved. Co-presented by the Trombone Shorty Foundation, Cimafunk, and Hidden Rhythms.</p>
+      <h2>Music Diplomacy in Action</h2>
+      <p>A core heartbeat of this journey is our commitment to music diplomacy. This isn't just an exclusive getaway for our VIP travelers—it is a mission to serve and uplift the next generation of musical pioneers. On this trip, we are bridging cultures by bringing together youth from Cuba, students from the Trombone Shorty Foundation, and local young artists in Jamaica through the Marley Foundation.</p>
     </div>
-  </footer>
 
-  <script>
-    (function() {
-      // Audio engine variables
-      var globalAudio = document.getElementById("global-music");
-      var video1 = document.getElementById("artist-video-1");
-      var video2 = document.getElementById("artist-video-2");
-      
-      var globalAudioUnlocked = false;
-      var artistAudioOptOut = sessionStorage.getItem("artist_audio_opt_out") === "true";
-      
-      var globalFadeInterval = null;
-      var video1FadeInterval = null;
-      var video2FadeInterval = null;
+    <!-- BLOCK III: PROMO MEDIA LOOP CENTERPOINT -->
+    <div class="promo-video-container">
+      <video 
+        class="promo-video-element" 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        poster="https://gettingfunkyinjamaica.com/assets/tuff_gong_group.jpg">
+        <source src="https://gettingfunkyinjamaica.com/assets/reels/promo_16_9.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
-      // 1. Gesture unlocking for global audio engine
-      function unlockAudio() {
-        if (globalAudioUnlocked) return;
-        globalAudioUnlocked = true;
-        
-        if (!artistAudioOptOut) {
-          globalAudio.muted = false;
-          globalAudio.volume = 0;
-          globalAudio.play().then(function() {
-            fadeGlobalVol(0.45, 1000);
-          }).catch(function(e) {
-            console.log("Audio unlock blocked:", e);
-          });
-        }
-        
-        // Remove trigger listeners
-        document.removeEventListener("click", unlockAudio);
-        document.removeEventListener("touchstart", unlockAudio);
-        document.removeEventListener("scroll", unlockAudio);
-      }
+    <!-- BLOCK IV: THE CONCLUSION & THE LINEUP -->
+    <div class="editorial-block">
+      <p>Expect a phenomenal, soul-stirring experience packed with world-class music, continuous sun, infectious vibes, and unforgettable camaraderie.</p>
+      <p>We are hitting the ground running with our featured traveling families: Trombone Shorty, Cimafunk, and Primera Linea anchoring the mission. This is just the beginning—we will be announcing additional heavy-hitting artists as we get closer to the island.</p>
+      <p>Because we maintain an intimate, deep-dive atmosphere, this is a strictly limited-capacity engagement. Spots will fill up immediately.</p>
+    </div>
 
-      document.addEventListener("click", unlockAudio);
-      document.addEventListener("touchstart", unlockAudio);
-      document.addEventListener("scroll", unlockAudio);
+    <!-- BLOCK V: CALL-TO-ACTION (CTA) MATRIX -->
+    <div class="cta-container">
+      <div class="cta-button-group">
+        <!-- BUTTON 2: Solid High-Priority Action Link -->
+        <a href="https://forms.zohopublic.com/caribbeanexecutivetravel1/form/HRTTravelRegistration/formperma/SHoOEyI-cABdddRGuEWJtOC16QHkqKNZAqN8ONrdI6M" class="btn-gold">Register Now & Secure Your Spot</a>
 
-      // Volume faders
-      function fadeGlobalVol(target, duration) {
-        if (globalFadeInterval) clearInterval(globalFadeInterval);
-        var initial = globalAudio.volume;
-        var steps = 10;
-        var stepTime = duration / steps;
-        var currentStep = 0;
+        <!-- BUTTON 1: Explorer Link with Subtext -->
+        <div>
+          <a href="https://gettingfunkyinjamaica.com" class="btn-outline">Explore the Full Website</a>
+          <div class="cta-subtext">Note: The website is password-protected for our exclusive circle. Please use access code <strong>Kingston2027</strong> to unlock the preview.</div>
+        </div>
+      </div>
+    </div>
 
-        globalFadeInterval = setInterval(function() {
-          currentStep++;
-          var val = initial + (target - initial) * (currentStep / steps);
-          globalAudio.volume = Math.max(0, Math.min(1, val));
-          
-          if (currentStep >= steps) {
-            clearInterval(globalFadeInterval);
-            globalFadeInterval = null;
-            if (target === 0 && !globalAudio.paused) {
-              globalAudio.pause();
-            }
-          }
-        }, stepTime);
-      }
+  </div>
 
-      function fadeVideoVol(video, target, duration, onComplete) {
-        var intervalRef = video.id === "artist-video-1" ? video1FadeInterval : video2FadeInterval;
-        if (intervalRef) clearInterval(intervalRef);
-        
-        var initial = video.volume;
-        var steps = 10;
-        var stepTime = duration / steps;
-        var currentStep = 0;
-
-        var interval = setInterval(function() {
-          currentStep++;
-          var val = initial + (target - initial) * (currentStep / steps);
-          video.volume = Math.max(0, Math.min(1, val));
-          
-          if (currentStep >= steps) {
-            clearInterval(interval);
-            if (video.id === "artist-video-1") video1FadeInterval = null;
-            else video2FadeInterval = null;
-            if (onComplete) onComplete();
-          }
-        }, stepTime);
-
-        if (video.id === "artist-video-1") video1FadeInterval = interval;
-        else video2FadeInterval = interval;
-      }
-
-      // Audio suppression coordination
-      function hoverPlay(video, btn, svg, text) {
-        if (artistAudioOptOut) return;
-        
-        // Fade global out
-        if (globalAudioUnlocked) {
-          fadeGlobalVol(0, 300);
-        }
-        
-        // Unmute video
-        video.muted = false;
-        video.volume = 0;
-        video.play().then(function() {
-          fadeVideoVol(video, 0.60, 300);
-        }).catch(function(e) {
-          console.log("Video audio play failed:", e);
-        });
-
-        // Update button visual
-        text.innerText = "Mute";
-        svg.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-      }
-
-      function hoverStop(video, btn, svg, text) {
-        if (artistAudioOptOut) return;
-
-        // Fade video out
-        fadeVideoVol(video, 0, 300, function() {
-          video.muted = true;
-        });
-
-        // Resume global in
-        if (globalAudioUnlocked && !globalAudio.paused) {
-          fadeGlobalVol(0.45, 300);
-        } else if (globalAudioUnlocked) {
-          globalAudio.play().then(function() {
-            fadeGlobalVol(0.45, 300);
-          });
-        }
-
-        // Update button visual
-        text.innerText = "Unmute";
-        svg.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
-      }
-
-      // 2. DESKTOP INTERACTION (Hover-to-Listen)
-      var block1 = document.getElementById("video-block-1");
-      var block2 = document.getElementById("video-block-2");
-      var btn1 = document.getElementById("mute-btn-1");
-      var btn2 = document.getElementById("mute-btn-2");
-      var svg1 = document.getElementById("mute-svg-1");
-      var svg2 = document.getElementById("mute-svg-2");
-      var txt1 = document.getElementById("mute-text-1");
-      var txt2 = document.getElementById("mute-text-2");
-
-      block1.addEventListener("mouseenter", function() {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) hoverPlay(video1, btn1, svg1, txt1);
-      });
-
-      block1.addEventListener("mouseleave", function() {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) hoverStop(video1, btn1, svg1, txt1);
-      });
-
-      block2.addEventListener("mouseenter", function() {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) hoverPlay(video2, btn2, svg2, txt2);
-      });
-
-      block2.addEventListener("mouseleave", function() {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) hoverStop(video2, btn2, svg2, txt2);
-      });
-
-      // 3. MOBILE INTERACTION (Scroll-to-Listen via Intersection Observer)
-      var observer = new IntersectionObserver(function(entries) {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) return;
-
-        entries.forEach(function(entry) {
-          var video = entry.target.id === "video-block-1" ? video1 : video2;
-          var btn = entry.target.id === "video-block-1" ? btn1 : btn2;
-          var svg = entry.target.id === "video-block-1" ? svg1 : svg2;
-          var txt = entry.target.id === "video-block-1" ? txt1 : txt2;
-
-          if (entry.isIntersecting) {
-            video.play().catch(function(e) { console.log(e); });
-            if (!artistAudioOptOut) {
-              if (globalAudioUnlocked) fadeGlobalVol(0, 300);
-              video.muted = false;
-              video.volume = 0;
-              fadeVideoVol(video, 0.60, 300);
-              txt.innerText = "Mute";
-              svg.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-            }
-          } else {
-            video.pause();
-            if (!video.muted) {
-              fadeVideoVol(video, 0, 300, function() {
-                video.muted = true;
-              });
-              if (globalAudioUnlocked) {
-                if (globalAudio.paused) {
-                  globalAudio.play().then(function() { fadeGlobalVol(0.45, 300); });
-                } else {
-                  fadeGlobalVol(0.45, 300);
-                }
-              }
-              txt.innerText = "Unmute";
-              svg.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
-            }
-          }
-        });
-      }, {
-        threshold: 0.5,
-        rootMargin: "-20% 0px -20% 0px" // center 60% viewport
-      });
-
-      observer.observe(block1);
-      observer.observe(block2);
-
-      // 4. MUTE OVERRIDE BUTTON (Opt-Out Option)
-      function setupMuteBtn(btn, video, otherVideo, svg, text) {
-        btn.addEventListener("click", function(e) {
-          e.stopPropagation(); // Stop trigger propagation
-          
-          if (!video.muted) {
-            // User explicitly requested to mute (Opt-Out)
-            artistAudioOptOut = true;
-            sessionStorage.setItem("artist_audio_opt_out", "true");
-            
-            fadeVideoVol(video, 0, 300, function() {
-              video.muted = true;
-            });
-            
-            if (globalAudioUnlocked) {
-              if (globalAudio.paused) {
-                globalAudio.play().then(function() { fadeGlobalVol(0.45, 300); });
-              } else {
-                fadeGlobalVol(0.45, 300);
-              }
-            }
-            
-            // Sync both card buttons to Unmute status
-            text.innerText = "Unmute";
-            svg.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
-          } else {
-            // User explicitly requested to unmute (Opt-Back-In)
-            artistAudioOptOut = false;
-            sessionStorage.removeItem("artist_audio_opt_out");
-            
-            if (globalAudioUnlocked) {
-              fadeGlobalVol(0, 300);
-            }
-            
-            // Force-mute other card video
-            otherVideo.muted = true;
-            otherVideo.volume = 0;
-            
-            video.muted = false;
-            video.volume = 0;
-            video.play().then(function() {
-              fadeVideoVol(video, 0.60, 300);
-            });
-            
-            text.innerText = "Mute";
-            svg.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-          }
-        });
-      }
-
-      setupMuteBtn(btn1, video1, video2, svg1, txt1);
-      setupMuteBtn(btn2, video2, video1, svg2, txt2);
-
-      // Force initial opt-out buttons visual consistency on page load
-      if (artistAudioOptOut) {
-        txt1.innerText = "Unmute";
-        txt2.innerText = "Unmute";
-      }
-
-      // 5. TEASER REEL LOGIC
-      var promoWrapper = document.getElementById("teaser-video-wrapper");
-      var promoDesktop = document.getElementById("teaser-video-desktop");
-      var promoMobile = document.getElementById("teaser-video-mobile");
-      var watchAgainOverlay = document.getElementById("watch-again-overlay");
-      var watchAgainBtn = document.getElementById("watch-again-btn");
-      
-      var promoHasPlayed = false;
-
-      function getActivePromoVideo() {
-        var isMobile = window.matchMedia("(max-width: 768px)").matches;
-        return isMobile ? promoMobile : promoDesktop;
-      }
-
-      function handlePromoEnd(video) {
-        video.pause();
-        video.currentTime = 18.00;
-        watchAgainOverlay.classList.add("visible");
-      }
-
-      function setupPromoTracking(video) {
-        video.addEventListener("timeupdate", function() {
-          if (video.currentTime >= 18.00) {
-            handlePromoEnd(video);
-          }
-        });
-        video.addEventListener("ended", function() {
-          handlePromoEnd(video);
-        });
-      }
-
-      setupPromoTracking(promoDesktop);
-      setupPromoTracking(promoMobile);
-
-      var promoObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && !promoHasPlayed) {
-            promoHasPlayed = true;
-            var activeVideo = getActivePromoVideo();
-            activeVideo.play().catch(function(e) {
-              console.log("Promo autoplay failed:", e);
-            });
-            promoObserver.disconnect();
-          }
-        });
-      }, {
-        threshold: 0.4
-      });
-
-      promoObserver.observe(promoWrapper);
-
-      watchAgainBtn.addEventListener("click", function() {
-        watchAgainOverlay.classList.remove("visible");
-        var activeVideo = getActivePromoVideo();
-        activeVideo.currentTime = 0;
-        activeVideo.play().catch(function(e) {
-          console.log("Promo replay failed:", e);
-        });
-      });
-
-    })();
-  </script>
 </body>
 </html>
