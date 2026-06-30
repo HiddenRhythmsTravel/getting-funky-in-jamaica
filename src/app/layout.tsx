@@ -53,7 +53,6 @@ export const metadata: Metadata = {
 import { AudioProvider } from "@/contexts/AudioContext";
 import { InteractionUnlocker } from "@/components/InteractionUnlocker";
 import { GlobalAudioPlayer } from "@/components/GlobalAudioPlayer";
-import { PasswordGate } from "@/components/PasswordGate";
 import Script from "next/script";
 
 export default function RootLayout({
@@ -141,11 +140,9 @@ export default function RootLayout({
         className={`${playfair.variable} ${inter.variable} font-sans antialiased bg-brand-green text-brand-white selection:bg-brand-gold selection:text-brand-green`}
       >
         <AudioProvider>
-          <PasswordGate>
-            <InteractionUnlocker />
-            <GlobalAudioPlayer />
-            {children}
-          </PasswordGate>
+          <InteractionUnlocker />
+          <GlobalAudioPlayer />
+          {children}
         </AudioProvider>
 
         {/* Zoho Campaigns Exit Intent Popup */}
