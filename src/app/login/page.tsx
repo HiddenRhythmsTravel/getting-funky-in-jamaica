@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Lock, ArrowRight, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,13 +19,9 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(false);
 
-    // Simple client-side check for the access code
-    // In a real prod environment we'd use a server action or API route
     if (password === "Kingston2027") {
-      // Set cookie (valid for 30 days)
       document.cookie = `site_access=Kingston2027; path=/; max-age=${60 * 60 * 24 * 30}; SameSite=Strict`;
       
-      // Small delay for effect
       setTimeout(() => {
         router.push(from);
         router.refresh();
@@ -38,6 +34,50 @@ export default function LoginPage() {
     }
   };
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="relative group">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter Access Code"
+          className={`w-full bg-[#FFFDF9]/5 border ${
+            error ? "border-red-500/50" : "border-[#FFFDF9]/10 group-hover:border-[#D4AF37]/30"
+          } rounded-2xl px-6 py-4 text-[#FFFDF9] placeholder:text-[#FFFDF9]/30 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50`}
+          required
+        />
+        {isLoading && (
+          <div className="absolute right-4 top-1/2 -translate-y-1/2">
+            <div className="w-5 h-5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+      </div>
+
+      {error && (
+        <motion.p
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-red-500/80 text-xs text-center font-medium"
+        >
+          Invalid access code. Please try again.
+        </motion.p>
+      )}
+
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="group relative w-full inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-[#D4AF37] text-[#0A322C] font-bold text-sm tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#FFFDF9] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <span className="relative z-10 flex items-center gap-2">
+          Unlock Site <ArrowRight size={16} />
+        </span>
+      </button>
+    </form>
+  );
+}
+
+export default function LoginPage() {
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-[#0A322C] overflow-hidden">
       {/* Background Image with Overlay */}
@@ -74,45 +114,9 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative group">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter Access Code"
-              className={`w-full bg-[#FFFDF9]/5 border ${
-                error ? "border-red-500/50" : "border-[#FFFDF9]/10 group-hover:border-[#D4AF37]/30"
-              } rounded-2xl px-6 py-4 text-[#FFFDF9] placeholder:text-[#FFFDF9]/30 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50`}
-              required
-            />
-            {isLoading && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <div className="w-5 h-5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
-              </div>
-            )}
-          </div>
-
-          {error && (
-            <motion.p
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-red-500/80 text-xs text-center font-medium"
-            >
-              Invalid access code. Please try again.
-            </motion.p>
-          )}
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="group relative w-full inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-[#D4AF37] text-[#0A322C] font-bold text-sm tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#FFFDF9] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Unlock Site <ArrowRight size={16} />
-            </span>
-          </button>
-        </form>
+        <Suspense fallback={<div className="text-[#FFFDF9]/50 text-center uppercase tracking-widest text-xs">Loading Security...</div>}>
+          <LoginForm />
+        </Suspense>
 
         <div className="mt-12 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFDF9]/5 border border-[#FFFDF9]/10">
