@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@vimeo/player": "^2.30.4",
     "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.36.0",

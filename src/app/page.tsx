@@ -5,6 +5,7 @@ import { ArtistLineUp } from "@/components/ArtistLineUp";
 import { VipProgram } from "@/components/VipProgram";
 import { TimelineGallery } from "@/components/TimelineGallery";
 import { RegistrationPortal } from "@/components/RegistrationPortal";
+import { IslandExodusSection } from "@/components/IslandExodusSection";
 import { ContactForm } from "@/components/ContactForm";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <VipProgram />
       <TimelineGallery />
       <RegistrationPortal />
+      <IslandExodusSection />
       <ContactForm />
     </main>
   );

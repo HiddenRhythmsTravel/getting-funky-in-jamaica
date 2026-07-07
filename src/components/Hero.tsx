@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -84,6 +85,26 @@ export function Hero() {
           >
             Register Now
           </a>
+        </motion.div>
+
+        {/* Island Exodus Cross-Promotion Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-12 md:mt-16 w-full max-w-4xl"
+        >
+          <div className="relative p-8 rounded-xl border-l-4 border-[#D4AF37] bg-[#FFFDF9]/5 backdrop-blur-md text-center shadow-2xl">
+            <p className="text-brand-white font-sans text-sm sm:text-base leading-relaxed">
+              After Getting Funky in Jamaica, Jan 14-18, you are welcome to join the Island Exodus event, Jan 18-21, which is in Trelawny, Jamaica - headlined by Gov’t Mule and additional performances by some of the Getting Funky artists.{" "}
+              <Link 
+                href="#island-exodus" 
+                className="text-[#D4AF37] font-bold underline underline-offset-4 hover:text-brand-white transition-colors duration-300"
+              >
+                Click Here for More Info
+              </Link>
+            </p>
+          </div>
         </motion.div>
       </div>
 

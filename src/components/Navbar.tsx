@@ -24,10 +24,21 @@ export function Navbar() {
     setIsScrolled(latest > 50);
   });
 
+  const [vipDropdownOpen, setVipDropdownOpen] = useState(false);
+  const [mobileVipOpen, setMobileVipOpen] = useState(false);
+
   const navLinks = [
     { name: "Story & Impact", href: "/#story-impact" },
     { name: "Artist Line Up", href: "/#artists" },
-    { name: "VIP Program", href: "/#vip" },
+    { 
+      name: "VIP PROGRAM", 
+      href: "#",
+      isDropdown: true,
+      subItems: [
+        { name: "Getting Funky in Jamaica – Jan 14-18", href: "/#vip" },
+        { name: "Island Exodus – Jan 18-21", href: "/#island-exodus" }
+      ]
+    },
     { name: "History", href: "/#gallery" },
     { name: "Gallery", href: "/gallery" },
     { name: "Register Now", href: "/#register" },
@@ -82,18 +93,52 @@ export function Navbar() {
         {/* Desktop Links & Controls */}
         <div className="hidden md:flex items-center justify-end gap-6 lg:gap-8 text-brand-white/95 font-sans text-xs tracking-[0.15em] uppercase font-semibold">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              className={`relative group py-2 ${
-                link.name === "Register Now" ? "text-brand-gold hover:text-brand-white" : "hover:text-brand-gold"
-              }`}
-            >
-              <span className="transition-colors duration-300">
-                {link.name}
-              </span>
-              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 ease-out group-hover:w-full"></span>
-            </Link>
+            link.isDropdown ? (
+              <div 
+                key={link.name}
+                className="relative py-2 group cursor-pointer"
+                onMouseEnter={() => setVipDropdownOpen(true)}
+                onMouseLeave={() => setVipDropdownOpen(false)}
+              >
+                <span className={`flex items-center gap-1 transition-colors duration-300 ${vipDropdownOpen ? 'text-brand-gold' : 'hover:text-brand-gold'}`}>
+                  {link.name} <span className="text-[10px] transform transition-transform duration-300" style={{ transform: vipDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
+                </span>
+                
+                <AnimatePresence>
+                  {vipDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full right-0 mt-2 w-72 bg-[#0A322C]/95 backdrop-blur-xl border border-brand-gold/30 rounded-xl shadow-2xl overflow-hidden py-2"
+                    >
+                      {link.subItems?.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="block px-6 py-3 text-[10px] text-brand-white/80 hover:text-brand-gold hover:bg-brand-white/5 transition-all"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className={`relative group py-2 ${
+                  link.name === "Register Now" ? "text-brand-gold hover:text-brand-white" : "hover:text-brand-gold"
+                }`}
+              >
+                <span className="transition-colors duration-300">
+                  {link.name}
+                </span>
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 ease-out group-hover:w-full"></span>
+              </Link>
+            )
           ))}
 
           {/* Global Mute Toggle Button */}
@@ -153,16 +198,53 @@ export function Navbar() {
             transition={{ duration: 0.3 }}
             className="md:hidden fixed top-20 left-0 right-0 bottom-0 bg-brand-green/95 backdrop-blur-2xl overflow-y-auto border-t border-brand-white/10"
           >
-            <div className="flex flex-col gap-8 p-8 text-brand-white font-sans text-sm tracking-[0.2em] uppercase font-semibold">
+            <div className="flex flex-col gap-6 p-8 text-brand-white font-sans text-sm tracking-[0.2em] uppercase font-semibold">
               {navLinks.filter(l => l.name !== "Register Now").map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brand-gold transition-colors"
-                >
-                  {link.name}
-                </Link>
+                link.isDropdown ? (
+                  <div key={link.name} className="flex flex-col">
+                    <button 
+                      onClick={() => setMobileVipOpen(!mobileVipOpen)}
+                      className="flex items-center justify-between py-2 text-left hover:text-brand-gold transition-colors"
+                    >
+                      <span>{link.name}</span>
+                      <span className={`text-xs transition-transform duration-300 ${mobileVipOpen ? 'rotate-180' : ''}`}>▾</span>
+                    </button>
+                    <AnimatePresence>
+                      {mobileVipOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden bg-brand-white/5 rounded-xl mt-2"
+                        >
+                          {link.subItems?.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              href={sub.href}
+                              onClick={() => {
+                                setMobileMenuOpen(false);
+                                setMobileVipOpen(false);
+                              }}
+                              className="block px-6 py-4 text-xs text-brand-white/70 hover:text-brand-gold transition-all"
+                              style={{ minHeight: '44px' }}
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-2 hover:text-brand-gold transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
               <Link
                 href="/#register"
