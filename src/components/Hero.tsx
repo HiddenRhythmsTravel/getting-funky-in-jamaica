@@ -6,14 +6,14 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24 md:py-32">
       {/* Background Video */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover"
+        className="absolute z-0 w-full h-full object-cover"
       >
         <source src="/assets/getting_funky_loop.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -29,15 +29,15 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-6 md:mb-8 mt-4 md:mt-12"
+          className="mb-8 md:mb-10"
         >
-          <div className="relative w-48 h-48 md:w-72 md:h-72 rounded-full border border-brand-gold/30 bg-brand-green/10 backdrop-blur-md p-2 flex items-center justify-center shadow-2xl overflow-hidden">
+          <div className="relative w-40 h-40 md:w-64 md:h-64 rounded-full border border-brand-gold/30 bg-brand-green/10 backdrop-blur-md p-2 flex items-center justify-center shadow-2xl overflow-hidden">
             <Image
               src="/assets/getting_funky_logo_yellow_2027.png"
               alt="Getting Funky Logo"
-              width={288}
-              height={288}
-              className="w-[95%] h-[95%] object-contain opacity-90"
+              width={256}
+              height={256}
+              className="w-[90%] h-[90%] object-contain opacity-90"
               priority
             />
           </div>
@@ -48,7 +48,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-white font-extrabold tracking-tight leading-tight mb-4 md:mb-6"
+          className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-brand-white font-extrabold tracking-tight leading-tight mb-6 md:mb-8"
         >
           Getting Funky <br className="hidden sm:block" />
           <span className="text-tropical-gradient">in Jamaica</span>
@@ -59,7 +59,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-brand-white/90 text-sm sm:text-base md:text-lg font-sans tracking-[0.25em] uppercase font-bold mb-8 md:mb-12"
+          className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-brand-white/90 text-sm sm:text-base md:text-lg font-sans tracking-[0.25em] uppercase font-bold mb-10 md:mb-14"
         >
           <span className="text-brand-gold">January 14-18, 2027</span>
           <span className="hidden sm:inline text-brand-white/40">|</span>
@@ -92,14 +92,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-12 md:mt-16 w-full max-w-4xl"
+          className="mt-16 md:mt-20 w-full max-w-4xl"
         >
-          <div className="relative p-8 rounded-xl border-l-4 border-[#D4AF37] bg-[#FFFDF9]/5 backdrop-blur-md text-center shadow-2xl">
-            <p className="text-brand-white font-sans text-sm sm:text-base leading-relaxed">
+          <div className="relative p-6 md:p-10 rounded-2xl border border-[#D4AF37]/30 bg-[#FFFDF9]/5 backdrop-blur-md text-center shadow-2xl overflow-hidden group">
+            {/* Subtle Accent Line */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]" />
+            
+            <p className="text-brand-white font-sans text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
               After Getting Funky in Jamaica, Jan 14-18, you are welcome to join the Island Exodus event, Jan 18-21, which is in Trelawny, Jamaica - headlined by Gov’t Mule and additional performances by some of the Getting Funky artists.{" "}
               <Link 
                 href="#island-exodus" 
-                className="text-[#D4AF37] font-bold underline underline-offset-4 hover:text-brand-white transition-colors duration-300"
+                className="text-[#D4AF37] font-bold underline underline-offset-4 hover:text-brand-white transition-all duration-300 inline-flex items-center gap-1 group-hover:gap-2"
               >
                 Click Here for More Info
               </Link>
@@ -113,13 +116,13 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none opacity-50 sm:opacity-100"
       >
-        <span className="text-[9px] text-brand-white/40 tracking-[0.3em] uppercase">Scroll</span>
+        <span className="text-[8px] text-brand-white/40 tracking-[0.3em] uppercase">Scroll</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          className="w-1.5 h-1.5 rounded-full bg-brand-gold"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="w-1 h-1 rounded-full bg-brand-gold"
         ></motion.div>
       </motion.div>
     </section>
