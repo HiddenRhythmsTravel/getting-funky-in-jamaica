@@ -187,6 +187,23 @@ export default function RootLayout({
             })();
           `}
         </Script>
+        {/* Zoho SalesIQ Tracking Script */}
+        <Script id="zoho-salesiq-config" strategy="afterInteractive">
+          {`
+            window.$zoho = window.$zoho || {};
+            window.$zoho.salesiq = window.$zoho.salesiq || {
+              ready: function() {
+                window.$zoho.salesiq.floatbutton.visible('hide');
+              }
+            };
+          `}
+        </Script>
+        <Script
+          id="zsiqscript"
+          src="https://salesiq.zoho.com/widget?wc=siq0442fb11fa3ac27a8fd8fe1e827e15c34464ea033fe41743ca8cdb66ff0eeb377c0bf160f2a2fc8354a2886b0edc00cd"
+          strategy="afterInteractive"
+          defer
+        />
       </body>
     </html>
   );
