@@ -36,204 +36,222 @@ html_template = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN
     img {{ border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }}
     table {{ border-collapse: collapse !important; }}
     body {{ height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #0b4745; }}
+    
+    @media only screen and (max-width: 600px) {{
+      .container {{ width: 100% !important; max-width: 100% !important; }}
+      .card-cell {{ padding: 20px 15px !important; }}
+      .intro-cell {{ padding: 25px 15px !important; }}
+      .logo-img {{ max-width: 180px !important; }}
+      .gif-table {{ max-width: 100% !important; width: 100% !important; }}
+      .gif-img {{ width: 100% !important; max-width: 100% !important; height: auto !important; }}
+      .btn-td {{ width: 100% !important; max-width: 100% !important; }}
+      .btn-a {{ display: block !important; padding: 15px 20px !important; box-sizing: border-box !important; }}
+    }}
   </style>
 </head>
 <body style="margin: 0; padding: 0; background-color: #0b4745; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #f9eee7;">
   
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#0b4745" style="background-color: #0b4745; table-layout: fixed;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#0b4745" style="background-color: #0b4745; table-layout: fixed; padding: 30px 10px;">
     <tr>
-      <td align="center" style="padding: 10px 0;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; width: 100%; box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;">
+      <td align="center">
+        
+        <table class="container" border="0" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%;">
+          
+          <!-- Header Block -->
           <tr>
-            <td style="padding: 20px;">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            
-            <!-- Header Block -->
-            <tr>
-              <td align="center" style="padding-bottom: 5px;">
-                <span style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 12px; font-weight: bold; color: #ef9c82; letter-spacing: 3px; text-transform: uppercase;">Hidden Rhythms Alumni</span>
-              </td>
-            </tr>
-            <tr>
-              <td align="center" style="padding-bottom: 5px;">
-                <h1 style="margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 28px; font-weight: bold; color: #f9eee7; letter-spacing: 1px; line-height: 1.2; text-transform: uppercase; text-align: center;">Let's Work Together Again!</h1>
-              </td>
-            </tr>
-            <tr>
-              <td align="center" style="padding-bottom: 30px;">
-                <p style="margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 22px; font-weight: bold; color: #ef9c82; letter-spacing: 2px; text-transform: uppercase; text-align: center;">PLANNING YOUR NEXT FORUM OR CHAPTER RETREAT?</p>
-              </td>
-            </tr>
+            <td align="center" style="padding-bottom: 5px;">
+              <span style="font-size: 11px; font-weight: bold; color: #ef9c82; letter-spacing: 3px; text-transform: uppercase;">Hidden Rhythms Alumni</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-bottom: 5px;">
+              <h1 style="margin: 0; font-size: 28px; font-weight: bold; color: #f9eee7; letter-spacing: 1px; line-height: 1.2; text-transform: uppercase; text-align: center;">Let's Work Together Again!</h1>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding-bottom: 25px;">
+              <p style="margin: 0; font-size: 20px; font-weight: bold; color: #ef9c82; letter-spacing: 2px; text-transform: uppercase; text-align: center;">PLANNING YOUR NEXT FORUM OR CHAPTER RETREAT?</p>
+            </td>
+          </tr>
 
-      <!-- Intro Card -->
-      <tr>
-        <td style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.25);">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="padding-bottom: 20px; font-size: 16px; line-height: 1.6; color: #f9eee7; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; text-align: left;">
-                {intro_sentence}
-              </td>
-            </tr>
-            <tr>
-              <td style="padding-bottom: 20px; font-size: 16px; line-height: 1.6; color: #f9eee7; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; text-align: left;">
-                We are still very much involved with travel to the island and are focused now on doing bi-monthly humanitarian style trips that continue to be impactful for the Cubans on the ground. If ever interested in coming down or supporting those efforts, please contact us.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-size: 16px; line-height: 1.6; color: #f9eee7; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; text-align: left;">
-                As alumni of our Cuba programs, you are part of an exclusive circle that has been able to experience what we best excel at – curated retreats that go beyond the normal traveler's expectations. Many of you have been following but over the past 5 years, we have been taking our model that originated in Cuba to other destinations. For those of you who weren't aware, check us out at <a href="https://hiddenrhythmstravel.com" target="_blank" style="color: #ef9c82; text-decoration: underline; font-weight: bold;">Hidden Rhythms</a>.
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <!-- Large Bold Subheader -->
-      <tr>
-        <td align="center" style="padding-bottom: 25px;">
-          <h1 style="margin: 25px 0 0 0; font-size: 24px; font-weight: bold; color: #ef9c82; text-transform: uppercase; text-align: center;">PLANNING YOUR NEXT FORUM OR CHAPTER RETREAT?</h1>
-        </td>
-      </tr>
-
-      <!-- Centered Resized Logo -->
-      <tr>
-        <td align="center">
-          <img src="hidden_rhythms_email_logo.jpg" alt="Hidden Rhythms" style="max-width: 250px; width: 100%; height: auto; display: block; margin: 25px auto;" />
-        </td>
-      </tr>
-
-      <!-- Middle Destination Header -->
-      <tr>
-        <td align="center" style="padding-bottom: 25px;">
-          <h2 style="margin: 0; font-size: 18px; font-weight: bold; color: #ef9c82; letter-spacing: 1px; text-transform: uppercase; text-align: center;">THINKING ABOUT YOUR NEXT FORUM OR CHAPTER RETREAT?</h2>
-        </td>
-      </tr>
-
-      <!-- Destination 1: Colombia -->
-      <tr>
-        <td style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: block; margin-bottom: 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="padding-bottom: 10px;">
-                <h3 style="margin: 0 0 5px 0; font-size: 22px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Colombia (Medellin, Cartagena, Bogota & Beyond)</h3>
-                <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 15px;">The country that created Magical Realism</p>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
-                  <tr>
-                    <td align="center">
-                      <a href="https://hiddenrhythmstravel.com/colombia-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                        <img src="colombia_loop.gif" alt="Colombia Montage Reel" width="450" style="display: block; width: 100%; max-width: 450px;" />
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <!-- Destination 2: Mexico City -->
-      <tr>
-        <td style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: block; margin-bottom: 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="padding-bottom: 10px;">
-                <h3 style="margin: 0 0 5px 0; font-size: 22px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Mexico City</h3>
-                <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 15px;">World Class oaxacan heritage, forward thinking innovators, and a city full of surprises</p>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
-                  <tr>
-                    <td align="center">
-                      <a href="https://hiddenrhythmstravel.com/mexico-city-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                        <img src="mexico_loop.gif" alt="Mexico City Reel" width="450" style="display: block; width: 100%; max-width: 450px;" />
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <!-- Destination 3: Jamaica -->
-      <tr>
-        <td style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: block; margin-bottom: 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="padding-bottom: 10px;">
-                <h3 style="margin: 0 0 5px 0; font-size: 22px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Kingston or Negril, Jamaica</h3>
-                <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 15px;">Reggae roots, Cliff diving, & the Goldeneye resort</p>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
-                  <tr>
-                    <td align="center">
-                      <a href="https://hiddenrhythmstravel.com/jamaica-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                        <img src="jamaica_loop.gif" alt="Jamaica Reel" width="450" style="display: block; width: 100%; max-width: 450px;" />
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <!-- Destination 4: New Orleans -->
-      <tr>
-        <td style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); display: block; margin-bottom: 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td style="padding-bottom: 10px;">
-                <h3 style="margin: 0 0 5px 0; font-size: 22px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">New Orleans</h3>
-                <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 15px;">An iconic town with soul and depth beyond just Mardi Gras</p>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
-                  <tr>
-                    <td align="center">
-                      <a href="https://hiddenrhythmstravel.com/new-orleans-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
-                        <img src="nola_loop.gif" alt="New Orleans Reel" width="450" style="display: block; width: 100%; max-width: 450px;" />
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
-      <!-- CTA Section -->
-      <tr>
-        <td align="center" style="padding-top: 20px; padding-bottom: 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
-            <tr>
-              <td align="center">
-                <a href="mailto:adam@cubaeducationaltravel.com?subject=Retreat%20Planning%20-%20{trip_name_subject}" style="background-color: #ef9c82; color: #0b4745; font-size: 16px; font-weight: bold; text-decoration: none; padding: 16px 32px; display: inline-block; border-radius: 5px; letter-spacing: 1px; text-transform: uppercase; margin: 30px auto; text-align: center;">Start Planning Your Next Trip Now</a>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
+          <!-- Intro Card -->
+          <tr>
+            <td style="padding-bottom: 25px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.25); border-collapse: separate !important;">
+                <tr>
+                  <td class="intro-cell" style="padding: 30px; font-size: 15px; line-height: 1.6; color: #f9eee7; text-align: left;">
+                    <p style="margin: 0 0 20px 0;">{intro_sentence}</p>
+                    <p style="margin: 0 0 20px 0;">We are still very much involved with travel to the island and are focused now on doing bi-monthly humanitarian style trips that continue to be impactful for the Cubans on the ground. If ever interested in coming down or supporting those efforts, please contact us.</p>
+                    <p style="margin: 0;">As alumni of our Cuba programs, you are part of an exclusive circle that has been able to experience what we best excel at – curated retreats that go beyond the normal traveler's expectations. Many of you have been following but over the past 5 years, we have been taking our model that originated in Cuba to other destinations. For those of you who weren't aware, check us out at <a href="https://hiddenrhythmstravel.com" target="_blank" style="color: #ef9c82; text-decoration: underline; font-weight: bold;">Hidden Rhythms</a>.</p>
+                  </td>
+                </tr>
               </table>
             </td>
           </tr>
+
+          <!-- Resized Logo -->
+          <tr>
+            <td align="center" style="padding-bottom: 30px;">
+              <img class="logo-img" src="brand-logo-bespoke.png" alt="Hidden Rhythms" width="220" style="max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto;" />
+            </td>
+          </tr>
+
+          <!-- Middle Destination Header -->
+          <tr>
+            <td align="center" style="padding-bottom: 25px;">
+              <h2 style="margin: 0; font-size: 16px; font-weight: bold; color: #ef9c82; letter-spacing: 2px; text-transform: uppercase; text-align: center;">THINKING ABOUT YOUR NEXT FORUM OR CHAPTER RETREAT?</h2>
+            </td>
+          </tr>
+
+          <!-- Destination 1: Colombia -->
+          <tr>
+            <td style="padding-bottom: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-collapse: separate !important;">
+                <tr>
+                  <td class="card-cell" style="padding: 20px; text-align: left;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <h3 style="margin: 0 0 5px 0; font-size: 18px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Colombia (Medellin, Cartagena, Bogota & Beyond)</h3>
+                          <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 14px;">The country that created Magical Realism</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <table class="gif-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
+                            <tr>
+                              <td align="center">
+                                <a href="https://hiddenrhythmstravel.com/colombia-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid rgba(239, 156, 130, 0.15);">
+                                  <img class="gif-img" src="colombia_loop.gif" alt="Colombia Montage Reel" width="450" style="display: block; width: 100%; max-width: 450px; border: 0;" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Destination 2: Mexico City -->
+          <tr>
+            <td style="padding-bottom: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-collapse: separate !important;">
+                <tr>
+                  <td class="card-cell" style="padding: 20px; text-align: left;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <h3 style="margin: 0 0 5px 0; font-size: 18px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Mexico City</h3>
+                          <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 14px;">World Class oaxacan heritage, forward thinking innovators, and a city full of surprises</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <table class="gif-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
+                            <tr>
+                              <td align="center">
+                                <a href="https://hiddenrhythmstravel.com/mexico-city-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid rgba(239, 156, 130, 0.15);">
+                                  <img class="gif-img" src="mexico_loop.gif" alt="Mexico City Reel" width="450" style="display: block; width: 100%; max-width: 450px; border: 0;" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Destination 3: Jamaica -->
+          <tr>
+            <td style="padding-bottom: 20px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-collapse: separate !important;">
+                <tr>
+                  <td class="card-cell" style="padding: 20px; text-align: left;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <h3 style="margin: 0 0 5px 0; font-size: 18px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">Kingston or Negril, Jamaica</h3>
+                          <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 14px;">Reggae roots, Cliff diving, & the Goldeneye resort</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <table class="gif-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
+                            <tr>
+                              <td align="center">
+                                <a href="https://hiddenrhythmstravel.com/jamaica-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid rgba(239, 156, 130, 0.15);">
+                                  <img class="gif-img" src="jamaica_loop.gif" alt="Jamaica Reel" width="450" style="display: block; width: 100%; max-width: 450px; border: 0;" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Destination 4: New Orleans -->
+          <tr>
+            <td style="padding-bottom: 30px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #113938; border: 1px solid rgba(239, 156, 130, 0.2); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-collapse: separate !important;">
+                <tr>
+                  <td class="card-cell" style="padding: 20px; text-align: left;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <h3 style="margin: 0 0 5px 0; font-size: 18px; font-weight: bold; text-transform: uppercase; color: #ef9c82; letter-spacing: 0.5px; line-height: 1.2;">New Orleans</h3>
+                          <p style="margin: 0; font-style: italic; color: #f9eee7; font-size: 14px;">An iconic town with soul and depth beyond just Mardi Gras</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <table class="gif-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 450px; margin: 0 auto;">
+                            <tr>
+                              <td align="center">
+                                <a href="https://hiddenrhythmstravel.com/new-orleans-experience" target="_blank" style="display: block; text-decoration: none; border-radius: 8px; overflow: hidden; border: 1px solid rgba(239, 156, 130, 0.15);">
+                                  <img class="gif-img" src="nola_loop.gif" alt="New Orleans Reel" width="450" style="display: block; width: 100%; max-width: 450px; border: 0;" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA Section (Bulletproof HTML Button) -->
+          <tr>
+            <td align="center" style="padding: 10px 0 30px 0;">
+              <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                <tr>
+                  <td class="btn-td" align="center" bgcolor="#ef9c82" style="background-color: #ef9c82; border-radius: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <a class="btn-a" href="mailto:adam@cubaeducationaltravel.com?subject=Retreat%20Planning%20-%20{trip_name_subject}" style="display: block; padding: 15px 35px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 14px; font-weight: bold; color: #0b4745; text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 25px; -webkit-text-size-adjust: none;">
+                      <span style="color: #0b4745; text-decoration: none; font-weight: bold;">Start Planning Your Next Event Now</span>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
         </table>
+        
       </td>
     </tr>
   </table>
@@ -241,6 +259,7 @@ html_template = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN
 </body>
 </html>
 """
+
 
 print(f"Generating {len(valid_trips)} YPO trip HTML templates based on docx...")
 
