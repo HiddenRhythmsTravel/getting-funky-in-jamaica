@@ -328,4 +328,13 @@ button:active, a:active, .artist-card:active {
   transition: transform 0.1s ease-in-out;
 }
 
+/* Gap Reduction Overrides */
+.program-section, #program, .itinerary-container {
+  margin-top: 0 !important;
+  padding-top: 1.5rem !important; /* Reduced from large padding block */
+}
+.early-bird-banner + .program-section {
+  margin-top: 1rem !important;
+}
+
 

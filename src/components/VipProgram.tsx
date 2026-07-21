@@ -83,14 +83,14 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
 
   if (isClickable) {
     return (
-      <a href="#registration" className="block no-underline" style={{ margin: "1.5rem auto" }}>
+      <a href="#registration" className="early-bird-banner block no-underline" style={{ margin: "1.5rem auto" }}>
         {content}
       </a>
     );
   }
 
   return (
-    <div style={{ margin: "1.5rem auto" }}>
+    <div className="early-bird-banner" style={{ margin: "1.5rem auto" }}>
       {content}
     </div>
   );
@@ -171,7 +171,6 @@ export function VipProgramCards() {
               <Plane className={activeTab === "flight-guidance" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
               <div>
                 <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Flight Guidance</h3>
-                <p className="text-[10px] uppercase tracking-wider text-brand-gold">US Hubs & Connections</p>
               </div>
             </button>
 
@@ -388,7 +387,7 @@ export function VipProgramDetails() {
   };
 
   return (
-    <section id="vip-details" className="relative pb-24 md:pb-32 overflow-hidden bg-brand-green">
+    <section id="vip-details" className="program-section relative pb-24 md:pb-32 overflow-hidden bg-brand-green">
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         
         {/* Tab Content Panel */}
@@ -433,7 +432,7 @@ export function VipProgramDetails() {
                 </div>
 
                 {/* Timeline Panel */}
-                <div className="glass-card p-6 sm:p-10 rounded-2xl border border-brand-white/5 relative overflow-hidden">
+                <div className="itinerary-container glass-card p-6 sm:p-10 rounded-2xl border border-brand-white/5 relative overflow-hidden">
                   <div className="relative pl-8 sm:pl-12 space-y-12 py-2">
                     {/* Gradient Timeline Vertical Line */}
                     <div className="absolute left-[-2px] sm:left-[-2px] top-2 bottom-2 w-[1px] bg-gradient-to-b from-brand-gold/60 via-brand-gold/20 to-transparent pointer-events-none" />
@@ -552,10 +551,10 @@ export function VipProgramDetails() {
 
                   <div className="space-y-6 font-sans text-brand-white/85 text-sm sm:text-base leading-relaxed text-left">
                     <p className="border-l-2 border-brand-gold/50 pl-4 py-1">
-                      We recommend flying into Kingston airport (KIN). Please book your flight to KIN on Jan 14 and returning home on Jan 18. If you are attending Island Exodus after the Getting Funky trip, you should make your return flight home from Montego Bay.
+                      We recommend flying into Kingston (KIN). Please book your flight to Kingston (KIN) on Jan 14 and returning home on Jan 18. If you are attending Island Exodus after the Getting Funky trip, you should make your return flight home from Montego Bay (MBJ).
                     </p>
                     <p className="bg-brand-gold/10 text-brand-gold border border-brand-gold/20 rounded-xl p-4 text-xs sm:text-sm font-semibold flex items-center gap-2">
-                      <span>Note that flying into Montego Bay is a 2.5 hour drive from Kingston</span>
+                      <span>Note that flying into Montego Bay (MBJ) is a 2.5 hour drive from Kingston (KIN).</span>
                     </p>
                   </div>
                 </div>
