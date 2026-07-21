@@ -457,7 +457,7 @@ export function ArtistLineUp() {
 
               <div className="flex-grow">
                 <span className="font-sans text-[10px] text-brand-gold font-bold tracking-widest uppercase block mb-0.5">
-                  Line Up Update
+                  Line Up Announcements
                 </span>
                 <span className="font-serif text-sm sm:text-base text-brand-white font-semibold tracking-wide">
                   Additional Artists being announced soon
