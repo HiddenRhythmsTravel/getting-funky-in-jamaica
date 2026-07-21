@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Plane, MapPin, Compass } from "lucide-react";
+import { Plane, MapPin } from "lucide-react";
 
 export function FlightGuidance() {
   const directHubs = [
@@ -9,31 +9,49 @@ export function FlightGuidance() {
       city: "Miami, FL (MIA)",
       airline: "American Airlines",
       duration: "1h 50m",
-      highlights: "Multiple daily non-stops; ideal for West Coast/Texas connections."
+      highlights: "Multiple daily non-stops; ideal for West Coast/Texas connections.",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20MIA%20to%20KIN%20on%202027-01-14%20through%202027-01-18%20nonstop%20American",
+      label: "View MIA ➔ KIN Flights (American)"
     },
     {
       city: "New York, NY (JFK)",
       airline: "JetBlue Airways, Caribbean Airlines",
       duration: "3h 50m",
-      highlights: "4–6 daily flights; primary hub for Tri-State & Northeast guests."
+      highlights: "4–6 daily flights; primary hub for Tri-State & Northeast guests.",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20JFK%20to%20KIN%20on%202027-01-14%20through%202027-01-18%20nonstop",
+      label: "View JFK ➔ KIN Flights"
     },
     {
       city: "Fort Lauderdale, FL (FLL)",
       airline: "JetBlue Airways, Spirit Airlines",
       duration: "1h 45m",
-      highlights: "Frequent daily flights; convenient for South Florida locals."
+      highlights: "Frequent daily flights; convenient for South Florida locals.",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20FLL%20to%20KIN%20on%202027-01-14%20through%202027-01-18%20nonstop",
+      label: "View FLL ➔ KIN Flights"
     },
     {
       city: "Atlanta, GA (ATL)",
       airline: "Delta Air Lines",
       duration: "2h 45m",
-      highlights: "Daily direct flights; best for Delta loyalists & Southeast connections."
+      highlights: "Daily direct flights; best for Delta loyalists & Southeast connections.",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20ATL%20to%20KIN%20on%202027-01-14%20through%202027-01-18%20nonstop%20Delta",
+      label: "View ATL ➔ KIN Flights (Delta)"
     },
     {
       city: "Orlando, FL (MCO)",
       airline: "JetBlue Airways",
       duration: "2h 10m",
-      highlights: "Regular direct flights; quick Central Florida link."
+      highlights: "Regular direct flights; quick Central Florida link.",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20MCO%20to%20KIN%20on%202027-01-14%20through%202027-01-18%20nonstop%20JetBlue",
+      label: "View MCO ➔ KIN Flights (JetBlue)"
+    },
+    {
+      city: "New Orleans, LA (MSY)",
+      airline: "American / Delta",
+      duration: "1-Stop via MIA / ATL",
+      highlights: "Primary origin hub for NOLA attendees. Quick 1-stop connections available via Miami (AA) or Atlanta (Delta).",
+      link: "https://www.google.com/travel/flights?q=Flights%20from%20MSY%20to%20KIN%20on%202027-01-14%20through%202027-01-18",
+      label: "View MSY ➔ KIN Flights (NOLA Dedicated)"
     }
   ];
 
@@ -94,7 +112,7 @@ export function FlightGuidance() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {directHubs.map((hub, idx) => (
               <motion.div
                 key={hub.city}
@@ -129,9 +147,20 @@ export function FlightGuidance() {
                   </div>
                 </div>
 
-                <p className="text-xs text-brand-white/60 mt-6 leading-relaxed border-l border-brand-gold/30 pl-3">
-                  {hub.highlights}
-                </p>
+                <div className="mt-6 flex flex-col gap-5">
+                  <p className="text-xs text-brand-white/60 leading-relaxed border-l border-brand-gold/30 pl-3 min-h-[50px]">
+                    {hub.highlights}
+                  </p>
+                  
+                  <a
+                    href={hub.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flight-search-btn"
+                  >
+                    {hub.label}
+                  </a>
+                </div>
               </motion.div>
             ))}
           </div>
