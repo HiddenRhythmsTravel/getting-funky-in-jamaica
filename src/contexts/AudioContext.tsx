@@ -74,6 +74,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     audio.preload = "auto";
     audio.volume = 0.0;
     audioRef.current = audio;
+    if (typeof window !== "undefined") {
+      (window as any).globalBgAudio = audio;
+    }
 
     // Handle track completion (stop playback and expand player widget)
     const handleEnded = () => {

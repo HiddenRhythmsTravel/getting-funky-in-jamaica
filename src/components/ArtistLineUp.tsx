@@ -88,57 +88,20 @@ function ArtistCard({ artist }: { artist: Artist }) {
     isLocalMutedRef.current = isLocalMuted;
   }, [isLocalMuted]);
 
-  // Mobile-specific viewport tracker script (< 768px)
+  // Sync state with DOM mute state via volumechange listener (handles scroll observer changes)
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isMobile = window.matchMedia("(max-width: 768px)").matches;
-        if (!isMobile) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-        if (entry.isIntersecting) {
-          // Play video silently when enters viewport
-          if (videoRef.current) {
-            videoRef.current.play().catch((err) => {
-              console.log("Mobile video scroll-play failed:", err);
-            });
-          }
-          
-          // Auto-unmute if not opted out
-          if (!artistAudioOptOutRef.current) {
-            fadeGlobalOut(300);
-            setIsLocalMuted(false);
-          }
-        } else {
-          // Pause video when leaving viewport
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
-          setIsFlipped(false);
-          
-          // If unmuted, mute and resume global audio
-          if (!isLocalMutedRef.current) {
-            setIsLocalMuted(true);
-            fadeGlobalIn(300);
-          }
-        }
-      },
-      { 
-        threshold: 0.5,
-        rootMargin: "-20% 0px -20% 0px" // center 60% viewport
-      }
-    );
-
-    const currentCard = cardRef.current;
-    if (currentCard) {
-      observer.observe(currentCard);
-    }
-
-    return () => {
-      if (currentCard) {
-        observer.unobserve(currentCard);
-      }
+    const handleVolumeChange = () => {
+      setIsLocalMuted(video.muted);
     };
-  }, [fadeGlobalOut, fadeGlobalIn]);
+
+    video.addEventListener("volumechange", handleVolumeChange);
+    return () => {
+      video.removeEventListener("volumechange", handleVolumeChange);
+    };
+  }, []);
 
   const handleMouseEnter = () => {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -193,7 +156,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
   return (
     <div 
       ref={cardRef}
-      className="perspective-1000 w-full h-[400px] cursor-pointer"
+      className="artist-card perspective-1000 w-full h-[400px] cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -213,7 +176,9 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted={isLocalMuted}
               playsInline
-              className="w-full h-full object-cover"
+              webkit-playsinline="true"
+              preload="auto"
+              className="artist-loop-video w-full h-full object-cover"
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
@@ -266,7 +231,9 @@ function ArtistCard({ artist }: { artist: Artist }) {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover blur-[4px] scale-105 opacity-25"
+              webkit-playsinline="true"
+              preload="auto"
+              className="artist-loop-video w-full h-full object-cover blur-[4px] scale-105 opacity-25"
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-accent/95 via-brand-green/90 to-brand-dark-accent/95"></div>
@@ -401,6 +368,68 @@ export function ArtistLineUp() {
     "X Alfonso",
     "Yissy Garcia"
   ];
+
+  // Mobile IntersectionObserver & Audio Focus Controller
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) return;
+
+    const mobileVideoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target.querySelector('video');
+        if (!video) return;
+
+        if (entry.isIntersecting) {
+          // 1. Force video play state if paused
+          if (video.paused) {
+            video.play().catch(err => console.log("Autoplay unblock handling:", err));
+          }
+
+          // 2. Mute all OTHER artist videos first (Single Audio Source Rule)
+          document.querySelectorAll('.artist-loop-video').forEach(v => {
+            if (v !== video) {
+              (v as HTMLVideoElement).muted = true;
+            }
+          });
+
+          // 3. Smoothly pause or fade down site background music track
+          if ((window as any).globalBgAudio) {
+            (window as any).globalBgAudio.pause();
+          }
+
+          // 4. Unmute ONLY the centered video currently in view
+          video.muted = false;
+          video.volume = 0.6;
+        } else {
+          // Video scrolled out of center focus zone
+          video.muted = true;
+
+          // Check if ANY artist video is still in focus; if none, resume background audio
+          const anyActive = Array.from(document.querySelectorAll('.artist-loop-video'))
+            .some(v => !(v as HTMLVideoElement).muted);
+
+          if (!anyActive && (window as any).globalBgAudio) {
+            (window as any).globalBgAudio.play().catch(() => {});
+          }
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: "-25% 0px -25% 0px", // Triggers only when video is in center 50% of screen
+      threshold: 0.5
+    });
+
+    const cards = document.querySelectorAll('.artist-card');
+    cards.forEach(card => {
+      mobileVideoObserver.observe(card);
+    });
+
+    return () => {
+      cards.forEach(card => {
+        mobileVideoObserver.unobserve(card);
+      });
+    };
+  }, []);
 
   return (
     <section id="artists" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
