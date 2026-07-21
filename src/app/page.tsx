@@ -2,7 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { StoryImpact } from "@/components/StoryImpact";
 import { ArtistLineUp } from "@/components/ArtistLineUp";
-import { VipProgramProvider, VipProgramCards, VipProgramDetails } from "@/components/VipProgram";
+import { VipProgramProvider, VipProgramCards, VipProgramDetails, EarlyBirdBanner } from "@/components/VipProgram";
 import { TimelineGallery } from "@/components/TimelineGallery";
 import { RegistrationPortal } from "@/components/RegistrationPortal";
 import { IslandExodusSection } from "@/components/IslandExodusSection";
@@ -16,8 +16,9 @@ export default function Home() {
         <Hero />
         <StoryImpact />
         <VipProgramCards />
-        <ArtistLineUp />
+        <EarlyBirdBanner isClickable={true} />
         <VipProgramDetails />
+        <ArtistLineUp />
         <TimelineGallery />
         <RegistrationPortal />
         <IslandExodusSection />

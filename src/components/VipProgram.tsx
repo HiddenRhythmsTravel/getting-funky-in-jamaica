@@ -561,9 +561,6 @@ export function VipProgramDetails() {
           </AnimatePresence>
         </div>
 
-        {/* Clickable Early Bird Banner below VIP details */}
-        <EarlyBirdBanner isClickable={true} />
-
         {/* Global CTA button below itinerary options */}
         <div className="mt-16 text-center">
           <a
