@@ -63,6 +63,39 @@ function ArtistCard({ artist }: { artist: Artist }) {
     }
   }, [isLocalMuted]);
 
+  // Time trimming rule for Trombone Shorty new.mp4 (loop between 4s and 15s)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || artist.name !== "Trombone Shorty") return;
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime < 4) {
+        video.currentTime = 4;
+      }
+      if (video.currentTime >= 15) {
+        video.currentTime = 4;
+      }
+    };
+
+    const handlePlay = () => {
+      if (video.currentTime < 4) {
+        video.currentTime = 4;
+      }
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("play", handlePlay);
+
+    if (video.currentTime < 4) {
+      video.currentTime = 4;
+    }
+
+    return () => {
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("play", handlePlay);
+    };
+  }, [artist.name]);
+
   // If global audio unmutes, automatically mute local video to avoid double playback
   useEffect(() => {
     if (!isGlobalMuted) {
@@ -307,7 +340,15 @@ export function ArtistLineUp() {
       role: "New Orleans Brass Icon",
       bioSpacing: "Troy Andrews (Trombone Shorty) is a Grammy-winning New Orleans brass icon. Blending funk, hip-hop, and jazz, he leads our brass workshops, instrument clinics, and joint student concerts.",
       instagram: "https://instagram.com/tromboneshorty",
-      loopVideo: "/assets/reels/trombone_shorty_loop.mp4",
+      loopVideo: "/assets/reels/trombone_shorty_new.mp4",
+      videoPosition: "center 15%"
+    },
+    {
+      name: "Trombone Shorty Foundation",
+      role: "Empowering Youth Through Music",
+      bioSpacing: "The Trombone Shorty Foundation offers both a road map and focus to allow students to pursue their passion. The goal is to nurture their talent in a way that opens up possibilities, and a platform for advancement. Although many kids in New Orleans play an instrument, it’s a select few like Troy “Trombone Shorty” who have the opportunity to pursue music as a career on a national stage.",
+      instagram: "https://instagram.com/tromboneshortyfoundation",
+      loopVideo: "/assets/reels/ts_foundation_loop.mp4",
       videoPosition: "center 15%"
     },
     {
@@ -333,7 +374,6 @@ export function ArtistLineUp() {
     "Big Chief Joseph Bordeaux",
     "Big Chief Juan Pardo",
     "Big Freedia",
-    "DJ Leydis",
     "DJ Mannie Fresh",
     "Galactic",
     "George Clinton",
@@ -357,6 +397,7 @@ export function ArtistLineUp() {
   const cubanArtists = [
     "Carlos Varela",
     "Cimafunk",
+    "DJ Leydis",
     "Habana D'Primeara",
     "Interactivo",
     "La Reyna y Real",
@@ -464,7 +505,7 @@ export function ArtistLineUp() {
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {currentArtists.map((artist) => (
                 <ArtistCard key={artist.name} artist={artist} />
               ))}

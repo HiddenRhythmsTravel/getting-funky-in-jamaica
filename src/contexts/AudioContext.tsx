@@ -26,13 +26,11 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 const TRACK_LIST = [
-  "/assets/audio/track2.mp3", // Track 1: Juicy Fruit
-  "/assets/audio/track1.mp3", // Track 2: I Don't Care
-  "/assets/audio/track3.mp3", // Track 3: Carnival Horns
+  "/assets/audio/track1.mp3", // Track 1: I Don't Care
+  "/assets/audio/track3.mp3", // Track 2: Carnival Horns
 ];
 
 export const TRACK_METADATA = [
-  { title: "Juicy Fruit", artist: "Bacao Rhythm & Steel Band" },
   { title: "I Don't Care", artist: "Cimafunk ft. Nik West" },
   { title: "Carnival Horns", artist: "Mista Nova Session" },
 ];

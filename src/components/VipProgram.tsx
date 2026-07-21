@@ -1,12 +1,202 @@
 "use client";
 
-import { useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Building2, ShieldCheck, ArrowRight, Clock, MapPin, CheckCircle2, Plane } from "lucide-react";
 
-export function VipProgram() {
-  const [activeTab, setActiveTab] = useState<"itinerary" | "lodging" | "packages">("itinerary");
+type TabType = "itinerary" | "lodging" | "flight-guidance";
+
+interface ProgramContextType {
+  activeTab: TabType;
+  setActiveTab: (tab: TabType) => void;
+  activeDay: number;
+  setActiveDay: (day: number) => void;
+}
+
+const ProgramContext = createContext<ProgramContextType | undefined>(undefined);
+
+export function VipProgramProvider({ children }: { children: React.ReactNode }) {
+  const [activeTab, setActiveTab] = useState<TabType>("itinerary");
   const [activeDay, setActiveDay] = useState(0);
+
+  // Auto-activate tab based on URL hash
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleHashChange = () => {
+        if (window.location.hash === "#flight-guidance") {
+          setActiveTab("flight-guidance");
+          setTimeout(() => {
+            const el = document.getElementById("flight-guidance");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      };
+
+      handleHashChange();
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
+    }
+  }, []);
+
+  return (
+    <ProgramContext.Provider value={{ activeTab, setActiveTab, activeDay, setActiveDay }}>
+      {children}
+    </ProgramContext.Provider>
+  );
+}
+
+export function useProgram() {
+  const context = useContext(ProgramContext);
+  if (!context) {
+    throw new Error("useProgram must be used within a VipProgramProvider");
+  }
+  return context;
+}
+
+export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean }) {
+  const [isExpired, setIsExpired] = useState(false);
+
+  useEffect(() => {
+    // Automated Expiration Flag Check for August 14, 2027
+    const currentDate = new Date();
+    const expirationDate = new Date('2027-08-14T00:00:00');
+
+    if (currentDate >= expirationDate) {
+      console.warn("DEVELOPER ALERT: August 14, 2027 reached. Early bird discount and MOU notice require removal/update.");
+      // Automatically hide early bird banners if past expiration date
+      document.querySelectorAll('.early-bird-banner').forEach(el => {
+        (el as HTMLElement).style.display = 'none';
+      });
+      setIsExpired(true);
+    }
+  }, []);
+
+  if (isExpired) return null;
+
+  const content = (
+    <div className="early-bird-banner trip-id-copy-btn p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 max-w-4xl mx-auto my-8 text-center shadow-lg transition-transform">
+      <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
+        Early Bird Special – As a courtesy and offer to our returning guests, please enjoy a $1,000 discount if you sign up prior to August 14, 2027. The price will increase then, so please take advantage of this one time offer now!
+      </p>
+    </div>
+  );
+
+  if (isClickable) {
+    return (
+      <a href="#registration" className="block no-underline">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
+}
+
+export function VipProgramCards() {
+  const { activeTab, setActiveTab } = useProgram();
+
+  const handleTabClick = (tab: TabType) => {
+    setActiveTab(tab);
+    setTimeout(() => {
+      const el = document.getElementById("vip-details");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  return (
+    <section id="program" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
+      {/* Background Cover Overlay */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#0b4745_80%)] z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-green via-transparent to-brand-green z-10"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <span className="font-sans text-[10px] md:text-xs text-brand-gold font-bold tracking-[0.25em] uppercase mb-3 block">
+            The Program
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-heading font-bold mb-6">
+            VIP Program Details
+          </h2>
+          
+          {/* Program Card Grid Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto font-sans">
+            {/* Card 1: Itinerary */}
+            <button
+              onClick={() => handleTabClick("itinerary")}
+              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
+                activeTab === "itinerary"
+                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
+                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
+              }`}
+            >
+              <Calendar className={activeTab === "itinerary" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Itinerary</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">5-Day Cultural Timeline</p>
+              </div>
+            </button>
+
+            {/* Card 2: Lodging */}
+            <button
+              onClick={() => handleTabClick("lodging")}
+              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
+                activeTab === "lodging"
+                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
+                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
+              }`}
+            >
+              <Building2 className={activeTab === "lodging" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Lodging</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Kingston Suites & Hotels</p>
+              </div>
+            </button>
+
+            {/* Card 3: Flight Guidance */}
+            <button
+              onClick={() => handleTabClick("flight-guidance")}
+              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
+                activeTab === "flight-guidance"
+                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
+                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
+              }`}
+            >
+              <Plane className={activeTab === "flight-guidance" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Flight Guidance</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">US Hubs & Connections</p>
+              </div>
+            </button>
+
+            {/* Card 4: Registration */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("registration");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
+            >
+              <ShieldCheck className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Registration</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Secure Your Package</p>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function VipProgramDetails() {
+  const { activeTab, activeDay, setActiveDay } = useProgram();
 
   const itineraryDays = [
     {
@@ -121,6 +311,23 @@ export function VipProgram() {
     }
   ];
 
+  const lodgingOptions = [
+    {
+      name: "Courtyard by Marriott Kingston",
+      tag: "Modern Comfort Option",
+      desc: "A sleek, modern retreat in the city's vibrant business district. Featuring contemporary guest rooms, a refreshing outdoor pool, dynamic workspaces, and exceptional dining at The Bistro, it's the perfect base for your Kingston adventure.",
+      features: ["Contemporary Guest Rooms", "Outdoor Pool & Bistro", "Fitness Center", "Heart of Kingston"],
+      image: "/assets/courtyard.avif"
+    },
+    {
+      name: "The Jamaica Pegasus",
+      tag: "Classic Elegance Option",
+      desc: "An landmark hotel of classic prestige in the center of Kingston. Surrounded by lush gardens and boasting views of the city and bay, it has hosted royalty, world leaders, and global superstars with timeless Jamaican hospitality.",
+      features: ["Elegant Skyline Guest Rooms", "Olympic-sized Pool & Gardens", "Pegasus Club Lounge", "Timed Hospitality Tradition"],
+      image: "/assets/jamaica_pegasus.jpg"
+    }
+  ];
+
   const renderFormattedText = (text: string) => {
     const lines = text.split("\n");
     return lines.map((line, lineIdx) => {
@@ -176,134 +383,12 @@ export function VipProgram() {
     });
   };
 
-  const lodgingOptions = [
-    {
-      name: "Courtyard by Marriott Kingston",
-      tag: "Modern Comfort Option",
-      desc: "A sleek, modern retreat in the city's vibrant business district. Featuring contemporary guest rooms, a refreshing outdoor pool, dynamic workspaces, and exceptional dining at The Bistro, it's the perfect base for your Kingston adventure.",
-      features: ["Contemporary Guest Rooms", "Outdoor Pool & Bistro", "Fitness Center", "Heart of Kingston"],
-      image: "/assets/courtyard.avif"
-    },
-    {
-      name: "The Jamaica Pegasus",
-      tag: "Classic Elegance Option",
-      desc: "A landmark of Kingston luxury. Nestled amidst lush tropical gardens in the city's financial hub, this hotel offers spacious suites, executive facilities, fine dining, and mountain vistas.",
-      features: ["Skyline Views", "Tropical Gardens", "Executive Lounge", "Spacious Suites"],
-      image: "/assets/jamaica_pegasus.jpg"
-    }
-  ];
-
-  const packages = [
-    {
-      name: "Patron VIP Experience",
-      desc: "The ultimate curated access, helping fund our youth initiatives.",
-      price: "",
-      features: [
-        "Ultra-premium suite lodging (Pegasus / Courtyard)",
-        "All-access passes to all concerts & rehearsals",
-        "Exclusive dinner reception at Bob Marley Museum",
-        "Rastafarian Hills private dining event",
-        "All group lunches, tours, and choice activities",
-        "Dedicated private host and luxury airport transfers",
-        "Philanthropic donation receipt for school programs"
-      ],
-      popular: true
-    }
-  ];
-
   return (
-    <section id="vip" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
-      {/* Background Cover Overlay */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#0b4745_80%)] z-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-green via-transparent to-brand-green z-10"></div>
-      </div>
-
+    <section id="vip-details" className="relative pb-24 md:pb-32 overflow-hidden bg-brand-green">
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="font-sans text-[10px] md:text-xs text-brand-gold font-bold tracking-[0.25em] uppercase mb-3 block">
-            The Program
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-heading font-bold mb-6">
-            VIP Program Details
-          </h2>
-          
-          {/* Program Card Grid Layout */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16 font-sans">
-            {/* Card 1: Itinerary */}
-            <button
-              onClick={() => setActiveTab("itinerary")}
-              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
-                activeTab === "itinerary"
-                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
-                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
-              }`}
-            >
-              <Calendar className={activeTab === "itinerary" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
-              <div>
-                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Itinerary</h3>
-                <p className="text-[10px] uppercase tracking-wider text-brand-gold">5-Day Cultural Timeline</p>
-              </div>
-            </button>
-
-            {/* Card 2: Lodging */}
-            <button
-              onClick={() => setActiveTab("lodging")}
-              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
-                activeTab === "lodging"
-                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
-                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
-              }`}
-            >
-              <Building2 className={activeTab === "lodging" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
-              <div>
-                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Lodging</h3>
-                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Kingston Suites & Hotels</p>
-              </div>
-            </button>
-
-            {/* Card 3: Flight Guidance */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("flight-guidance");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
-            >
-              <Plane className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
-              <div>
-                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Flight Guidance</h3>
-                <p className="text-[10px] uppercase tracking-wider text-brand-gold">US Hubs & Connections</p>
-              </div>
-            </button>
-
-            {/* Card 4: Registration */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("registration");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
-            >
-              <ShieldCheck className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
-              <div>
-                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Registration</h3>
-                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Secure Your Package</p>
-              </div>
-            </button>
-          </div>
-        </div>
-
         {/* Tab Content Panel */}
-        <div className="min-h-[500px]">
+        <div className="min-h-[400px]">
           <AnimatePresence mode="wait">
             
             {/* ITINERARY TAB */}
@@ -434,12 +519,50 @@ export function VipProgram() {
                       </div>
                     </div>
                   </div>
-                  ))}
+                ))}
+              </motion.div>
+            )}
+
+            {/* FLIGHT GUIDANCE TAB */}
+            {activeTab === "flight-guidance" && (
+              <motion.div
+                key="flight-guidance"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+                className="max-w-2xl mx-auto glass-card p-8 md:p-12 rounded-3xl border border-brand-white/10 shadow-2xl relative overflow-hidden group"
+              >
+                {/* Background decorative elements */}
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-gold/5 rounded-full blur-xl pointer-events-none transition-transform group-hover:scale-150"></div>
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-gold/5 rounded-full blur-xl pointer-events-none transition-transform group-hover:scale-150"></div>
+
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-6 shadow-inner">
+                    <Plane size={28} className="animate-pulse" />
+                  </div>
+                  
+                  <h3 id="flight-guidance" className="font-serif text-2xl sm:text-3xl text-brand-heading font-bold mb-6">
+                    Flight Guidance
+                  </h3>
+
+                  <div className="space-y-6 font-sans text-brand-white/85 text-sm sm:text-base leading-relaxed text-left">
+                    <p className="border-l-2 border-brand-gold/50 pl-4 py-1">
+                      We recommend flying into Kingston airport (KIN). Please book your flight to KIN on Jan 14 and returning home on Jan 18. If you are attending Island Exodus after the Getting Funky trip, you should make your return flight home from Montego Bay.
+                    </p>
+                    <p className="bg-brand-gold/10 text-brand-gold border border-brand-gold/20 rounded-xl p-4 text-xs sm:text-sm font-semibold flex items-center gap-2">
+                      <span>Note that flying into Montego Bay is a 2.5 hour drive from Kingston</span>
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             )}
 
           </AnimatePresence>
         </div>
+
+        {/* Clickable Early Bird Banner below VIP details */}
+        <EarlyBirdBanner isClickable={true} />
 
         {/* Global CTA button below itinerary options */}
         <div className="mt-16 text-center">

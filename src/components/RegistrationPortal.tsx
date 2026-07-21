@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Ticket, ShieldCheck, Copy, Check } from "lucide-react";
+import { EarlyBirdBanner } from "./VipProgram";
 
 export function RegistrationPortal() {
   const zohoPortalUrl = "https://forms.zohopublic.com/caribbeanexecutivetravel1/form/HRTTravelRegistration/formperma/SHoOEyI-cABdddRGuEWJtOC16QHkqKNZAqN8ONrdI6M";
@@ -21,6 +22,7 @@ export function RegistrationPortal() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
+        <EarlyBirdBanner />
         
         {/* Main Card */}
         <motion.div
