@@ -211,7 +211,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               playsInline
               webkit-playsinline="true"
               preload="auto"
-              className="artist-loop-video w-full h-full object-cover"
+              className={`artist-loop-video w-full h-full object-cover ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
@@ -266,7 +266,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               playsInline
               webkit-playsinline="true"
               preload="auto"
-              className="artist-loop-video w-full h-full object-cover blur-[4px] scale-105 opacity-25"
+              className={`artist-loop-video w-full h-full object-cover blur-[4px] scale-105 opacity-25 ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-accent/95 via-brand-green/90 to-brand-dark-accent/95"></div>

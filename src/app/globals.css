@@ -289,4 +289,11 @@ h1, h2, h3, h4, h5, h6,
   transform: scale(0.98);
 }
 
+.trombone-shorty-video {
+  object-fit: cover !important;
+  object-position: center 20% !important; /* Centers on artist faces/heads */
+  width: 100% !important;
+  height: 100% !important;
+}
+
 
