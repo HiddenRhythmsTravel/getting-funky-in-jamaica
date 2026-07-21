@@ -16,7 +16,7 @@ export function RegistrationPortal() {
   };
 
   return (
-    <section id="register" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-brand-green to-brand-dark-accent">
+    <section id="registration" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-brand-green to-brand-dark-accent">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
@@ -126,7 +126,7 @@ export function RegistrationPortal() {
             {/* Mobile Trip ID Helper */}
             <button
               onClick={handleCopyId}
-              className="inline-flex items-center gap-2 px-6 py-4.5 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
+              className="trip-id-copy-btn inline-flex items-center gap-2 px-6 py-4.5 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
             >
               {copied ? <Check size={14} /> : <Copy size={14} />}
               <span>{copied ? "Copied ID!" : "Copy Trip ID (FunkyJ2027)"}</span>

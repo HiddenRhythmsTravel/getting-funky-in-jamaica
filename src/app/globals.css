@@ -232,4 +232,29 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
+/* Tasteful gold ambient pulse effect */
+@keyframes tripIdPulse {
+  0% {
+    box-shadow: 0 0 0px rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.8);
+    border-color: rgba(212, 175, 55, 1);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+}
+
+.trip-id-copy-btn {
+  animation: tripIdPulse 2.5s infinite ease-in-out;
+  transition: transform 0.2s ease;
+}
+
+.trip-id-copy-btn:hover {
+  transform: scale(1.03);
+}
+
 

@@ -80,7 +80,7 @@ export function Hero() {
             Explore Experience
           </a>
           <a
-            href="#register"
+            href="#registration"
             className="px-8 py-4 rounded-full bg-accent-gradient text-brand-green text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_25px_rgba(239,156,130,0.5)] hover:scale-105 text-center shadow-lg"
           >
             Register Now

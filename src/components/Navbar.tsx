@@ -41,7 +41,7 @@ export function Navbar() {
     },
     { name: "History", href: "/#gallery" },
     { name: "Gallery", href: "/gallery" },
-    { name: "Register Now", href: "/#register" },
+    { name: "Register Now", href: "/#registration" },
   ];
 
   return (
@@ -151,7 +151,7 @@ export function Navbar() {
           </button>
 
           <Link
-            href="/#register"
+            href="/#registration"
             className="px-5 py-2.5 rounded-full border border-brand-gold text-brand-green bg-brand-gold font-bold tracking-widest text-[10px] hover:bg-brand-green hover:text-brand-gold hover:border-brand-gold transition-all duration-300 shadow-md"
           >
             REGISTER NOW
@@ -247,7 +247,7 @@ export function Navbar() {
                 )
               ))}
               <Link
-                href="/#register"
+                href="/#registration"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-3.5 rounded-full border border-brand-gold text-brand-gold font-bold tracking-widest bg-brand-gold/5 hover:bg-brand-gold hover:text-brand-green transition-all"
               >

@@ -251,13 +251,17 @@ export function VipProgram() {
               <span>Lodging</span>
             </button>
             <button
-              onClick={() => setActiveTab("packages")}
-              className={`flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 ${
-                activeTab === "packages" ? "bg-brand-gold text-brand-green shadow-md" : "hover:text-brand-white"
-              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("registration");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 hover:text-brand-white"
             >
               <ShieldCheck size={14} />
-              <span>Packages</span>
+              <span>Register Now</span>
             </button>
           </div>
         </div>
@@ -394,71 +398,7 @@ export function VipProgram() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-            )}
-
-            {/* PACKAGES TAB */}
-            {activeTab === "packages" && (
-              <motion.div
-                key="packages"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
-                className={`grid grid-cols-1 ${packages.length > 1 ? "md:grid-cols-2 max-w-4xl" : "max-w-lg"} gap-8 mx-auto items-stretch`}
-              >
-                {packages.map((pkg) => (
-                  <div
-                    key={pkg.name}
-                    className={`glass-card p-8 rounded-3xl flex flex-col justify-between h-full border ${
-                      pkg.popular ? "border-brand-gold shadow-[0_0_30px_rgba(239,156,130,0.15)]" : "border-brand-white/5"
-                    }`}
-                  >
-                    <div>
-                      {pkg.popular && (
-                        <span className="inline-block px-3 py-1 rounded-full bg-brand-gold text-brand-green text-[9px] font-extrabold tracking-widest uppercase mb-4 shadow">
-                          RECOMMENDED
-                        </span>
-                      )}
-                      <h4 className="font-serif text-2xl text-brand-heading font-bold mb-2">
-                        {pkg.name}
-                      </h4>
-                      <p className="font-sans text-brand-white/65 text-xs mb-6">
-                        {pkg.desc}
-                      </p>
-                      
-                      {pkg.price && (
-                        <div className="font-serif text-xl sm:text-2xl text-brand-gold font-bold mb-6 border-b border-brand-white/10 pb-4">
-                          {pkg.price}
-                        </div>
-                      )}
-
-                      <ul className="space-y-4">
-                        {pkg.features.map((feat) => (
-                          <li key={feat} className="flex items-start gap-3 text-brand-white/85 text-xs sm:text-sm font-sans leading-snug">
-                            <CheckCircle2 size={15} className="text-brand-gold flex-shrink-0 mt-0.5" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-10">
-                      <a
-                        href="#register"
-                        className={`w-full py-4 rounded-full font-bold tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 uppercase shadow-md ${
-                          pkg.popular
-                            ? "bg-accent-gradient text-brand-green hover:shadow-[0_0_20px_rgba(239,156,130,0.4)]"
-                            : "border border-brand-white/20 text-brand-white hover:bg-brand-white hover:text-brand-green hover:border-transparent"
-                        }`}
-                      >
-                        <span>Select Tier</span>
-                        <ArrowRight size={13} />
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </motion.div>
             )}
 
@@ -468,7 +408,7 @@ export function VipProgram() {
         {/* Global CTA button below itinerary options */}
         <div className="mt-16 text-center">
           <a
-            href="#register"
+            href="#registration"
             className="inline-flex items-center gap-3 px-10 py-5 rounded-full bg-accent-gradient text-brand-green font-bold text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,156,130,0.6)] hover:scale-105"
           >
             <span>Register Now</span>
