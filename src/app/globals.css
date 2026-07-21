@@ -289,11 +289,27 @@ h1, h2, h3, h4, h5, h6,
   transform: scale(0.98);
 }
 
+/* Responsive Video Wrapper Container */
+.artist-video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: #051F1B;
+}
+
 .trombone-shorty-video {
-  object-fit: cover !important;
-  object-position: center 20% !important; /* Centers on artist faces/heads */
   width: 100% !important;
   height: 100% !important;
+  object-fit: cover !important;
+  /* Precisely center horizontally and lock focal point onto the artists' faces */
+  object-position: center 25% !important;
+  transform: scale(1.02) !important; /* Removes minor edge letterbox artifacts */
 }
 
 

@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Play, Pause, Volume2, VolumeX, Music } from "lucide-react";
-import { useAudio } from "@/contexts/AudioContext";
 import reelsMetadataImport from "@/data/reels-metadata.json";
 
 interface ReelSegment {
@@ -76,7 +75,6 @@ export function TimelineGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { isPlaying, isMuted, toggleMute } = useAudio();
   const currentSlide = slides[currentIndex];
 
   // 1. Viewport detection

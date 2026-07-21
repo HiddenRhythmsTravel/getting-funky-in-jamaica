@@ -189,7 +189,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
   return (
     <div 
       ref={cardRef}
-      className="artist-card perspective-1000 w-full h-[400px] cursor-pointer"
+      className="artist-card perspective-1000 w-full h-[520px] cursor-pointer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -201,7 +201,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
       >
         {/* Front Face */}
         <div className="absolute inset-0 w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden flex flex-col border border-brand-white/10 hover:border-brand-gold/40 transition-all duration-300">
-          <div className="relative h-64 w-full bg-brand-dark-accent/60 overflow-hidden">
+          <div className="artist-video-container">
             <video
               ref={videoRef}
               src={artist.loopVideo}
@@ -433,25 +433,12 @@ export function ArtistLineUp() {
             }
           });
 
-          // 3. Smoothly pause or fade down site background music track
-          if ((window as any).globalBgAudio) {
-            (window as any).globalBgAudio.pause();
-          }
-
-          // 4. Unmute ONLY the centered video currently in view
+          // 3. Unmute ONLY the centered video currently in view
           video.muted = false;
           video.volume = 0.6;
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;
-
-          // Check if ANY artist video is still in focus; if none, resume background audio
-          const anyActive = Array.from(document.querySelectorAll('.artist-loop-video'))
-            .some(v => !(v as HTMLVideoElement).muted);
-
-          if (!anyActive && (window as any).globalBgAudio) {
-            (window as any).globalBgAudio.play().catch(() => {});
-          }
         }
       });
     }, {

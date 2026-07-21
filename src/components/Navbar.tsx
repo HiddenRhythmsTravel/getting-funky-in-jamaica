@@ -4,15 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Instagram } from "lucide-react";
-import { useAudio } from "@/contexts/AudioContext";
+import { Instagram } from "lucide-react";
 
 export function Navbar() {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isMuted, toggleMute } = useAudio();
+
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -141,14 +140,7 @@ export function Navbar() {
             )
           ))}
 
-          {/* Global Mute Toggle Button */}
-          <button
-            onClick={toggleMute}
-            className="p-2.5 rounded-full border border-brand-white/10 hover:border-brand-gold text-brand-white hover:text-brand-gold bg-brand-white/5 transition-all duration-300 flex items-center justify-center cursor-pointer ml-2"
-            aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
-          >
-            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-          </button>
+
 
           <Link
             href="/#registration"
@@ -160,14 +152,7 @@ export function Navbar() {
 
         {/* Mobile Header Buttons */}
         <div className="flex items-center gap-3 md:hidden">
-          {/* Mobile Mute Toggle Button */}
-          <button
-            onClick={toggleMute}
-            className="p-2 rounded-full border border-brand-white/10 text-brand-white bg-brand-white/5 flex items-center justify-center cursor-pointer"
-            aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
-          >
-            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-          </button>
+
 
           {/* Hamburger Menu Toggle */}
           <button

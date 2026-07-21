@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, Sparkles, MapPin } from "lucide-react";
-import { useAudio } from "@/contexts/AudioContext";
 
 export function JamaicaPromo() {
-  const { isMuted, isPlaying, toggleMute } = useAudio();
+  const [localMuted, setLocalMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Autoplay the video visually on mount
@@ -72,7 +71,7 @@ export function JamaicaPromo() {
                 autoPlay
                 loop
                 playsInline
-                muted={true}
+                muted={localMuted}
                 className="w-full h-full object-cover object-center"
               />
 
@@ -87,28 +86,20 @@ export function JamaicaPromo() {
               <div 
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleMute();
+                  setLocalMuted(!localMuted);
                 }}
                 className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 cursor-pointer"
               >
                 <div className="p-3.5 rounded-full bg-brand-green/90 border border-brand-white/10 text-brand-gold shadow-lg">
-                  {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                  {localMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                 </div>
               </div>
-
-              {/* Locked Backdrop Audio Notification */}
-              {isPlaying && (
-                <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-md border border-brand-white/10 p-2.5 rounded-xl text-[9px] font-bold text-brand-white/95 z-20 flex items-center justify-between">
-                  <span className="truncate">Theme: Carnival Horns</span>
-                  <span className="text-brand-gold">Mista Savona</span>
-                </div>
-              )}
             </div>
 
             {/* Sub-label under player */}
             <span className="text-[10px] text-brand-white/40 mt-4 tracking-wider uppercase font-sans font-bold flex items-center gap-1.5">
               <Sparkles size={11} className="text-brand-gold" />
-              Spliced from 2023 & 2025 history reels
+              <span>Hover Phone Mockup to Toggle Audio</span>
             </span>
 
           </div>
