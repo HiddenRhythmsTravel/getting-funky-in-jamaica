@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Building2, ShieldCheck, ArrowRight, Clock, MapPin, CheckCircle2 } from "lucide-react";
+import { Calendar, Building2, ShieldCheck, ArrowRight, Clock, MapPin, CheckCircle2, Plane } from "lucide-react";
 
 export function VipProgram() {
   const [activeTab, setActiveTab] = useState<"itinerary" | "lodging" | "packages">("itinerary");
@@ -230,26 +230,59 @@ export function VipProgram() {
             VIP Program Details
           </h2>
           
-          {/* Tab Navigation Buttons */}
-          <div className="inline-flex p-1.5 rounded-full bg-brand-dark-accent/60 backdrop-blur-md border border-brand-white/10 font-sans text-xs tracking-widest uppercase font-bold text-brand-white/70">
+          {/* Program Card Grid Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16 font-sans">
+            {/* Card 1: Itinerary */}
             <button
               onClick={() => setActiveTab("itinerary")}
-              className={`flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 ${
-                activeTab === "itinerary" ? "bg-brand-gold text-brand-green shadow-md" : "hover:text-brand-white"
+              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
+                activeTab === "itinerary"
+                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
+                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
               }`}
             >
-              <Calendar size={14} />
-              <span>Itinerary</span>
+              <Calendar className={activeTab === "itinerary" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Itinerary</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">5-Day Cultural Timeline</p>
+              </div>
             </button>
+
+            {/* Card 2: Lodging */}
             <button
               onClick={() => setActiveTab("lodging")}
-              className={`flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 ${
-                activeTab === "lodging" ? "bg-brand-gold text-brand-green shadow-md" : "hover:text-brand-white"
+              className={`p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group ${
+                activeTab === "lodging"
+                  ? "bg-[#0A322C] border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)] text-brand-white"
+                  : "bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 text-brand-white/80"
               }`}
             >
-              <Building2 size={14} />
-              <span>Lodging</span>
+              <Building2 className={activeTab === "lodging" ? "text-[#D4AF37]" : "text-brand-white/60 group-hover:text-brand-gold transition-colors duration-300"} size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Lodging</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Kingston Suites & Hotels</p>
+              </div>
             </button>
+
+            {/* Card 3: Flight Guidance */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("flight-guidance");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
+            >
+              <Plane className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Flight Guidance</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">US Hubs & Connections</p>
+              </div>
+            </button>
+
+            {/* Card 4: Registration */}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -258,10 +291,13 @@ export function VipProgram() {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 hover:text-brand-white"
+              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
             >
-              <ShieldCheck size={14} />
-              <span>Register Now</span>
+              <ShieldCheck className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
+              <div>
+                <h3 className="font-serif text-lg font-bold tracking-wider mb-1">Registration</h3>
+                <p className="text-[10px] uppercase tracking-wider text-brand-gold">Secure Your Package</p>
+              </div>
             </button>
           </div>
         </div>

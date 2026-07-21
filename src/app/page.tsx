@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { StoryImpact } from "@/components/StoryImpact";
 import { ArtistLineUp } from "@/components/ArtistLineUp";
 import { VipProgram } from "@/components/VipProgram";
+import { FlightGuidance } from "@/components/FlightGuidance";
 import { TimelineGallery } from "@/components/TimelineGallery";
 import { RegistrationPortal } from "@/components/RegistrationPortal";
 import { IslandExodusSection } from "@/components/IslandExodusSection";
@@ -16,6 +17,7 @@ export default function Home() {
       <StoryImpact />
       <ArtistLineUp />
       <VipProgram />
+      <FlightGuidance />
       <TimelineGallery />
       <RegistrationPortal />
       <IslandExodusSection />
