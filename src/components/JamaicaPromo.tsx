@@ -72,6 +72,7 @@ export function JamaicaPromo() {
                 loop
                 playsInline
                 muted={localMuted}
+                preload="metadata"
                 className="w-full h-full object-cover object-center"
               />
 

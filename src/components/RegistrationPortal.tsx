@@ -22,6 +22,33 @@ export function RegistrationPortal() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto mb-8">
+          <div 
+            className="p-6 md:p-8 rounded-2xl border-l-4 shadow-xl"
+            style={{ 
+              borderLeft: "4px solid #D4AF37", 
+              backgroundColor: "rgba(255, 253, 249, 0.05)",
+              willChange: "transform, opacity",
+              transform: "translateZ(0)"
+            }}
+          >
+            <p className="text-brand-white font-sans text-sm sm:text-base leading-relaxed text-left">
+              After Getting Funky in Jamaica, Jan 14-18, you are welcome to join the Island Exodus event, Jan 18-21, which is in Trelawny, Jamaica - headlined by Gov’t Mule and additional performances by some of the Getting Funky artists.{" "}
+              <a
+                href="#island-exodus"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById("island-exodus");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="text-[#D4AF37] font-bold underline underline-offset-4 hover:text-brand-white transition-all duration-300 cursor-pointer"
+              >
+                Click Here for More Info
+              </a>
+            </p>
+          </div>
+        </div>
+
         <EarlyBirdBanner />
         
         {/* Main Card */}

@@ -74,7 +74,7 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
   if (isExpired) return null;
 
   const content = (
-    <div className="early-bird-banner trip-id-copy-btn p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 max-w-4xl mx-auto my-8 text-center shadow-lg transition-transform">
+    <div className="early-bird-banner trip-id-copy-btn p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 max-w-4xl mx-auto my-0 text-center shadow-lg transition-transform">
       <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
         Early Bird Special – As a courtesy and offer to our returning guests, please enjoy a $1,000 discount if you sign up prior to August 14, 2027. The price will increase then, so please take advantage of this one time offer now!
       </p>
@@ -83,13 +83,17 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
 
   if (isClickable) {
     return (
-      <a href="#registration" className="block no-underline">
+      <a href="#registration" className="block no-underline" style={{ margin: "1.5rem auto" }}>
         {content}
       </a>
     );
   }
 
-  return content;
+  return (
+    <div style={{ margin: "1.5rem auto" }}>
+      {content}
+    </div>
+  );
 }
 
 export function VipProgramCards() {

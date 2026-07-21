@@ -161,7 +161,12 @@ function ArtistCard({ artist }: { artist: Artist }) {
   };
 
   const handleClick = () => {
-    setIsFlipped(!isFlipped);
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      setIsLocalMuted(!isLocalMuted);
+    } else {
+      setIsFlipped(!isFlipped);
+    }
   };
 
   const handleMuteOverrideClick = (e: React.MouseEvent) => {
@@ -210,7 +215,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               muted={isLocalMuted}
               playsInline
               webkit-playsinline="true"
-              preload="auto"
+              preload="metadata"
               className={`artist-loop-video w-full h-full object-cover ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
@@ -265,7 +270,7 @@ function ArtistCard({ artist }: { artist: Artist }) {
               muted
               playsInline
               webkit-playsinline="true"
-              preload="auto"
+              preload="metadata"
               className={`artist-loop-video w-full h-full object-cover blur-[4px] scale-105 opacity-25 ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
               style={{ objectPosition: artist.videoPosition || "center" }}
             />
@@ -425,17 +430,6 @@ export function ArtistLineUp() {
           if (video.paused) {
             video.play().catch(err => console.log("Autoplay unblock handling:", err));
           }
-
-          // 2. Mute all OTHER artist videos first (Single Audio Source Rule)
-          document.querySelectorAll('.artist-loop-video').forEach(v => {
-            if (v !== video) {
-              (v as HTMLVideoElement).muted = true;
-            }
-          });
-
-          // 3. Unmute ONLY the centered video currently in view
-          video.muted = false;
-          video.volume = 0.6;
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;

@@ -312,4 +312,20 @@ h1, h2, h3, h4, h5, h6,
   transform: scale(1.02) !important; /* Removes minor edge letterbox artifacts */
 }
 
+/* Hardware Acceleration for 60fps animations */
+.artist-card, .early-bird-banner, .glass-card, .artist-video-container {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Touch Targets & Press States */
+button, .artist-card, .early-bird-banner {
+  min-height: 48px;
+}
+
+button:active, a:active, .artist-card:active {
+  transform: scale(0.98) !important;
+  transition: transform 0.1s ease-in-out;
+}
+
 
