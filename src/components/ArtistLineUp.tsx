@@ -195,7 +195,9 @@ function ArtistCard({ artist }: { artist: Artist }) {
   return (
     <div 
       ref={cardRef}
-      className="artist-card perspective-1000 w-full h-[520px] cursor-pointer"
+      className={`artist-card perspective-1000 w-full h-[520px] cursor-pointer ${
+        isFlipped ? "is-card-flipped" : ""
+      }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
@@ -436,9 +438,14 @@ export function ArtistLineUp() {
               (v as HTMLVideoElement).muted = true;
             }
           });
-          // Unmute the active video in focus
-          video.muted = false;
-          video.volume = 0.6;
+          // Unmute the active video in focus ONLY if the card is NOT flipped
+          const isCardFlipped = entry.target.classList.contains('is-card-flipped');
+          if (!isCardFlipped) {
+            video.muted = false;
+            video.volume = 0.6;
+          } else {
+            video.muted = true;
+          }
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;
