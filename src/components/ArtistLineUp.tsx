@@ -137,8 +137,8 @@ function ArtistCard({ artist }: { artist: Artist }) {
   }, []);
 
   const handleMouseEnter = () => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
     if (artistAudioOptOut) return;
 
     fadeGlobalOut(300);
@@ -146,8 +146,8 @@ function ArtistCard({ artist }: { artist: Artist }) {
   };
 
   const handleMouseLeave = () => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
     if (artistAudioOptOut) return;
 
     fadeGlobalIn(300);
@@ -160,10 +160,18 @@ function ArtistCard({ artist }: { artist: Artist }) {
     }
   };
 
-  const handleClick = () => {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (isMobile) {
-      setIsLocalMuted(!isLocalMuted);
+  const handleClick = (e: React.MouseEvent) => {
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) {
+      const video = videoRef.current;
+      if (video) {
+        const newMuted = !video.muted;
+        video.muted = newMuted;
+        setIsLocalMuted(newMuted);
+        if (!newMuted) {
+          video.play().catch(err => console.log("Direct mobile play failed:", err));
+        }
+      }
     } else {
       setIsFlipped(!isFlipped);
     }
@@ -171,22 +179,24 @@ function ArtistCard({ artist }: { artist: Artist }) {
 
   const handleMuteOverrideClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // prevent card flip
+    const video = videoRef.current;
     
     if (!isLocalMuted) {
       // Mute (Opt-out)
       setArtistAudioOptOut(true);
-      if (videoRef.current) {
-        fadeVideoVolume(0.0, 300, () => {
-          setIsLocalMuted(true);
-        });
-      } else {
-        setIsLocalMuted(true);
+      setIsLocalMuted(true);
+      if (video) {
+        video.muted = true;
       }
       fadeGlobalIn(300);
     } else {
       // Unmute (Opt-back-in)
       setArtistAudioOptOut(false);
       setIsLocalMuted(false);
+      if (video) {
+        video.muted = false;
+        video.play().catch(err => console.log("Direct mobile unmute play failed:", err));
+      }
       fadeGlobalOut(300);
     }
   };

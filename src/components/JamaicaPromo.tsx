@@ -87,7 +87,15 @@ export function JamaicaPromo() {
               <div 
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLocalMuted(!localMuted);
+                  const video = videoRef.current;
+                  if (video) {
+                    const newMuted = !video.muted;
+                    video.muted = newMuted;
+                    setLocalMuted(newMuted);
+                    if (!newMuted) {
+                      video.play().catch(() => {});
+                    }
+                  }
                 }}
                 className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 cursor-pointer"
               >
