@@ -53,15 +53,19 @@ function ArtistCard({ artist }: { artist: Artist }) {
   // Sync video mute state and ensure explicit play trigger
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.muted = isLocalMuted;
-      if (!isLocalMuted) {
-        videoRef.current.play().catch((err) => {
-          console.log("Local video playback failed to start:", err);
-        });
-        fadeVideoVolume(0.60, 300);
+      if (isFlipped) {
+        videoRef.current.muted = true;
+      } else {
+        videoRef.current.muted = isLocalMuted;
+        if (!isLocalMuted) {
+          videoRef.current.play().catch((err) => {
+            console.log("Local video playback failed to start:", err);
+          });
+          fadeVideoVolume(0.60, 300);
+        }
       }
     }
-  }, [isLocalMuted]);
+  }, [isLocalMuted, isFlipped]);
 
   // Time trimming rule for Trombone Shorty new.mp4 (loop between 4s and 15s)
   useEffect(() => {
@@ -160,21 +164,8 @@ function ArtistCard({ artist }: { artist: Artist }) {
     }
   };
 
-  const handleClick = (e: React.MouseEvent) => {
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouch) {
-      const video = videoRef.current;
-      if (video) {
-        const newMuted = !video.muted;
-        video.muted = newMuted;
-        setIsLocalMuted(newMuted);
-        if (!newMuted) {
-          video.play().catch(err => console.log("Direct mobile play failed:", err));
-        }
-      }
-    } else {
-      setIsFlipped(!isFlipped);
-    }
+  const handleClick = () => {
+    setIsFlipped(!isFlipped);
   };
 
   const handleMuteOverrideClick = (e: React.MouseEvent) => {
