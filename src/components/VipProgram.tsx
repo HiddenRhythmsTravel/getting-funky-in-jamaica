@@ -57,12 +57,12 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
   const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
-    // Automated Expiration Flag Check for August 14, 2027
+    // Automated Expiration Flag Check for August 5, 2027
     const currentDate = new Date();
-    const expirationDate = new Date('2027-08-14T00:00:00');
+    const expirationDate = new Date('2027-08-05T00:00:00');
 
     if (currentDate >= expirationDate) {
-      console.warn("DEVELOPER ALERT: August 14, 2027 reached. Early bird discount and MOU notice require removal/update.");
+      console.warn("DEVELOPER ALERT: August 5 reached. Early registration discount notice requires removal/update.");
       // Automatically hide early bird banners if past expiration date
       document.querySelectorAll('.early-bird-banner').forEach(el => {
         (el as HTMLElement).style.display = 'none';
@@ -76,7 +76,7 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
   const content = (
     <div className="early-bird-banner trip-id-copy-btn p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 max-w-4xl mx-auto my-0 text-center shadow-lg transition-transform">
       <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
-        Early Bird Special – As a courtesy and offer to our returning guests, please enjoy a $1,000 discount if you sign up prior to August 14, 2027. The price will increase then, so please take advantage of this one time offer now!
+        Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
       </p>
     </div>
   );

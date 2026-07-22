@@ -11,7 +11,7 @@ export function RegistrationPortal() {
   const [copied, setCopied] = useState(false);
 
   const handleCopyId = () => {
-    navigator.clipboard.writeText("FunkyJ2027");
+    navigator.clipboard.writeText("EarlyFunkJ2027");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -79,7 +79,7 @@ export function RegistrationPortal() {
           </h2>
           
           <p className="font-sans text-brand-white/80 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed italic">
-            Ground package registration is officially open. Please see below for an overview on the package, and then click through to the registration to sign up and select your package option. Registration is completed on our registration portal, and you will need the Trip ID: <strong className="text-brand-gold font-bold">FunkyJ2027</strong> to see the package offerings.
+            Travel Package Information below. Follow the link and use the Trip ID <strong className="text-brand-gold font-bold">EarlyFunkJ2027</strong> to register.
           </p>
 
           {/* Inclusions & Exclusions */}
@@ -158,14 +158,14 @@ export function RegistrationPortal() {
               className="trip-id-copy-btn inline-flex items-center gap-2 px-6 py-4.5 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
             >
               {copied ? <Check size={14} /> : <Copy size={14} />}
-              <span>{copied ? "Copied ID!" : "Copy Trip ID (FunkyJ2027)"}</span>
+              <span>{copied ? "Copied ID!" : "Copy Trip ID (EarlyFunkJ2027)"}</span>
             </button>
           </div>
 
           {/* Verification note */}
           <div className="flex items-center gap-1.5 mt-6 text-[9px] text-brand-white/40 tracking-wider uppercase font-semibold">
             <ShieldCheck size={11} className="text-brand-gold/60" />
-            <span>Trip ID: FunkyJ2027</span>
+            <span>Trip ID: EarlyFunkJ2027</span>
           </div>
 
         </motion.div>

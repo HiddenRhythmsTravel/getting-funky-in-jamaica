@@ -12,12 +12,6 @@ export function StoryImpact() {
       logo: "/assets/trombone_shorty_logo.jpg"
     },
     {
-      name: "Zankel Music Fund",
-      role: "Philanthropic Partner",
-      desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
-      logo: "/assets/zankel_logo.jpg"
-    },
-    {
       name: "Hidden Rhythms",
       role: "Bespoke Travel Curator",
       desc: "CET's sister brand for all trips outside of Havana, Hidden Rhythms is an extension of what we have excelled at for decades – producing highly impactful and unique events, connecting our guests with the unique places we bring them to.",
@@ -58,7 +52,7 @@ export function StoryImpact() {
             </h2>
             <div className="font-sans text-brand-white/80 text-sm sm:text-base leading-relaxed space-y-6">
               <p>
-                <strong>Getting Funky in Jamaica</strong> is a powerful cultural immersion experience that harnesses the power of music and community to celebrate the deep historical and cultural connections between Jamaica, New Orleans, and Cuba. Acclaimed artists from these three musical powerhouses come together with Jamaica, New Orleanian and Cuban youth musicians for school visits, workshops, intimate jam sessions, cultural exchanges, and live performances.
+                <strong>Getting Funky in Jamaica</strong> is a powerful cultural immersion experience that harnesses the power of music and community to celebrate the deep historical and cultural connections between Jamaican, New Orleans, and Cuba. Acclaimed artists from these three musical powerhouses come together with Jamaica, New Orleanian and Cuban youth musicians for school visits, workshops, intimate jam sessions, cultural exchanges, and live performances.
               </p>
               <p>
                 Building on the success of four historic editions of <strong>Getting Funky in Havana</strong>, this new chapter in Jamaica highlights the shared African roots and profound cultural impact of Jamaica, New Orleans, and Cuba, while creating meaningful opportunities for artistic collaboration, cross-cultural learning, and the next generation of musicians.

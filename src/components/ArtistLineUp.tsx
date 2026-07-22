@@ -53,19 +53,15 @@ function ArtistCard({ artist }: { artist: Artist }) {
   // Sync video mute state and ensure explicit play trigger
   useEffect(() => {
     if (videoRef.current) {
-      if (isFlipped) {
-        videoRef.current.muted = true;
-      } else {
-        videoRef.current.muted = isLocalMuted;
-        if (!isLocalMuted) {
-          videoRef.current.play().catch((err) => {
-            console.log("Local video playback failed to start:", err);
-          });
-          fadeVideoVolume(0.60, 300);
-        }
+      videoRef.current.muted = isLocalMuted;
+      if (!isLocalMuted) {
+        videoRef.current.play().catch((err) => {
+          console.log("Local video playback failed to start:", err);
+        });
+        fadeVideoVolume(0.60, 300);
       }
     }
-  }, [isLocalMuted, isFlipped]);
+  }, [isLocalMuted]);
 
   // Time trimming rule for Trombone Shorty new.mp4 (loop between 4s and 15s)
   useEffect(() => {
@@ -350,7 +346,7 @@ export function ArtistLineUp() {
       videoPosition: "center 15%"
     },
     {
-      name: "Trombone Shorty Foundation",
+      name: "Trombone Shorty Academy",
       role: "Empowering Youth Through Music",
       bioSpacing: "The Trombone Shorty Foundation offers both a road map and focus to allow students to pursue their passion. The goal is to nurture their talent in a way that opens up possibilities, and a platform for advancement. Although many kids in New Orleans play an instrument, it’s a select few like Troy “Trombone Shorty” who have the opportunity to pursue music as a career on a national stage.",
       instagram: "https://instagram.com/tromboneshortyfoundation",
@@ -377,8 +373,8 @@ export function ArtistLineUp() {
   const travelingArtists = [
     "Angelica \"Jelly\" Joseph",
     "Aurelien Barnes",
-    "Big Chief Joseph Bordeaux",
     "Big Chief Juan Pardo",
+    "Big Chief Monk Boudreaux",
     "Big Freedia",
     "DJ Mannie Fresh",
     "Galactic",
@@ -387,24 +383,31 @@ export function ArtistLineUp() {
     "James Francies",
     "Keyon Harrold",
     "Mabiland",
+    "Maurice “Mobetta” Brown",
     "Michael Brun",
     "Nik West",
     "Paul Beaubrun",
     "Pedrito Martinez",
     "PJ Morton",
     "Robe L Ninho",
-    "Soul Rebels",
+    "Robert Randolph",
     "Taj Mahal",
     "Tank & The Bangas",
     "Tank Ball",
-    "Trombone Shorty"
+    "The Soul Rebels",
+    "Trombone Shorty",
+    "Valerie June",
+    "Yola"
   ];
 
   const cubanArtists = [
+    "Alain Perez",
+    "Alexander Abreu & Havana D’Primera",
     "Carlos Varela",
+    "ChikSoul",
     "Cimafunk",
     "DJ Leydis",
-    "Habana D'Primeara",
+    "Ibeyi",
     "Interactivo",
     "La Reyna y Real",
     "Los Datway",
@@ -487,10 +490,32 @@ export function ArtistLineUp() {
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {currentArtists.map((artist) => (
-                <ArtistCard key={artist.name} artist={artist} />
-              ))}
+            {/* Host Artists Section */}
+            <div className="mb-8">
+              <h4 className="font-serif text-lg text-brand-gold font-bold mb-4 tracking-wider uppercase border-b border-brand-white/10 pb-2">
+                Host Artists
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {currentArtists
+                  .filter((a) => a.name === "Cimafunk" || a.name === "Trombone Shorty")
+                  .map((artist) => (
+                    <ArtistCard key={artist.name} artist={artist} />
+                  ))}
+              </div>
+            </div>
+
+            {/* Youth Leaders Section */}
+            <div className="mb-8">
+              <h4 className="font-serif text-lg text-brand-gold font-bold mb-4 tracking-wider uppercase border-b border-brand-white/10 pb-2">
+                Youth Leaders
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {currentArtists
+                  .filter((a) => a.name === "Primera Linea" || a.name === "Trombone Shorty Academy")
+                  .map((artist) => (
+                    <ArtistCard key={artist.name} artist={artist} />
+                  ))}
+              </div>
             </div>
 
             {/* Status Alert Banner */}
