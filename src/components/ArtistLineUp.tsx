@@ -191,143 +191,94 @@ function ArtistCard({ artist }: { artist: Artist }) {
   return (
     <div 
       ref={cardRef}
-      className="artist-card perspective-1000 w-full h-[520px] cursor-pointer"
+      className={`artist-card relative w-full h-[520px] rounded-2xl overflow-hidden border border-brand-white/10 hover:border-brand-gold/40 transition-all duration-300 group cursor-pointer ${
+        isFlipped ? "show-info" : ""
+      }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      <div 
-        className={`relative w-full h-full preserve-3d transition-transform duration-700 ${
-          isFlipped ? "rotate-y-180" : ""
-        }`}
+      {/* Background Video Layer (always visible and playing) */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          ref={videoRef}
+          src={artist.loopVideo}
+          autoPlay
+          loop
+          muted={isLocalMuted}
+          playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          className={`artist-loop-video w-full h-full object-cover ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
+          style={{ objectPosition: artist.videoPosition || "center" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 via-brand-green/10 to-transparent z-10"></div>
+      </div>
+
+      {/* User Mute Override Button */}
+      <button
+        onClick={handleMuteOverrideClick}
+        className="absolute top-3 right-3 z-35 bg-brand-green/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-brand-gold/30 text-[9px] font-bold text-brand-gold uppercase tracking-wider hover:bg-brand-gold hover:text-brand-green hover:border-transparent transition-all duration-300 cursor-pointer flex items-center gap-1 shadow-lg"
       >
-        {/* Front Face */}
-        <div className="absolute inset-0 w-full h-full backface-hidden glass-card rounded-2xl overflow-hidden flex flex-col border border-brand-white/10 hover:border-brand-gold/40 transition-all duration-300">
-          <div className="artist-video-container">
-            <video
-              ref={videoRef}
-              src={artist.loopVideo}
-              autoPlay
-              loop
-              muted={isLocalMuted}
-              playsInline
-              webkit-playsinline="true"
-              preload="metadata"
-              className={`artist-loop-video w-full h-full object-cover ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
-              style={{ objectPosition: artist.videoPosition || "center" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 to-transparent z-10"></div>
-            
-            {/* User Mute Override Button */}
-            <button
-              onClick={handleMuteOverrideClick}
-              className="absolute top-3 right-3 z-30 bg-brand-green/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-brand-gold/30 text-[9px] font-bold text-brand-gold uppercase tracking-wider hover:bg-brand-gold hover:text-brand-green hover:border-transparent transition-all duration-300 cursor-pointer flex items-center gap-1 shadow-lg"
-            >
-              {isLocalMuted ? <VolumeX size={10} /> : <Volume2 size={10} />}
-              <span>{isLocalMuted ? "Unmute" : "Mute"}</span>
-            </button>
-          </div>
-          
-          <div className="p-5 flex flex-col justify-between flex-grow bg-brand-green/20">
-            <div>
-              <h4 className="font-serif text-base text-brand-heading font-bold mb-0.5">
+        {isLocalMuted ? <VolumeX size={10} /> : <Volume2 size={10} />}
+        <span>{isLocalMuted ? "Unmute" : "Mute"}</span>
+      </button>
+
+      {/* Interactive Text & Biography Overlay */}
+      <div 
+        className="absolute inset-0 bg-brand-green/95 backdrop-blur-md z-20 p-6 flex flex-col justify-between transition-opacity duration-300 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-[.show-info]:opacity-100 group-[.show-info]:pointer-events-auto"
+      >
+        {/* Inner Decorative Box */}
+        <div className="border border-brand-gold/25 rounded-xl p-5 flex flex-col justify-between h-full bg-brand-green/10">
+          {/* Header */}
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="w-4"></span> {/* Spacer to balance Instagram icon */}
+              <h4 className="font-serif text-base text-brand-heading font-bold uppercase tracking-wider text-center">
                 {artist.name}
               </h4>
-              <span className="font-sans text-[9px] text-brand-gold font-bold tracking-widest uppercase">
-                {artist.role}
-              </span>
-            </div>
-            
-            <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mt-2 border-t border-brand-white/5 pt-2">
-              {/* Click for artist profile Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsFlipped(true);
-                }}
-                className="flex items-center gap-1 text-brand-white/40 hover:text-brand-gold transition-colors cursor-pointer"
-                title="Click for artist profile"
-              >
-                <Music size={10} />
-                <span>Click for artist profile</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Back Face */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 glass-card rounded-2xl overflow-hidden border border-brand-gold/30 shadow-2xl flex flex-col justify-between">
-          
-          {/* Ambient Video Background */}
-          <div className="absolute inset-0 z-0">
-            <video
-              src={artist.loopVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              webkit-playsinline="true"
-              preload="metadata"
-              className={`artist-loop-video w-full h-full object-cover blur-[4px] scale-105 opacity-25 ${artist.name === "Trombone Shorty" ? "trombone-shorty-video" : ""}`}
-              style={{ objectPosition: artist.videoPosition || "center" }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-accent/95 via-brand-green/90 to-brand-dark-accent/95"></div>
-          </div>
-
-          {/* Inner Decorative Box */}
-          <div className="relative z-10 m-3 rounded-xl border border-brand-gold/25 p-5 flex flex-col justify-between h-[calc(100%-1.5rem)] bg-brand-green/10">
-            
-            {/* Header */}
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="w-4"></span> {/* Spacer to balance Instagram icon */}
-                <h4 className="font-serif text-sm text-brand-heading font-bold uppercase tracking-wider text-center">
-                  {artist.name}
-                </h4>
-                <a 
-                  href={artist.instagram} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  onClick={(e) => e.stopPropagation()} 
-                  className="text-brand-gold/80 hover:text-brand-white transition-colors p-1 rounded-full hover:bg-brand-white/5 flex-shrink-0"
-                  aria-label={`${artist.name} Instagram`}
-                >
-                  <Instagram size={13} />
-                </a>
-              </div>
-              
-              <span className="font-sans text-[8px] text-brand-gold font-extrabold tracking-[0.2em] uppercase text-center block mt-1">
-                {artist.role}
-              </span>
-
-              {/* Elegant Separator */}
-              <div className="flex items-center justify-center gap-1.5 my-3">
-                <div className="w-8 h-[1px] bg-brand-gold/20"></div>
-                <Sparkles size={8} className="text-brand-gold/40 animate-pulse" />
-                <div className="w-8 h-[1px] bg-brand-gold/20"></div>
-              </div>
-            </div>
-
-            {/* Vibe Description (Bio) */}
-            <div className="flex-grow flex items-center justify-center py-2">
-              <p className="font-serif italic text-brand-white/90 text-xs leading-relaxed text-center max-w-[200px] mx-auto">
-                {artist.bioSpacing}
-              </p>
-            </div>
-
-            {/* Footer Control */}
-            <div className="pt-3 border-t border-brand-white/10 flex items-center justify-center">
               <a 
-                href={artist.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="font-sans text-[8px] text-brand-white/55 hover:text-brand-gold transition-colors uppercase font-bold tracking-widest flex items-center gap-1"
+                href={artist.instagram} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={(e) => e.stopPropagation()} 
+                className="text-brand-gold/80 hover:text-brand-white transition-colors p-1.5 rounded-full hover:bg-brand-white/5 flex-shrink-0"
+                aria-label={`${artist.name} Instagram`}
               >
-                <span>Instagram Profile</span>
+                <Instagram size={14} />
               </a>
             </div>
+            
+            <span className="font-sans text-[9px] text-brand-gold font-extrabold tracking-[0.2em] uppercase text-center block mt-1">
+              {artist.role}
+            </span>
 
+            {/* Elegant Separator */}
+            <div className="flex items-center justify-center gap-1.5 my-3">
+              <div className="w-8 h-[1px] bg-brand-gold/20"></div>
+              <Sparkles size={8} className="text-brand-gold/40 animate-pulse" />
+              <div className="w-8 h-[1px] bg-brand-gold/20"></div>
+            </div>
+          </div>
+
+          {/* Vibe Description (Bio) */}
+          <div className="flex-grow flex items-center justify-center py-2">
+            <p className="font-serif italic text-brand-white/90 text-xs leading-relaxed text-center max-w-[240px] mx-auto">
+              {artist.bioSpacing}
+            </p>
+          </div>
+
+          {/* Footer Link */}
+          <div className="pt-3 border-t border-brand-white/10 flex items-center justify-center">
+            <a 
+              href={artist.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="font-sans text-[9px] text-brand-white/55 hover:text-brand-gold transition-colors uppercase font-bold tracking-widest flex items-center gap-1"
+            >
+              <span>Instagram Profile</span>
+            </a>
           </div>
         </div>
       </div>
