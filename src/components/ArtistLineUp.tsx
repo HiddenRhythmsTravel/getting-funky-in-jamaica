@@ -206,7 +206,7 @@ function ArtistCard({
       onClick={handleClick}
     >
       {/* Background Video Layer (always visible and playing) */}
-      <div className="absolute inset-0 w-full h-full z-0">
+      <div className="absolute inset-0 w-full h-full z-0 artist-video-container">
         <video
           ref={videoRef}
           src={artist.loopVideo}
@@ -371,6 +371,27 @@ export function ArtistLineUp() {
     "Yissy Garcia"
   ];
 
+  // Global mobile audio unlock listener
+  useEffect(() => {
+    let audioUnlocked = false;
+    const unlockAudio = () => {
+      if (audioUnlocked) return;
+      document.querySelectorAll('.artist-video-container video').forEach(v => {
+        (v as HTMLVideoElement).play().catch(() => {});
+      });
+      audioUnlocked = true;
+      window.removeEventListener('touchstart', unlockAudio);
+      window.removeEventListener('scroll', unlockAudio);
+    };
+    window.addEventListener('touchstart', unlockAudio, { passive: true });
+    window.addEventListener('scroll', unlockAudio, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', unlockAudio);
+      window.removeEventListener('scroll', unlockAudio);
+    };
+  }, []);
+
   // Mobile IntersectionObserver & Audio Focus Controller
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -394,7 +415,7 @@ export function ArtistLineUp() {
           });
           // Unmute the active video in focus
           video.muted = false;
-          video.volume = 0.6;
+          video.volume = 1.0;
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;
@@ -402,7 +423,7 @@ export function ArtistLineUp() {
       });
     }, {
       root: null,
-      rootMargin: "-25% 0px -25% 0px", // Triggers only when video is in center 50% of screen
+      rootMargin: "-30% 0px -30% 0px", // Calibrated to the middle 40% of screen
       threshold: 0.5
     });
 
