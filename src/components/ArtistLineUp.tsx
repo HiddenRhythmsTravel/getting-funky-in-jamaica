@@ -415,7 +415,7 @@ export function ArtistLineUp() {
           });
           // Unmute the active video in focus
           video.muted = false;
-          video.volume = 1.0;
+          video.volume = 0.7;
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;

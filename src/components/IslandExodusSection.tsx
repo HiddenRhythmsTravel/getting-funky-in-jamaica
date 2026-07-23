@@ -125,23 +125,23 @@ export function IslandExodusSection() {
             className="flex flex-col gap-4"
           >
             <a
-              href="https://islandgigs.rezmagic.com/Booking/Reservation/Start?tripID=7367"
+              href="https://www.islandexodus.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-center px-8 py-5 rounded-full border-2 border-[#D4AF37] text-[#D4AF37] font-bold text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#0A322C] shadow-lg overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Register Now <ExternalLink size={14} />
+                Pricing and Island Exodus Details <ExternalLink size={14} />
               </span>
             </a>
 
             <a
-              href="https://www.islandexodus.com/"
+              href="https://islandgigs.rezmagic.com/Booking/Reservation/Start?tripID=7367"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-5 rounded-full border border-[#FFFDF9]/30 text-[#FFFDF9] font-bold text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:bg-[#FFFDF9]/10"
             >
-              Explore the Festival
+              Register Now
             </a>
           </motion.div>
         </div>
