@@ -209,7 +209,7 @@ export function VipProgramCards() {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-[#D4AF37] hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
+              className="p-6 rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between min-h-[140px] group bg-brand-dark-accent/40 border-brand-white/10 hover:border-brand-gold/40 hover:bg-[#0A322C] text-brand-white/80 hover:text-brand-white"
             >
               <ShieldCheck className="text-brand-white/60 group-hover:text-[#D4AF37] transition-colors duration-300" size={28} />
               <div>
@@ -218,6 +218,28 @@ export function VipProgramCards() {
               </div>
             </button>
           </div>
+
+          {/* Relocated Island Exodus Cross-Promotion Banner */}
+          <div className="max-w-5xl mx-auto mt-8">
+            <a 
+              href="#island-exodus"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("island-exodus");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="block no-underline trip-id-copy-btn cursor-pointer hover:scale-[1.01] transition-transform duration-300"
+            >
+              <div 
+                className="p-5 md:p-6 rounded-2xl border border-brand-gold bg-brand-gold/10 text-center shadow-lg hover:bg-brand-gold/15 transition-all duration-300"
+              >
+                <p className="text-brand-gold font-sans text-xs sm:text-sm leading-relaxed font-bold">
+                  After Getting Funky in Jamaica, Jan 14-18, you are welcome to join the Island Exodus event, Jan 18-21, which is in Trelawny, Jamaica - headlined by Gov’t Mule and additional performances by some of the Getting Funky artists. Click Here for More Info
+                </p>
+              </div>
+            </a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -229,8 +251,8 @@ export function VipProgramDetails() {
 
   const itineraryDays = [
     {
-      day: "Day 1",
-      date: "Thursday",
+      day: "Thursday",
+      date: "Jan 14",
       events: [
         {
           time: "TBD",
@@ -250,8 +272,8 @@ export function VipProgramDetails() {
       ]
     },
     {
-      day: "Day 2",
-      date: "Friday",
+      day: "Friday",
+      date: "Jan 15",
       events: [
         {
           time: "Morning",
@@ -281,8 +303,8 @@ export function VipProgramDetails() {
       ]
     },
     {
-      day: "Day 3",
-      date: "Saturday",
+      day: "Saturday",
+      date: "Jan 16",
       events: [
         {
           time: "Morning",
@@ -307,8 +329,8 @@ export function VipProgramDetails() {
       ]
     },
     {
-      day: "Day 4",
-      date: "Sunday",
+      day: "Sunday",
+      date: "Jan 17",
       events: [
         {
           time: "Morning",
@@ -318,7 +340,7 @@ export function VipProgramDetails() {
         {
           time: "Late Morning",
           header: "Jamaica Deep Dive – Small Group Activities (choose one):",
-          desc: "-       Jamaican Drumming & Percussion Workshop – Learn foundational reggae, nyabinghi, and mento rhythms from local musicians.\n-       Vinyl Listening & Sound System Culture Experience – Discover the history of Jamaica's sound system movement through curated listening sessions and demonstrations.\n-       Youth Soccer Match – Join local youth for a friendly football match\n-       Rastafarian Reasoning Circle – Engage in a dialogue with Rastafarian elders about spirituality, history, identity, and social justice.\n-       Coffee Experience – Explore Jamaica's coffee heritage through tastings and conversations with producers and experts.\n-       Kingston Mural & Gallery Art Tour – Meet artists and explore neighborhoods through public art, followed by a visit to local galleries and studios"
+          desc: "-       Jamaican Drumming & Percussion workshop – Learn foundational reggae, nyabinghi, and mento rhythms from local musicians.\n-       Vinyl Listening & Sound System culture Experience – Discover the history of Jamaica's sound system movement through curated listening sessions and demonstrations.\n-       Youth Soccer Match – Join local youth for a friendly football match\n-       Rastafarian Reasoning Circle – Engage in a dialogue with Rastafarian elders about spirituality, history, identity, and social justice.\n-       Coffee Experience – Explore Jamaica's coffee heritage through tastings and conversations with producers and experts.\n-       Kingston Mural & Gallery Art Tour – Meet artists and explore neighborhoods through public art, followed by a visit to local galleries and studios"
         },
         {
           time: "Afternoon/Evening",
@@ -328,8 +350,8 @@ export function VipProgramDetails() {
       ]
     },
     {
-      day: "Day 5",
-      date: "Monday",
+      day: "Monday",
+      date: "Jan 18",
       events: [
         {
           time: "TBD",
