@@ -347,7 +347,11 @@ button:active, a:active, .artist-card:active {
 }
 
 .artist-card:hover .bio-overlay,
-.artist-card.show-info .bio-overlay {
+.artist-card.show-info .bio-overlay,
+.artist-card:hover .card-info,
+.artist-card.show-info .card-info,
+.artist-card:hover .artist-text,
+.artist-card.show-info .artist-text {
   opacity: 1 !important;
   pointer-events: auto !important;
 }

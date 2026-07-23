@@ -237,61 +237,52 @@ function ArtistCard({
 
       {/* Interactive Text & Biography Overlay */}
       <div 
-        className="bio-overlay absolute inset-0 bg-brand-green/95 backdrop-blur-md z-20 p-6 flex flex-col justify-between"
+        className="bio-overlay absolute bottom-0 inset-x-0 bg-brand-green/85 border-t border-brand-gold/25 z-20 p-5 flex flex-col gap-2 card-info"
       >
-        {/* Inner Decorative Box */}
-        <div className="border border-brand-gold/25 rounded-xl p-5 flex flex-col justify-between h-full bg-brand-green/10 card-info">
-          {/* Header */}
-          <div className="artist-text">
-            <div className="flex items-center justify-between">
-              <span className="w-4"></span> {/* Spacer to balance Instagram icon */}
-              <h4 className="font-serif text-base text-brand-heading font-bold uppercase tracking-wider text-center">
-                {artist.name}
-              </h4>
-              <a 
-                href={artist.instagram} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                onClick={(e) => e.stopPropagation()} 
-                className="text-brand-gold/80 hover:text-brand-white transition-colors p-1.5 rounded-full hover:bg-brand-white/5 flex-shrink-0"
-                aria-label={`${artist.name} Instagram`}
-              >
-                <Instagram size={14} />
-              </a>
-            </div>
-            
-            <span className="font-sans text-[9px] text-brand-gold font-extrabold tracking-[0.2em] uppercase text-center block mt-1">
+        {/* Header */}
+        <div className="flex items-center justify-between artist-text">
+          <div>
+            <h4 className="font-serif text-sm text-brand-heading font-bold uppercase tracking-wider">
+              {artist.name}
+            </h4>
+            <span className="font-sans text-[8px] text-brand-gold font-extrabold tracking-[0.2em] uppercase block mt-0.5">
               {artist.role}
             </span>
-
-            {/* Elegant Separator */}
-            <div className="flex items-center justify-center gap-1.5 my-3">
-              <div className="w-8 h-[1px] bg-brand-gold/20"></div>
-              <Sparkles size={8} className="text-brand-gold/40 animate-pulse" />
-              <div className="w-8 h-[1px] bg-brand-gold/20"></div>
-            </div>
           </div>
+          <a 
+            href={artist.instagram} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            onClick={(e) => e.stopPropagation()} 
+            className="text-brand-gold/80 hover:text-brand-white transition-colors p-1.5 rounded-full hover:bg-brand-white/5 flex-shrink-0"
+            aria-label={`${artist.name} Instagram`}
+          >
+            <Instagram size={14} />
+          </a>
+        </div>
+        
+        {/* Elegant Separator */}
+        <div className="w-full h-[1px] bg-brand-gold/15 my-1 artist-text"></div>
 
-          {/* Vibe Description (Bio) */}
-          <div className="flex-grow flex items-center justify-center py-2 artist-text">
-            <p className="font-serif italic text-brand-white/90 text-xs leading-relaxed text-center max-w-[240px] mx-auto">
-              {artist.bioSpacing}
-            </p>
-          </div>
+        {/* Vibe Description (Bio) */}
+        <div className="artist-text">
+          <p className="font-serif italic text-brand-white/90 text-[11px] leading-relaxed max-w-full">
+            {artist.bioSpacing}
+          </p>
+        </div>
 
-          {/* Footer Link */}
-          <div className="pt-3 border-t border-brand-white/10 flex items-center justify-center gap-4 artist-text">
-            <a 
-              href={artist.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="font-sans text-[9px] text-brand-white/55 hover:text-brand-gold transition-colors uppercase font-bold tracking-widest flex items-center gap-1"
-            >
-              <Instagram size={11} />
-              <span>Instagram Profile</span>
-            </a>
-          </div>
+        {/* Footer Link */}
+        <div className="pt-2 border-t border-brand-white/10 flex items-center justify-between artist-text">
+          <a 
+            href={artist.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="font-sans text-[8px] text-brand-white/55 hover:text-brand-gold transition-colors uppercase font-bold tracking-widest flex items-center gap-1"
+          >
+            <Instagram size={10} />
+            <span>Instagram Profile</span>
+          </a>
         </div>
       </div>
     </div>
