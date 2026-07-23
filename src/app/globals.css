@@ -337,4 +337,19 @@ button:active, a:active, .artist-card:active {
   margin-top: 1rem !important;
 }
 
+/* Card bio overlay state rules */
+.artist-card .bio-overlay,
+.artist-card .card-info,
+.artist-card .artist-text {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease;
+}
+
+.artist-card:hover .bio-overlay,
+.artist-card.show-info .bio-overlay {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 
