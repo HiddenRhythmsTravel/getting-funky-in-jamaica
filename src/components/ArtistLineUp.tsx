@@ -60,19 +60,15 @@ function ArtistCard({
   // Sync video mute state and ensure explicit play trigger
   useEffect(() => {
     if (videoRef.current) {
-      if (isFlipped) {
-        videoRef.current.muted = true;
-      } else {
-        videoRef.current.muted = isLocalMuted;
-        if (!isLocalMuted) {
-          videoRef.current.play().catch((err) => {
-            console.log("Local video playback failed to start:", err);
-          });
-          fadeVideoVolume(0.60, 300);
-        }
+      videoRef.current.muted = isLocalMuted;
+      if (!isLocalMuted) {
+        videoRef.current.play().catch((err) => {
+          console.log("Local video playback failed to start:", err);
+        });
+        fadeVideoVolume(0.60, 300);
       }
     }
-  }, [isLocalMuted, isFlipped]);
+  }, [isLocalMuted]);
 
   // Time trimming rule for Trombone Shorty new.mp4 (loop between 4s and 15s)
   useEffect(() => {
@@ -396,14 +392,9 @@ export function ArtistLineUp() {
               (v as HTMLVideoElement).muted = true;
             }
           });
-          // Unmute the active video in focus ONLY if the card is NOT flipped
-          const isCardFlipped = entry.target.classList.contains('is-card-flipped');
-          if (!isCardFlipped) {
-            video.muted = false;
-            video.volume = 0.6;
-          } else {
-            video.muted = true;
-          }
+          // Unmute the active video in focus
+          video.muted = false;
+          video.volume = 0.6;
         } else {
           // Video scrolled out of center focus zone
           video.muted = true;
