@@ -234,7 +234,7 @@ export function VipProgramCards() {
                 className="p-5 md:p-6 rounded-2xl border border-brand-gold bg-brand-gold/10 text-center shadow-lg hover:bg-brand-gold/15 transition-all duration-300"
               >
                 <p className="text-brand-gold font-sans text-xs sm:text-sm leading-relaxed font-bold">
-                  Getting Funky in Jamaica guest are welcome to join the Island Exodus in Trelawny, Jamaica Jan 18-21. Exclusive, intimate concerts by Gov’t Mule, all-inclusive food & drink, and performances by Getting Funky youth artists from New Orleans and Cuba. A great opportunity for more music, Jamaican sun and fun, and a way to support our youth. Click Here for More Info
+                  Getting Funky in Jamaica guests are welcome to join the Island Exodus in Trelawny, Jamaica Jan 18-21. Exclusive, intimate concerts by Gov’t Mule, all-inclusive food & drink, and performances by Getting Funky youth artists from New Orleans and Cuba. A great opportunity for more music, Jamaican sun and fun, and a way to support our youth. Click Here for More Info
                 </p>
               </div>
             </a>
