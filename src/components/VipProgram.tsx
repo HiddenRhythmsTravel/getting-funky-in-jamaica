@@ -53,8 +53,9 @@ export function useProgram() {
   return context;
 }
 
-export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean }) {
+export function EarlyBirdBanner({ isClickable = false, isZohoLink = false }: { isClickable?: boolean; isZohoLink?: boolean }) {
   const [isExpired, setIsExpired] = useState(false);
+  const zohoPortalUrl = "https://forms.zohopublic.com/caribbeanexecutivetravel1/form/HRTTravelRegistration/formperma/SHoOEyI-cABdddRGuEWJtOC16QHkqKNZAqN8ONrdI6M";
 
   useEffect(() => {
     // Automated Expiration Flag Check for August 5, 2027
@@ -73,25 +74,50 @@ export function EarlyBirdBanner({ isClickable = false }: { isClickable?: boolean
 
   if (isExpired) return null;
 
-  const content = (
-    <div className="early-bird-banner trip-id-copy-btn p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 max-w-4xl mx-auto my-0 text-center shadow-lg transition-transform">
-      <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
-        Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
-      </p>
-    </div>
-  );
+  if (isZohoLink) {
+    return (
+      <a 
+        href={zohoPortalUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="early-bird-banner block no-underline max-w-4xl mx-auto my-6 hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+      >
+        <div className="p-6 rounded-2xl border border-brand-gold/50 bg-brand-gold/15 text-center shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] transition-all duration-300 animate-pulse">
+          <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
+            Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
+          </p>
+        </div>
+      </a>
+    );
+  }
 
   if (isClickable) {
     return (
-      <a href="#registration" className="early-bird-banner block no-underline" style={{ margin: "1.5rem auto" }}>
-        {content}
+      <a 
+        href="#registration" 
+        className="early-bird-banner block no-underline max-w-4xl mx-auto my-6 hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
+        onClick={(e) => {
+          e.preventDefault();
+          const el = document.getElementById("registration");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }}
+      >
+        <div className="p-6 rounded-2xl border border-brand-gold/50 bg-brand-gold/10 text-center shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-all duration-300 animate-pulse">
+          <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
+            Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
+          </p>
+        </div>
       </a>
     );
   }
 
   return (
-    <div className="early-bird-banner" style={{ margin: "1.5rem auto" }}>
-      {content}
+    <div className="early-bird-banner max-w-4xl mx-auto my-6" style={{ margin: "1.5rem auto" }}>
+      <div className="p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 text-center shadow-lg">
+        <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
+          Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
+        </p>
+      </div>
     </div>
   );
 }

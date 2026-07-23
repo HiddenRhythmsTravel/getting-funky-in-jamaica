@@ -11,7 +11,7 @@ export function RegistrationPortal() {
   const [copied, setCopied] = useState(false);
 
   const handleCopyId = () => {
-    navigator.clipboard.writeText("EarlyFunkJ2027");
+    navigator.clipboard.writeText("EARLYFUNKJ2027");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -49,7 +49,7 @@ export function RegistrationPortal() {
           </div>
         </div>
 
-        <EarlyBirdBanner />
+        <EarlyBirdBanner isZohoLink={true} />
         
         {/* Main Card */}
         <motion.div
@@ -62,16 +62,22 @@ export function RegistrationPortal() {
           {/* Decorative Corner Glow */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none"></div>
 
-          {/* Status Badge */}
-          <motion.div
+          {/* Status Badge formatted as a prominent clickable action button */}
+          <motion.a
+            href={zohoPortalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ scale: 0.9 }}
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="mb-6 px-4 py-1.5 rounded-full bg-brand-gold text-brand-green font-sans text-[10px] font-extrabold tracking-[0.2em] uppercase shadow-lg inline-flex items-center gap-1.5"
+            whileHover={{ scale: 1.05 }}
+            animate={{ scale: [1, 1.03, 1] }}
+            transition={{ 
+              scale: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+            }}
+            className="mb-6 px-5 py-2 rounded-full bg-brand-gold hover:bg-brand-white text-brand-green font-sans text-[10px] font-extrabold tracking-[0.2em] uppercase shadow-lg inline-flex items-center gap-1.5 cursor-pointer transition-colors duration-300"
           >
             <Ticket size={12} />
             <span>Registration Open</span>
-          </motion.div>
+          </motion.a>
 
           {/* Heading */}
           <h2 className="font-serif text-3xl sm:text-5xl text-brand-white font-bold mb-4">
@@ -79,7 +85,7 @@ export function RegistrationPortal() {
           </h2>
           
           <p className="font-sans text-brand-white/80 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed italic">
-            Travel Package Information below. Follow the link and use the Trip ID <strong className="text-brand-gold font-bold">EarlyFunkJ2027</strong> to register.
+            Travel Package Information below. Follow the link and use the Trip ID <strong className="text-brand-gold font-bold">EARLYFUNKJ2027</strong> to register.
           </p>
 
           {/* Inclusions & Exclusions */}
@@ -158,14 +164,14 @@ export function RegistrationPortal() {
               className="trip-id-copy-btn inline-flex items-center gap-2 px-6 py-4.5 rounded-full border border-brand-gold/40 hover:border-brand-gold text-brand-gold bg-brand-gold/5 transition-all duration-300 font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer"
             >
               {copied ? <Check size={14} /> : <Copy size={14} />}
-              <span>{copied ? "Copied ID!" : "Copy Trip ID (EarlyFunkJ2027)"}</span>
+              <span>{copied ? "Copied ID!" : "Copy Trip ID (EARLYFUNKJ2027)"}</span>
             </button>
           </div>
 
           {/* Verification note */}
           <div className="flex items-center gap-1.5 mt-6 text-[9px] text-brand-white/40 tracking-wider uppercase font-semibold">
             <ShieldCheck size={11} className="text-brand-gold/60" />
-            <span>Trip ID: EarlyFunkJ2027</span>
+            <span>Trip ID: EARLYFUNKJ2027</span>
           </div>
 
         </motion.div>
