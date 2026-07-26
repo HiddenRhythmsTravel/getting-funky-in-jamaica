@@ -74,7 +74,7 @@ export function Hero() {
           className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
         >
           <a
-            href="#program"
+            href="#vip"
             className="px-8 py-4 rounded-full bg-brand-green/60 text-brand-white border border-brand-white/20 backdrop-blur-sm text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 hover:bg-brand-white hover:text-brand-green hover:border-transparent text-center"
           >
             Explore Experience

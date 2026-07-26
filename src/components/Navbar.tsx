@@ -34,8 +34,8 @@ export function Navbar() {
       href: "#",
       isDropdown: true,
       subItems: [
-        { name: "Getting Funky in Jamaica – Jan 14-18", href: "/#program" },
-        { name: "Island Exodus – Jan 18-21", href: "/#island-exodus" }
+        { name: "Getting Funky in Jamaica – Jan 14-18", href: "/#vip" },
+        { name: "Island Exodus 16 - Jan 18-21", href: "/#island-exodus" }
       ]
     },
     { name: "History", href: "/#gallery" },

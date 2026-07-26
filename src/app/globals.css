@@ -329,7 +329,7 @@ button:active, a:active, .artist-card:active {
 }
 
 /* Gap Reduction Overrides */
-.program-section, #program, .itinerary-container {
+.program-section, #vip, .itinerary-container {
   margin-top: 0 !important;
   padding-top: 1.5rem !important; /* Reduced from large padding block */
 }

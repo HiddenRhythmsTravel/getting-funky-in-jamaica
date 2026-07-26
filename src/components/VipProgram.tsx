@@ -134,7 +134,7 @@ export function VipProgramCards() {
   };
 
   return (
-    <section id="program" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
+    <section id="vip" className="relative py-24 md:py-32 overflow-hidden bg-brand-green border-t border-brand-white/5">
       {/* Background Cover Overlay */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,#0b4745_80%)] z-10"></div>
