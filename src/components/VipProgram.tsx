@@ -293,7 +293,7 @@ export function VipProgramDetails() {
         {
           time: "Evening",
           header: "Rastafarian Meal in the Hills of Kingston",
-          desc: "Gather in the lush hills overlooking Kingston for an authentic Rastafarian dining experience. Savor traditional Ital cuisine while learning about the philosophy, history, and cultural influence of the Rastafarian movement in Jamaica."
+          desc: "Gather in the lush hills overlooking Kingston for an authentic Rastafarian dining experience at Skyline Levels on reggae mountain, where Chronixx and Keznamdi have recorded most of their material and serves as a performance platform for the “reggae revival artists.” Savor traditional Ital cuisine while learning about the philosophy, history, and cultural influence of the Rastafarian movement in Jamaica."
         },
         {
           time: "Night",
