@@ -83,9 +83,10 @@ export function EarlyBirdBanner({ isClickable = false, isZohoLink = false }: { i
         className="early-bird-banner block no-underline max-w-4xl mx-auto my-6 hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
       >
         <div className="p-6 rounded-2xl border border-brand-gold/50 bg-brand-gold/15 text-center shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.45)] transition-all duration-300 animate-pulse">
-          <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
-            Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
-          </p>
+          <div className="font-sans text-brand-gold text-center leading-relaxed">
+            <span className="font-extrabold uppercase tracking-widest text-xs sm:text-sm block mb-1">EARLY REGISTRATION DISCOUNT</span>
+            <span className="font-medium italic text-xs sm:text-base">We are offering a special discount of $1,400 off of the package price for early registration. Please register now to take advantage of this.</span>
+          </div>
         </div>
       </a>
     );
@@ -103,9 +104,10 @@ export function EarlyBirdBanner({ isClickable = false, isZohoLink = false }: { i
         }}
       >
         <div className="p-6 rounded-2xl border border-brand-gold/50 bg-brand-gold/10 text-center shadow-[0_0_20px_rgba(212,175,55,0.15)] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-all duration-300 animate-pulse">
-          <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
-            Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
-          </p>
+          <div className="font-sans text-brand-gold text-center leading-relaxed">
+            <span className="font-extrabold uppercase tracking-widest text-xs sm:text-sm block mb-1">EARLY REGISTRATION DISCOUNT</span>
+            <span className="font-medium italic text-xs sm:text-base">We are offering a special discount of $1,400 off of the package price for early registration. Please register now to take advantage of this.</span>
+          </div>
         </div>
       </a>
     );
@@ -114,9 +116,10 @@ export function EarlyBirdBanner({ isClickable = false, isZohoLink = false }: { i
   return (
     <div className="early-bird-banner max-w-4xl mx-auto my-6" style={{ margin: "1.5rem auto" }}>
       <div className="p-6 rounded-2xl border border-brand-gold bg-brand-gold/5 text-center shadow-lg">
-        <p className="font-sans text-brand-gold font-bold italic text-sm sm:text-base leading-relaxed">
-          Early Registration Special for Returning Guests: $1,000 discount if you register on or before August 5.
-        </p>
+        <div className="font-sans text-brand-gold text-center leading-relaxed">
+          <span className="font-extrabold uppercase tracking-widest text-xs sm:text-sm block mb-1">EARLY REGISTRATION DISCOUNT</span>
+          <span className="font-medium italic text-xs sm:text-base">We are offering a special discount of $1,400 off of the package price for early registration. Please register now to take advantage of this.</span>
+        </div>
       </div>
     </div>
   );
