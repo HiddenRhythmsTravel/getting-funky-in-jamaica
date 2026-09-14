@@ -131,6 +131,7 @@ export function TimelineGallery() {
     setLocalPlaying((prev) => {
       const next = !prev;
       if (videoRef.current) {
+        videoRef.current.volume = 0.15;
         if (next) videoRef.current.play().catch(() => {});
         else videoRef.current.pause();
       }
