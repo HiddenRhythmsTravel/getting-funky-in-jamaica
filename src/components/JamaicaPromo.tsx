@@ -11,7 +11,7 @@ export function JamaicaPromo() {
   // Autoplay the video visually on mount
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.volume = 0.25;
+      videoRef.current.volume = 0.15;
       videoRef.current.play().catch(() => {});
     }
   }, []);
@@ -92,7 +92,7 @@ export function JamaicaPromo() {
                   if (video) {
                     const newMuted = !video.muted;
                     video.muted = newMuted;
-                    video.volume = 0.25;
+                    video.volume = 0.15;
                     setLocalMuted(newMuted);
                     if (!newMuted) {
                       video.play().catch(() => {});

@@ -103,7 +103,7 @@ export function TimelineGallery() {
     setLocalPlaying(shouldPlay);
 
     if (videoRef.current) {
-      videoRef.current.volume = 0.25;
+      videoRef.current.volume = 0.15;
       if (shouldPlay) {
         videoRef.current.play().catch(() => {});
       } else {
