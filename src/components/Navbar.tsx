@@ -12,7 +12,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
@@ -23,16 +22,30 @@ export function Navbar() {
     setIsScrolled(latest > 50);
   });
 
-  const [vipDropdownOpen, setVipDropdownOpen] = useState(false);
-  const [mobileVipOpen, setMobileVipOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
 
   const navLinks = [
     { name: "Story & Impact", href: "/#story-impact" },
+    {
+      name: "Destinations",
+      href: "https://hiddenrhythmstravel.com/#destinations",
+      isDropdown: true,
+      dropdownKey: "destinations",
+      subItems: [
+        { name: "Colombia", href: "https://hiddenrhythmstravel.com/colombia-experience" },
+        { name: "New Orleans", href: "https://hiddenrhythmstravel.com/new-orleans-experience" },
+        { name: "Mexico City", href: "https://hiddenrhythmstravel.com/mexico-city-experience" },
+        { name: "Jamaica", href: "https://hiddenrhythmstravel.com/jamaica-experience" },
+        { name: "Custom Destinations", href: "https://hiddenrhythmstravel.com/#contact" }
+      ]
+    },
     { name: "Artist Line Up", href: "/#artists" },
     { 
       name: "VIP PROGRAM", 
-      href: "#",
+      href: "/#vip",
       isDropdown: true,
+      dropdownKey: "vip",
       subItems: [
         { name: "Getting Funky in Jamaica – Jan 14-18", href: "/#vip" },
         { name: "Island Exodus 16 - Jan 18-21", href: "/#island-exodus" }
@@ -58,7 +71,6 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
         {/* Brand Logo & Name */}
         <div className="flex items-center gap-3 md:gap-4">
-          {/* Stylized Hidden Rhythms Logo */}
           <a 
             href="https://hiddenrhythmstravel.com/" 
             target="_blank" 
@@ -77,7 +89,6 @@ export function Navbar() {
             />
           </a>
 
-          {/* Standardized Instagram Glyph */}
           <a 
             href="https://www.instagram.com/hiddenrhythmstravel/" 
             target="_blank" 
@@ -96,30 +107,40 @@ export function Navbar() {
               <div 
                 key={link.name}
                 className="relative py-2 group cursor-pointer"
-                onMouseEnter={() => setVipDropdownOpen(true)}
-                onMouseLeave={() => setVipDropdownOpen(false)}
+                onMouseEnter={() => setActiveDropdown(link.dropdownKey || link.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <span className={`flex items-center gap-1 transition-colors duration-300 ${vipDropdownOpen ? 'text-brand-gold' : 'hover:text-brand-gold'}`}>
-                  {link.name} <span className="text-[10px] transform transition-transform duration-300" style={{ transform: vipDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
-                </span>
+                <Link
+                  href={link.href}
+                  className={`flex items-center gap-1 transition-colors duration-300 ${activeDropdown === (link.dropdownKey || link.name) ? 'text-brand-gold' : 'hover:text-brand-gold'}`}
+                >
+                  <span>{link.name}</span>
+                  <span className="text-[10px] transform transition-transform duration-300" style={{ transform: activeDropdown === (link.dropdownKey || link.name) ? 'rotate(180deg)' : 'rotate(0deg)' }}>▾</span>
+                </Link>
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-500 ease-out group-hover:w-full"></span>
                 
                 <AnimatePresence>
-                  {vipDropdownOpen && (
+                  {activeDropdown === (link.dropdownKey || link.name) && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full right-0 mt-2 w-72 bg-[#0A322C]/95 backdrop-blur-xl border border-brand-gold/30 rounded-xl shadow-2xl overflow-hidden py-2"
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-64 bg-[#0A322C]/95 backdrop-blur-xl border border-brand-gold/30 rounded-xl shadow-2xl overflow-hidden py-2 z-50"
                     >
-                      {link.subItems?.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          href={sub.href}
-                          className="block px-6 py-3 text-[10px] text-brand-white/80 hover:text-brand-gold hover:bg-brand-white/5 transition-all"
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
+                      <ul className="list-none m-0 p-0">
+                        {link.subItems?.map((sub) => (
+                          <li key={sub.name}>
+                            <Link
+                              href={sub.href}
+                              className="flex items-center gap-2.5 px-5 py-2.5 text-[10px] lg:text-xs text-brand-white/80 hover:text-brand-gold hover:bg-brand-white/5 transition-all font-sans tracking-[0.12em]"
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/60"></span>
+                              <span>{sub.name}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -140,8 +161,6 @@ export function Navbar() {
             )
           ))}
 
-
-
           <Link
             href="/#registration"
             className="px-5 py-2.5 rounded-full border border-brand-gold text-brand-green bg-brand-gold font-bold tracking-widest text-[10px] hover:bg-brand-green hover:text-brand-gold hover:border-brand-gold transition-all duration-300 shadow-md"
@@ -152,9 +171,6 @@ export function Navbar() {
 
         {/* Mobile Header Buttons */}
         <div className="flex items-center gap-3 md:hidden">
-
-
-          {/* Hamburger Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-brand-white focus:outline-none"
@@ -187,20 +203,29 @@ export function Navbar() {
               {navLinks.filter(l => l.name !== "Register Now").map((link) => (
                 link.isDropdown ? (
                   <div key={link.name} className="flex flex-col">
-                    <button 
-                      onClick={() => setMobileVipOpen(!mobileVipOpen)}
-                      className="flex items-center justify-between py-2 text-left hover:text-brand-gold transition-colors"
-                    >
-                      <span>{link.name}</span>
-                      <span className={`text-xs transition-transform duration-300 ${mobileVipOpen ? 'rotate-180' : ''}`}>▾</span>
-                    </button>
+                    <div className="flex items-center justify-between py-2">
+                      <Link 
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="hover:text-brand-gold transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                      <button 
+                        onClick={() => setMobileOpenDropdown(mobileOpenDropdown === link.name ? null : link.name)}
+                        className="p-2 text-xs text-brand-white/70 hover:text-brand-gold"
+                        aria-label={`Toggle ${link.name} dropdown`}
+                      >
+                        <span className={`inline-block transition-transform duration-300 ${mobileOpenDropdown === link.name ? 'rotate-180' : ''}`}>▾</span>
+                      </button>
+                    </div>
                     <AnimatePresence>
-                      {mobileVipOpen && (
+                      {mobileOpenDropdown === link.name && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden bg-brand-white/5 rounded-xl mt-2"
+                          className="overflow-hidden bg-brand-white/5 rounded-xl mt-2 py-2"
                         >
                           {link.subItems?.map((sub) => (
                             <Link
@@ -208,12 +233,13 @@ export function Navbar() {
                               href={sub.href}
                               onClick={() => {
                                 setMobileMenuOpen(false);
-                                setMobileVipOpen(false);
+                                setMobileOpenDropdown(null);
                               }}
-                              className="block px-6 py-4 text-xs text-brand-white/70 hover:text-brand-gold transition-all"
+                              className="flex items-center gap-3 px-6 py-3 text-xs text-brand-white/70 hover:text-brand-gold transition-all"
                               style={{ minHeight: '44px' }}
                             >
-                              {sub.name}
+                              <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/60"></span>
+                              <span>{sub.name}</span>
                             </Link>
                           ))}
                         </motion.div>
