@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Lock, ArrowRight, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { SEOHead } from "@/components/SEOHead";
 
 function LoginForm() {
   const [password, setPassword] = useState("");
@@ -79,58 +80,66 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <main className="relative min-h-screen flex items-center justify-center bg-[#0A322C] overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/assets/gallery/2026/MCW_8057.webp"
-          alt="Background"
-          fill
-          className="object-cover opacity-30 grayscale"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A322C]/80 via-[#0A322C]/90 to-[#0A322C]" />
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-md px-6"
-      >
-        <div className="text-center mb-10">
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]"
-          >
-            <Lock className="text-[#D4AF37]" size={32} />
-          </motion.div>
-          <h1 className="font-serif text-3xl md:text-4xl font-bold text-[#FFFDF9] mb-3">
-            Guest Access
-          </h1>
-          <p className="text-[#FFFDF9]/60 text-sm md:text-base font-medium tracking-wide">
-            Please enter your access code to preview the rhythm.
-          </p>
+    <>
+      <SEOHead
+        title="Guest Access | Getting Funky in Jamaica"
+        description="Private guest access portal for Getting Funky in Jamaica preview."
+        canonicalUrl="https://gettingfunkyinjamaica.com/login"
+        noindex={true}
+      />
+      <main className="relative min-h-screen flex items-center justify-center bg-[#0A322C] overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/gallery/2026/MCW_8057.webp"
+            alt="Background"
+            fill
+            className="object-cover opacity-30 grayscale"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A322C]/80 via-[#0A322C]/90 to-[#0A322C]" />
         </div>
 
-        <Suspense fallback={<div className="text-[#FFFDF9]/50 text-center uppercase tracking-widest text-xs">Loading Security...</div>}>
-          <LoginForm />
-        </Suspense>
-
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFDF9]/5 border border-[#FFFDF9]/10">
-            <ShieldCheck size={14} className="text-[#D4AF37]" />
-            <span className="text-[10px] text-[#FFFDF9]/40 font-bold uppercase tracking-[0.2em]">
-              Secured Preview Environment
-            </span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 w-full max-w-md px-6"
+        >
+          <div className="text-center mb-10">
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 mb-6 shadow-[0_0_30px_rgba(212,175,55,0.2)]"
+            >
+              <Lock className="text-[#D4AF37]" size={32} />
+            </motion.div>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold text-[#FFFDF9] mb-3">
+              Guest Access
+            </h1>
+            <p className="text-[#FFFDF9]/60 text-sm md:text-base font-medium tracking-wide">
+              Please enter your access code to preview the rhythm.
+            </p>
           </div>
-        </div>
-      </motion.div>
 
-      {/* Decorative Elements */}
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[100px]" />
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[100px]" />
-    </main>
+          <Suspense fallback={<div className="text-[#FFFDF9]/50 text-center uppercase tracking-widest text-xs">Loading Security...</div>}>
+            <LoginForm />
+          </Suspense>
+
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFFDF9]/5 border border-[#FFFDF9]/10">
+              <ShieldCheck size={14} className="text-[#D4AF37]" />
+              <span className="text-[10px] text-[#FFFDF9]/40 font-bold uppercase tracking-[0.2em]">
+                Secured Preview Environment
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Decorative Elements */}
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[100px]" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[100px]" />
+      </main>
+    </>
   );
 }

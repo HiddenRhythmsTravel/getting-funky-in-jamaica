@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Calendar, Instagram, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { SEOHead } from "@/components/SEOHead";
 import { useAudio } from "@/contexts/AudioContext";
 import fullDatabaseImport from "@/data/gallery-images.json";
 
@@ -219,9 +220,30 @@ export default function GalleryPage() {
     setLightboxOpen(true);
   };
 
+  const galleryStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name: 'Getting Funky in Jamaica - Moment Archive & Gallery',
+    description: 'An interactive moment archive featuring live performances, cultural exchanges, second lines, and mentorship sessions across Jamaica, Cuba, and Colombia.',
+    url: 'https://gettingfunkyinjamaica.com/gallery',
+    provider: {
+      '@type': 'Organization',
+      name: 'Getting Funky in Jamaica',
+      url: 'https://gettingfunkyinjamaica.com',
+    },
+  };
+
   return (
-    <main className="min-h-screen bg-brand-green selection:bg-brand-gold selection:text-brand-green text-brand-white pb-24 relative overflow-hidden">
-      <Navbar />
+    <>
+      <SEOHead
+        title="Moment Archive & Gallery | Getting Funky in Jamaica"
+        description="Browse high-res photos and video highlights from past Getting Funky in Jamaica cultural journeys. Experience live reggae, funk jams, and youth music exchanges."
+        canonicalUrl="https://gettingfunkyinjamaica.com/gallery"
+        ogImage="https://gettingfunkyinjamaica.com/card_2_street_culture.png"
+        structuredData={galleryStructuredData}
+      />
+      <main className="min-h-screen bg-brand-green selection:bg-brand-gold selection:text-brand-green text-brand-white pb-24 relative overflow-hidden">
+        <Navbar />
 
       {/* Decorative Glow Elements */}
       <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-gold/5 blur-[120px] pointer-events-none z-0"></div>
@@ -392,5 +414,6 @@ export default function GalleryPage() {
         )}
       </AnimatePresence>
     </main>
+    </>
   );
 }

@@ -1,0 +1,6 @@
+# Hidden Rhythms Crawl Directives
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://hiddenrhythmstravel.com/sitemap.xml
