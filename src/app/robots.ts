@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/api/',
+      disallow: '/login',
     },
-    sitemap: 'https://hiddenrhythmstravel.com/sitemap.xml',
+    sitemap: 'https://gettingfunkyinjamaica.com/sitemap.xml',
   };
 }
