@@ -24,6 +24,10 @@ interface AudioContextType {
   isUnlocked: boolean;
   pause: () => void;
   resume: () => void;
+  fadeGlobalOut: (duration?: number) => void;
+  fadeGlobalIn: (duration?: number) => void;
+  artistAudioOptOut: boolean;
+  setArtistAudioOptOut: (optOut: boolean) => void;
   activeDestination: string | null;
   activeTrack: TrackInfo | null;
   toggleMute: () => void;
@@ -42,6 +46,7 @@ const AudioContext = createContext<AudioContextType | undefined>(undefined);
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true); // Default: muted on load (no autoplay)
+  const [artistAudioOptOut, setArtistAudioOptOut] = useState(false);
   const [activeDestination, setActiveDestination] = useState<string | null>(null);
   const [modalDestinationId, setModalDestinationId] = useState<string | null>(null);
 
@@ -81,6 +86,19 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         clearFadeInterval();
       }
     }, stepDuration);
+  };
+
+  const fadeGlobalOut = (_duration?: number) => {
+    clearFadeInterval();
+    if (audioRef.current) {
+      audioRef.current.volume = 0.0;
+    }
+  };
+
+  const fadeGlobalIn = (_duration?: number) => {
+    if (audioRef.current && !isMuted) {
+      startFadeIn(0.25, 1000);
+    }
   };
 
   // Initialize single HTML5 Audio instance
@@ -199,6 +217,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         isUnlocked,
         pause,
         resume,
+        fadeGlobalOut,
+        fadeGlobalIn,
+        artistAudioOptOut,
+        setArtistAudioOptOut,
         activeDestination,
         activeTrack,
         toggleMute,
