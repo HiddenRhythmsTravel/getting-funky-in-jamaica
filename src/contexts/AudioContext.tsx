@@ -21,6 +21,9 @@ export const DESTINATION_TRACKS: Record<string, TrackInfo> = {
 interface AudioContextType {
   isPlaying: boolean;
   isMuted: boolean;
+  isUnlocked: boolean;
+  pause: () => void;
+  resume: () => void;
   activeDestination: string | null;
   activeTrack: TrackInfo | null;
   toggleMute: () => void;
@@ -176,6 +179,16 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setIsMuted((prev) => !prev);
   };
 
+  const pause = () => {
+    setIsMuted(true);
+  };
+
+  const resume = () => {
+    setIsMuted(false);
+  };
+
+  const isUnlocked = !isMuted;
+
   const activeTrack = activeDestination ? DESTINATION_TRACKS[activeDestination] || null : null;
 
   return (
@@ -183,6 +196,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       value={{
         isPlaying,
         isMuted,
+        isUnlocked,
+        pause,
+        resume,
         activeDestination,
         activeTrack,
         toggleMute,
