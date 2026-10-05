@@ -427,3 +427,13 @@ export const DESTINATIONS_DATA: Record<string, DestinationData> = {
     },
   },
 };
+
+// Aliases for multi-keyword URL route compatibility
+DESTINATIONS_DATA["jamaica-travel"] = { ...DESTINATIONS_DATA["jamaica"], slug: "jamaica-travel" };
+DESTINATIONS_DATA["colombia-travel"] = { ...DESTINATIONS_DATA["colombia"], slug: "colombia-travel" };
+DESTINATIONS_DATA["mexico-city-travel"] = { ...DESTINATIONS_DATA["mexico-city"], slug: "mexico-city-travel" };
+DESTINATIONS_DATA["new-orleans-travel"] = { ...DESTINATIONS_DATA["new-orleans"], slug: "new-orleans-travel" };
+DESTINATIONS_DATA["destination-retreats"] = { ...DESTINATIONS_DATA["ypo-eo-retreats"], slug: "destination-retreats" };
+
+export const DESTINATIONS = DESTINATIONS_DATA;
+

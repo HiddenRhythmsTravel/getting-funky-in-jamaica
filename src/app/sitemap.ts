@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { DESTINATIONS_DATA } from "@/data/destinations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const domain = "https://hiddenrhythmstravel.com";
+  const domain = "https://gettingfunkyinjamaica.com";
 
   // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [
