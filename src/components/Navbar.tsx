@@ -27,19 +27,6 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Story & Impact", href: "/#story-impact" },
-    {
-      name: "Destinations",
-      href: "https://hiddenrhythmstravel.com/#destinations",
-      isDropdown: true,
-      dropdownKey: "destinations",
-      subItems: [
-        { name: "Colombia", href: "https://hiddenrhythmstravel.com/colombia-experience" },
-        { name: "New Orleans", href: "https://hiddenrhythmstravel.com/new-orleans-experience" },
-        { name: "Mexico City", href: "https://hiddenrhythmstravel.com/mexico-city-experience" },
-        { name: "Jamaica", href: "https://hiddenrhythmstravel.com/jamaica-experience" },
-        { name: "Custom Destinations", href: "https://hiddenrhythmstravel.com/#contact" }
-      ]
-    },
     { name: "Artist Line Up", href: "/#artists" },
     { 
       name: "VIP PROGRAM", 
