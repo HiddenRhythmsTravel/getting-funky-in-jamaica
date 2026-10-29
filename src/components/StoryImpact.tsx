@@ -12,6 +12,12 @@ export function StoryImpact() {
       logo: "/assets/trombone_shorty_logo.jpg"
     },
     {
+      name: "Zankel Music Fund",
+      role: "Philanthropic Partner",
+      desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
+      logo: "/assets/zankel_logo.jpg"
+    },
+    {
       name: "Hidden Rhythms",
       role: "Bespoke Travel Curator",
       desc: "CET's sister brand for all trips outside of Havana, Hidden Rhythms is an extension of what we have excelled at for decades – producing highly impactful and unique events, connecting our guests with the unique places we bring them to.",
@@ -74,11 +80,13 @@ export function StoryImpact() {
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {partners.map((partner) => (
+            {partners.map((partner, idx) => (
               <motion.div
                 key={partner.name}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px]"
+                className={`glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px] ${
+                  idx === 0 ? "sm:col-span-2" : ""
+                }`}
               >
                 <div className="flex flex-col items-center">
                   {/* Centered Circular Logo Showcase Header */}
