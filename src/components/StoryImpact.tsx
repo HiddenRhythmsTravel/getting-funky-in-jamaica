@@ -9,19 +9,29 @@ export function StoryImpact() {
       name: "Trombone Shorty Academy",
       role: "Youth Music Education",
       desc: "Trombone Shorty Foundation delivers a broad range of programs to New Orleans youth ages 12 – 24. Designed under the guidance of our namesake, Troy “Trombone Shorty” Andrews, and in collaboration with the youth we serve, our programs honor the time-honored tradition of passing on the musical heritage and culture of New Orleans.",
-      logo: "/assets/trombone_shorty_logo.jpg"
+      logo: "/assets/trombone_shorty_logo.jpg",
+      logoFit: "object-cover"
+    },
+    {
+      name: "Gia Maione Prima Foundation",
+      role: "Philanthropic Sponsor",
+      desc: "Providing dedicated sponsorship and grants to fund local music instruction, school gear, and international concerts.",
+      logo: "/assets/gia_maione_logo.png",
+      logoFit: "object-contain p-2 bg-white"
     },
     {
       name: "Zankel Music Fund",
       role: "Philanthropic Partner",
       desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
-      logo: "/assets/zankel_logo.jpg"
+      logo: "/assets/zankel_logo.jpg",
+      logoFit: "object-cover"
     },
     {
       name: "Hidden Rhythms",
       role: "Bespoke Travel Curator",
       desc: "CET's sister brand for all trips outside of Havana, Hidden Rhythms is an extension of what we have excelled at for decades – producing highly impactful and unique events, connecting our guests with the unique places we bring them to.",
-      logo: "/assets/humingbird-logo.jpg"
+      logo: "/assets/humingbird-logo.jpg",
+      logoFit: "object-cover"
     }
   ];
 
@@ -80,13 +90,11 @@ export function StoryImpact() {
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {partners.map((partner, idx) => (
+            {partners.map((partner) => (
               <motion.div
                 key={partner.name}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className={`glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px] ${
-                  idx === 0 ? "sm:col-span-2" : ""
-                }`}
+                className="glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px]"
               >
                 <div className="flex flex-col items-center">
                   {/* Centered Circular Logo Showcase Header */}
@@ -96,7 +104,7 @@ export function StoryImpact() {
                         src={partner.logo}
                         alt={`${partner.name} Logo`}
                         fill
-                        className="object-cover"
+                        className={partner.logoFit || "object-cover"}
                       />
                     </div>
                   </div>
