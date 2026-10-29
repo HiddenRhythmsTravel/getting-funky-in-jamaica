@@ -4,12 +4,29 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export function StoryImpact() {
-  const partners = [
+  const leaders = [
     {
-      name: "Trombone Shorty Academy",
+      name: "Hidden Rhythms",
+      role: "Bespoke Travel Curator",
+      desc: "CET's sister brand for all trips outside of Havana, Hidden Rhythms is an extension of what we have excelled at for decades – producing highly impactful and unique events, connecting our guests with the unique places we bring them to.",
+      logo: "/assets/humingbird-logo.jpg",
+      logoFit: "object-cover"
+    },
+    {
+      name: "Trombone Shorty Foundation",
       role: "Youth Music Education",
       desc: "Trombone Shorty Foundation delivers a broad range of programs to New Orleans youth ages 12 – 24. Designed under the guidance of our namesake, Troy “Trombone Shorty” Andrews, and in collaboration with the youth we serve, our programs honor the time-honored tradition of passing on the musical heritage and culture of New Orleans.",
       logo: "/assets/trombone_shorty_logo.jpg",
+      logoFit: "object-cover"
+    }
+  ];
+
+  const supporters = [
+    {
+      name: "Zankel Music Fund",
+      role: "Philanthropic Partner",
+      desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
+      logo: "/assets/zankel_logo.jpg",
       logoFit: "object-cover"
     },
     {
@@ -20,18 +37,11 @@ export function StoryImpact() {
       logoFit: "object-contain p-2 bg-white"
     },
     {
-      name: "Zankel Music Fund",
+      name: "AIDS Foundation",
       role: "Philanthropic Partner",
-      desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
-      logo: "/assets/zankel_logo.jpg",
-      logoFit: "object-cover"
-    },
-    {
-      name: "Hidden Rhythms",
-      role: "Bespoke Travel Curator",
-      desc: "CET's sister brand for all trips outside of Havana, Hidden Rhythms is an extension of what we have excelled at for decades – producing highly impactful and unique events, connecting our guests with the unique places we bring them to.",
-      logo: "/assets/humingbird-logo.jpg",
-      logoFit: "object-cover"
+      desc: "Dedicated to advancing community health, education, and compassionate humanitarian outreach in partnership with cultural and musical initiatives.",
+      logo: "/assets/aids_foundation_logo.png",
+      logoFit: "object-contain p-1.5 bg-white"
     }
   ];
 
@@ -48,7 +58,7 @@ export function StoryImpact() {
         <div className="absolute inset-0 bg-gradient-to-b from-brand-green via-transparent to-brand-green"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
         {/* Subpage A: Story Copy block */}
         <motion.div 
@@ -56,7 +66,7 @@ export function StoryImpact() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="lg:col-span-6 flex flex-col gap-6"
+          className="lg:col-span-5 flex flex-col gap-6"
         >
           <div>
             <span className="text-[10px] text-brand-gold font-bold tracking-[0.25em] uppercase block mb-3 font-sans">
@@ -77,50 +87,94 @@ export function StoryImpact() {
           </div>
         </motion.div>
 
-        {/* Subpage B: Dedicated Partner Grid */}
+        {/* Subpage B: Dedicated Partner Section */}
         <motion.div 
           initial={{ opacity: 0, x: 35 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="lg:col-span-6"
+          className="lg:col-span-7 flex flex-col gap-8"
         >
-          <h3 className="font-serif text-2xl sm:text-3xl text-brand-heading font-bold mb-8">
-            Collaborative Impact Leaders
-          </h3>
+          {/* Collaborative Impact Leaders */}
+          <div>
+            <h3 className="font-serif text-2xl sm:text-3xl text-brand-heading font-bold mb-6">
+              Collaborative Impact Leaders
+            </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {partners.map((partner) => (
-              <motion.div
-                key={partner.name}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px]"
-              >
-                <div className="flex flex-col items-center">
-                  {/* Centered Circular Logo Showcase Header */}
-                  <div className="relative w-28 h-28 rounded-full overflow-hidden bg-brand-dark-accent/40 border border-brand-gold/30 hover:border-brand-gold/60 transition-all duration-300 mb-4 flex items-center justify-center p-1 hover:shadow-[0_0_20px_rgba(245,124,0,0.4)]">
-                    <div className="relative w-full h-full rounded-full overflow-hidden">
-                      <Image
-                        src={partner.logo}
-                        alt={`${partner.name} Logo`}
-                        fill
-                        className={partner.logoFit || "object-cover"}
-                      />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {leaders.map((partner) => (
+                <motion.div
+                  key={partner.name}
+                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                  className="glass-card p-6 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[350px]"
+                >
+                  <div className="flex flex-col items-center">
+                    {/* Centered Circular Logo Showcase Header */}
+                    <div className="relative w-28 h-28 rounded-full overflow-hidden bg-brand-dark-accent/40 border border-brand-gold/30 hover:border-brand-gold/60 transition-all duration-300 mb-4 flex items-center justify-center p-1 hover:shadow-[0_0_20px_rgba(245,124,0,0.4)]">
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src={partner.logo}
+                          alt={`${partner.name} Logo`}
+                          fill
+                          className={partner.logoFit || "object-cover"}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <h4 className="font-serif text-base text-brand-heading font-semibold mb-0.5">
-                    {partner.name}
-                  </h4>
-                  <span className="font-sans text-[9px] sm:text-[10px] text-brand-gold font-bold tracking-widest uppercase block mb-3">
-                    {partner.role}
-                  </span>
-                  <p className="font-sans text-brand-white/70 text-xs leading-relaxed max-w-md">
-                    {partner.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                    <h4 className="font-serif text-base text-brand-heading font-semibold mb-0.5">
+                      {partner.name}
+                    </h4>
+                    <span className="font-sans text-[9px] sm:text-[10px] text-brand-gold font-bold tracking-widest uppercase block mb-3">
+                      {partner.role}
+                    </span>
+                    <p className="font-sans text-brand-white/70 text-xs leading-relaxed max-w-md">
+                      {partner.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Collaborative Impact Supporters */}
+          <div>
+            <h4 className="font-serif text-xl sm:text-2xl text-brand-heading font-bold mb-6">
+              Collaborative Impact Supporters
+            </h4>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {supporters.map((partner) => (
+                <motion.div
+                  key={partner.name}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="glass-card p-5 rounded-2xl flex flex-col justify-between items-center text-center w-full min-h-[340px]"
+                >
+                  <div className="flex flex-col items-center">
+                    {/* Centered Circular Logo Showcase Header */}
+                    <div className="relative w-20 h-20 rounded-full overflow-hidden bg-brand-dark-accent/40 border border-brand-gold/30 hover:border-brand-gold/60 transition-all duration-300 mb-3 flex items-center justify-center p-1 hover:shadow-[0_0_15px_rgba(245,124,0,0.3)]">
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src={partner.logo}
+                          alt={`${partner.name} Logo`}
+                          fill
+                          className={partner.logoFit || "object-cover"}
+                        />
+                      </div>
+                    </div>
+
+                    <h5 className="font-serif text-sm text-brand-heading font-semibold mb-0.5">
+                      {partner.name}
+                    </h5>
+                    <span className="font-sans text-[8px] sm:text-[9px] text-brand-gold font-bold tracking-widest uppercase block mb-2.5">
+                      {partner.role}
+                    </span>
+                    <p className="font-sans text-brand-white/70 text-[11px] leading-relaxed">
+                      {partner.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
