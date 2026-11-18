@@ -25,7 +25,7 @@ export function StoryImpact() {
     {
       name: "Zankel Music Fund",
       role: "Philanthropic Partner",
-      desc: "The Zankel Music Fund seeds, grows, supports and sustains 501 (c)(3) orgs employing music as an instrument for change. We are proud to be supporting and adding to the Getting Funky project.",
+      desc: "Through grant funding, thought partnership, and programmatic creative development, the Zankel Music Fund seeds, grows, nourishes and sustains 501(c)(3) organizations employing music as an instrument for change.",
       logo: "/assets/zankel_logo.png",
       logoFit: "object-cover"
     },
