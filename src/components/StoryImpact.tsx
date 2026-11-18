@@ -27,7 +27,7 @@ export function StoryImpact() {
       role: "Philanthropic Partner",
       desc: "Through grant funding, thought partnership, and programmatic creative development, the Zankel Music Fund seeds, grows, nourishes and sustains 501(c)(3) organizations employing music as an instrument for change.",
       logo: "/assets/zankel_logo.png",
-      logoFit: "object-cover"
+      logoFit: "object-contain p-2 bg-white"
     },
     {
       name: "Gia Maione Prima Foundation",
